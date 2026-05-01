@@ -13,6 +13,6 @@ public Letto(String codiceUnivoco){
         return codiceUnivoco;
     }
     public void setStato(StatoLetto stato) {
-        this.stato = stato
+        this.stato = stato;
     }
 }
