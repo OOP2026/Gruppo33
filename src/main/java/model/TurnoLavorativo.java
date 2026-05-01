@@ -7,4 +7,10 @@ public class TurnoLavorativo {
     private LocalTime oraInizio;
     private LocalTime oraFine;
 
+    public TurnoLavorativo(GiornoSettimana giorno, LocalTime oraInizio, LocalTime oraFine){
+        this.giorno = giorno;
+        this.oraInizio = oraInizio;
+        this.oraFine = oraFine;
+    }
+
 }
