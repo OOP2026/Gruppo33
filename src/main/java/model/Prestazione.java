@@ -8,12 +8,12 @@ public class Prestazione {
     private LocalDateTime oraPrestazione;
     private Ricovero ricovero;
 
-    public Prestazione(String esito, TipoPrestazione tipo, LocalDateTime ora){
+    public Prestazione(String esito, TipoPrestazione tipo, LocalDateTime ora, Ricovero ricovero){
         this.esito = esito;
         this.tipo = tipo;
         this.oraPrestazione = ora;
+        this.ricovero = ricovero;
     }
-
 
     public String getEsito(){
         return esito;
