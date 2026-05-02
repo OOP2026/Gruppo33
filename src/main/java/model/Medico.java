@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Medico extends Utente {
     private String nome;
     private String cognome;
-    private Reparto reparto
+    private Reparto reparto;
     private ArrayList<Prestazione> prestazioni = new ArrayList<>();
     private ArrayList<TurnoLavorativo> turni = new ArrayList<>();
 

@@ -14,9 +14,12 @@ public class Prestazione {
         this.oraPrestazione = ora;
     }
 
+
+    public String getEsito(){
+        return esito;
+    }
     public void setEsito(String esito) {
         this.esito = esito;
-
     }
     public LocalDateTime getOra(){
         return this.oraPrestazione;
