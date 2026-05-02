@@ -6,4 +6,10 @@ public class Amministratore extends Utente {
         super(login, password);
     }
 
+    public void registerPaziente(Paziente paziente){
+
+    }
+
+    public void registerRicovero(Ricovero ricovero)
+
 }

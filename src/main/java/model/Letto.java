@@ -18,11 +18,12 @@ public Letto(String codiceUnivoco){
     public void setCodiceUnivoco(String codiceUnivoco){
             this.codiceUnivoco = codiceUnivoco;
     }
-
+    public StatoLetto getStato(){
+        return stato;
+    }
     public void setStato(StatoLetto stato) {
         this.stato = stato;
     }
-
     public ArrayList<Ricovero> getRicoveri(){
         return ricoveri;
     }

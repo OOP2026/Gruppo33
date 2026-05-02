@@ -12,5 +12,22 @@ public class TurnoLavorativo {
         this.oraInizio = oraInizio;
         this.oraFine = oraFine;
     }
-
+    public GiornoSettimana getGiorno() {
+        return giorno;
+    }
+    public void setGiorno (GiornoSettimana giorno)   {
+        this.giorno = giorno;
+    }
+    public LocalTime getOraInizio() {
+        return oraInizio;
+    }
+    public void setOraInizio(LocalTime oraInizio) {
+        this.oraInizio = oraInizio;
+    }
+    public LocalTime getOraFine() {
+        return oraFine;
+    }
+    public void setOraFine(LocalTime oraFine) {
+        this.oraFine = oraFine;
+    }
 }
