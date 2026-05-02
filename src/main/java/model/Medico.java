@@ -1,5 +1,6 @@
 package model;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class Medico extends Utente {
@@ -54,4 +55,12 @@ public class Medico extends Utente {
 
     }
 
+    public void registerPrestazione(Prestazione prestazione){
+        prestazioni.add(prestazione);
+    }
+
+    public void getAgenda (Prestazione p){
+        ArrayList<Prestazione> agenda = new ArrayList<>();
+            agenda.add(p);
+    }
 }

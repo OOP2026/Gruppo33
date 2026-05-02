@@ -1,5 +1,7 @@
 package model;
 
+import jdk.vm.ci.meta.Local;
+
 import java.time.LocalDateTime;
 
 public class Prestazione {
@@ -25,9 +27,14 @@ public class Prestazione {
     public LocalDateTime getOraInizio(){
         return oraInizio;
     }
-    public void setOraInizio(LocalDateTime OraInizio){
-            this.oraInizio = oraInizio;
+    public void setOraInizio(LocalDateTime oraInizio){
+        this.oraInizio = oraInizio;
     }
-
+    public LocalDateTime getOraFine(){
+        return oraFine;
+    }
+    public void setOraFine(LocalDateTime oraFine){
+        this.oraFine = oraFine;
+    }
 
 }

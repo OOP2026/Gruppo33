@@ -10,6 +10,17 @@ public class Amministratore extends Utente {
 
     }
 
-    public void registerRicovero(Ricovero ricovero)
+    public void registerRicovero(Ricovero ricovero){
+
+    }
+
+    public void editRicovero(Ricovero ricovero){
+
+    }
+
+
+    public void getElencoPazienti(Paziente paziente){
+
+    }
 
 }
