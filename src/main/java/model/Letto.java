@@ -26,5 +26,9 @@ public Letto(String codiceUnivoco){
     }
     public ArrayList<Ricovero> getRicoveri(){
         return ricoveri;
+
     }
+
+
 }
+

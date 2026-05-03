@@ -35,4 +35,10 @@ public class Prestazione {
         this.oraFine = oraFine;
     }
 
+
+    public boolean siAccavallaCon(Prestazione altra) {
+        return oraInizio.isBefore(altra.getOraFine()) && oraFine.isAfter(altra.getOraInizio());
+    }
+
+
 }

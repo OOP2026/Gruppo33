@@ -1,7 +1,9 @@
 package model;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.time.DayOfWeek;
 
 public class Medico extends Utente {
     private String nome;
@@ -54,13 +56,58 @@ public class Medico extends Utente {
         p.setEsito(testo);
 
     }
+    private GiornoSettimana toGiornoSettimana(DayOfWeek dow) {
+        switch (dow) {
+            case MONDAY:
+                return GiornoSettimana.LUNEDI;
+            case TUESDAY:
+                return GiornoSettimana.MARTEDI;
+            case WEDNESDAY:
+                return GiornoSettimana.MERCOLEDI;
+            case THURSDAY:
+                return GiornoSettimana.GIOVEDI;
+            case FRIDAY:
+                return GiornoSettimana.VENERDI;
+            case SATURDAY:
+                return GiornoSettimana.SABATO;
+            default:
+                return GiornoSettimana.DOMENICA;
+        }
+    }
+
+    private boolean nelTurno(LocalDateTime inizio, LocalDateTime fine){
+        GiornoSettimana giornoRichiesto = toGiornoSettimana(inizio.getDayOfWeek());
+        for (TurnoLavorativo t : turni) {
+            if (t.getGiorno() == giornoRichiesto
+                    && t.copre(inizio.toLocalTime(), fine.toLocalTime())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+    private boolean siAccavalla(Prestazione nuova) {
+        for (Prestazione p : prestazioni) {
+            if (nuova.siAccavallaCon(p))
+                return true;
+        }
+        return false;
+    }
 
     public void registerPrestazione(Prestazione prestazione){
+        if (!nelTurno(prestazione.getOraInizio(), prestazione.getOraFine()))
+            throw new IllegalStateException("La prestazione non rientra in un turno lavorativo.");
+        if (siAccavalla(prestazione))
+            throw new IllegalStateException("Il medico ha già una prestazione in quel periodo.");
         prestazioni.add(prestazione);
     }
 
-    public void getAgenda (Prestazione p){
+    public ArrayList<Prestazione> getAgendaGiornaliera (LocalDate data, Prestazione p) {
         ArrayList<Prestazione> agenda = new ArrayList<>();
+
+        if (p.getOraInizio().toLocalDate().equals(data))
             agenda.add(p);
+        return agenda;
     }
 }

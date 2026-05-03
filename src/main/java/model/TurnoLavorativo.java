@@ -30,4 +30,7 @@ public class TurnoLavorativo {
     public void setOraFine(LocalTime oraFine) {
         this.oraFine = oraFine;
     }
+    public boolean copre(LocalTime inizio, LocalTime fine) {
+        return !inizio.isBefore(oraInizio) && !fine.isAfter(oraFine);
+    }
 }
