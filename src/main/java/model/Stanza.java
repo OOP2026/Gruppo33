@@ -30,4 +30,8 @@ public ArrayList<Letto> getLetti(){
         return letti;
 }
 
+public void addLetto(Letto l){
+        letti.add(l);
+}
+
 }
