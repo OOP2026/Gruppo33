@@ -21,7 +21,9 @@ public class Amministratore extends Utente {
 
 
     public void getPazientiInScadenza(Paziente paziente){
-
     }
 
+    public ArrayList<Letto> getLettiDisponibili(Reparto reparto) {
+        return reparto.getLettiDisponibili();
+    }
 }

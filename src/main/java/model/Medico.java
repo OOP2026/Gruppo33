@@ -103,7 +103,7 @@ public class Medico extends Utente {
         prestazioni.add(prestazione);
     }
 
-    public ArrayList<Prestazione> getAgendaGiornaliera (LocalDate data, Prestazione p) {
+    public ArrayList<Prestazione> getAgenda (LocalDate data, Prestazione p) {
         ArrayList<Prestazione> agenda = new ArrayList<>();
 
         if (p.getOraInizio().toLocalDate().equals(data))
