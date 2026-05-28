@@ -54,7 +54,6 @@ public class Medico extends Utente {
 
     public void registerEsito(Prestazione p, String testo) {
         p.setEsito(testo);
-
     }
     private GiornoSettimana toGiornoSettimana(DayOfWeek dow) {
         switch (dow) {
