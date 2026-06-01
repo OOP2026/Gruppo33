@@ -17,27 +17,27 @@ public class Ricovero {
         this.paziente = paziente;
     }
 
-    private LocalDateTime getDataInizio(){
+    public LocalDateTime getDataInizio(){
         return dataInizio;
     }
 
-    private void setDataInizio(LocalDateTime dataInizio){
+    public void setDataInizio(LocalDateTime dataInizio){
                 this.dataInizio = dataInizio;
     }
 
-    private LocalDateTime getDataDimissioniPrevista(){
+    public LocalDateTime getDataDimissioniPrevista(){
         return dataDimissioniPrevista;
     }
 
-    private void setDataDimissioniPrevista(LocalDateTime dataDimissioniPrevista){
+    public void setDataDimissioniPrevista(LocalDateTime dataDimissioniPrevista){
         this.dataDimissioniPrevista = dataDimissioniPrevista;
     }
 
-    private LocalDateTime getDataDimissioniEffettuata(){
+    public LocalDateTime getDataDimissioniEffettuata(){
         return dataDimissioniEffettuata;
     }
 
-    private void setDataDimissioniEffettuata(LocalDateTime dataDimissioniEffettuata){
+    public void setDataDimissioniEffettuata(LocalDateTime dataDimissioniEffettuata){
         this.dataDimissioniEffettuata = dataDimissioniEffettuata;
     }
 }

@@ -59,7 +59,9 @@ public class Home {
 		btnRegistraRicovero.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-
+			RegistraRicovero registraRicovero = new RegistraRicovero(controller, frame);
+			registraRicovero.frame.setVisible(true);
+			frame.setVisible(false);
 			}
 		});
 
