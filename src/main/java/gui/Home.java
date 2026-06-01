@@ -49,6 +49,9 @@ public class Home {
 		btnRegistraPaziente.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+			RegistraPaziente registraPaziente = new RegistraPaziente(controller, frame);
+			registraPaziente.frame.setVisible(true);
+			frame.setVisible(false);
 
 			}
 		});

@@ -11,6 +11,8 @@ public class RegistraRicovero {
     private JTextField txtdataDimissioniEffettuata;
     private JButton btnOK;
     private JButton btnAnnulla;
+    private JComboBox comboBox1;
+    private JComboBox comboBox2;
 
     public RegistraRicovero() {
         btnOK.addActionListener(new ActionListener() {

@@ -52,4 +52,7 @@ public class Controller {
 		return null;
 	}
 
+	public void registraPaziente(Paziente p) {
+		pazienti.add(p);
+	}
 }

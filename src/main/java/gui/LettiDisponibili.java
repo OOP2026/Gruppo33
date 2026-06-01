@@ -7,10 +7,10 @@ import java.awt.event.ActionListener;
 public class LettiDisponibili {
     private JTable table1;
     private JPanel panel1;
-    private JButton btnHome;
+    private JButton btnIndietro;
 
     public LettiDisponibili() {
-        btnHome.addActionListener(new ActionListener() {
+        btnIndietro.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
