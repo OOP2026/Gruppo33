@@ -15,7 +15,7 @@ public class LoginForm {
     private JLabel lblErrore;
 
     private Controller controller;
-    private static JFrame frame; // statico: sempre raggiungibile
+    private static JFrame frame;
 
     public LoginForm() {
         this.controller = new Controller();
@@ -34,7 +34,6 @@ public class LoginForm {
                 } else {
                     lblErrore.setVisible(false);
 
-                    // Crea e mostra la Home, passando controller e questo frame
                     Home home = new Home(controller, frame, ruolo);
                     home.getFrame().setVisible(true);
                     frame.setVisible(false);

@@ -16,7 +16,7 @@ public class Controller {
 	private ArrayList<Ricovero> ricoveri = new ArrayList<>();
 
 	public Controller() {
-		// dati per testare il sistema log-in
+		// dati per testare il sistema login
 		utenti.add(new Amministratore("admin1", "admin123"));
 
 		Reparto rNeurologia = new Reparto("Neurologia", "2kfdokf");

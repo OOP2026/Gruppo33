@@ -24,7 +24,7 @@ public class Home {
 	public Home(Controller controller, JFrame frameChiamante, String ruolo) {
 		this.controller = controller;
 
-		// Crea il frame della Home
+
 		frame = new JFrame("Home - Sistema Ospedaliero");
 		frame.setContentPane(panel1);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -98,7 +98,7 @@ public class Home {
 		});
 	}
 
-	// Restituisce il JFrame della Home (usato da LoginForm per renderlo visibile)
+
 	public JFrame getFrame() {
 		return frame;
 	}
