@@ -21,9 +21,30 @@ public class Home {
 	private Controller controller;
 	private JFrame frame;
 
-	public Home(Controller controller, JFrame frame) {
+	public Home(Controller controller, JFrame frameChiamante, String ruolo) {
 		this.controller = controller;
-		this.frame = frame;
+
+		// Crea il frame della Home
+		frame = new JFrame("Home - Sistema Ospedaliero");
+		frame.setContentPane(panel1);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.pack();
+		frame.setLocationRelativeTo(null);
+
+		// Visibilità pulsanti in base al ruolo
+		boolean isAdmin  = "AMMINISTRATORE".equals(ruolo);
+		boolean isMedico = "MEDICO".equals(ruolo);
+
+		// Solo amministratore
+		btnRegistraPaziente.setVisible(isAdmin);
+		btnRegistraRicovero.setVisible(isAdmin);
+		btnLettiDisponibili.setVisible(isAdmin);
+		btnPazientiScadenza.setVisible(isAdmin);
+
+		// Solo medico
+		btnAgendaMedico.setVisible(isMedico);
+		btnGestionePrestazioni.setVisible(isMedico);
+
 
 		btnRegistraPaziente.addActionListener(new ActionListener() {
 			@Override
@@ -70,9 +91,16 @@ public class Home {
 		btnLogout.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				// Torna al login
 				frame.dispose();
+				frameChiamante.setVisible(true);
 			}
 		});
 	}
 
+	// Restituisce il JFrame della Home (usato da LoginForm per renderlo visibile)
+	public JFrame getFrame() {
+		return frame;
+	}
 }
+

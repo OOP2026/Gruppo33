@@ -15,7 +15,7 @@ public class LoginForm {
     private JLabel lblErrore;
 
     private Controller controller;
-    private JFrame frame;
+    private static JFrame frame; // statico: sempre raggiungibile
 
     public LoginForm() {
         this.controller = new Controller();
@@ -23,14 +23,29 @@ public class LoginForm {
         btnAccedi.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                String login    = txtLogin.getText().trim();
+                String password = new String(txtPassword.getPassword());
+
+                String ruolo = controller.login(login, password);
+
+                if (ruolo == null) {
+                    lblErrore.setText("Credenziali non valide. Riprovare.");
+                    lblErrore.setVisible(true);
+                } else {
+                    lblErrore.setVisible(false);
+
+                    // Crea e mostra la Home, passando controller e questo frame
+                    Home home = new Home(controller, frame, ruolo);
+                    home.getFrame().setVisible(true);
+                    frame.setVisible(false);
+                }
             }
         });
     }
 
     public static void main(String[] args) {
-        JFrame frame = new JFrame("Login - Sistema Ospedaliero");
+        frame = new JFrame("Login - Sistema Ospedaliero");
         LoginForm loginForm = new LoginForm();
-        loginForm.frame = frame;
         frame.setContentPane(loginForm.panelLogin);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
