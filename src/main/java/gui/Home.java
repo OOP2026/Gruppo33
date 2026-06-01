@@ -18,18 +18,16 @@ public class Home {
 	private JButton btnGestionePrestazioni;
 	private JButton btnLogout;
 
-	private static JFrame frame;
-
 	private Controller controller;
+	private JFrame frame;
 
-	public Home() {
-
-		controller = new Controller();
+	public Home(Controller controller, JFrame frame) {
+		this.controller = controller;
+		this.frame = frame;
 
 		btnRegistraPaziente.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-
 
 			}
 		});
@@ -72,23 +70,9 @@ public class Home {
 		btnLogout.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				System.exit(0);
+				frame.dispose();
 			}
 		});
 	}
 
-	public static void main(String[] args) {
-
-		frame = new JFrame("Sistema Ospedaliero");
-
-		frame.setContentPane(new Home().panel1);
-
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-		frame.pack();
-
-		frame.setLocationRelativeTo(null);
-
-		frame.setVisible(true);
-	}
 }
