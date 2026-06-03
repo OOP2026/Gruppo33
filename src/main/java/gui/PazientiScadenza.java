@@ -25,6 +25,7 @@ public class PazientiScadenza {
             public void actionPerformed(ActionEvent e) {
             frameChiamante.setVisible(true);
             frame.setVisible(false);
+            frame.dispose();
             }
         });
     }

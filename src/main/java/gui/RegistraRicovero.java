@@ -34,8 +34,9 @@ public class RegistraRicovero {
         btnAnnulla.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                frame.dispose();
+                frame.setVisible(false);
                 frameChiamante.setVisible(true);
+                frame.dispose();
             }
         });
         btnOK.addActionListener(new ActionListener() {

@@ -24,6 +24,7 @@ public class LettiDisponibili {
             public void actionPerformed(ActionEvent e) {
             frame.setVisible(false);
             frameChiamante.setVisible(true);
+            frame.dispose();
             }
         });
     }
