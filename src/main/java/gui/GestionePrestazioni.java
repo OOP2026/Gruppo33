@@ -15,8 +15,16 @@ public class GestionePrestazioni {
     private JButton btnRegistra;
     private JButton btnIndietro;
     public static JFrame frame;
+    private Controller controller;
 
     public GestionePrestazioni(Controller controller, JFrame frameChiamante) {
+        frame = new JFrame("Gestici le prestiazioni");
+        frame.setContentPane(panel1);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.pack();
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
+
         btnRegistra.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

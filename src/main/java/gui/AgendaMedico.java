@@ -10,9 +10,18 @@ public class AgendaMedico {
     private JButton btnIndietro;
     private JButton cercaButton;
     private JTable tabellaAgenda;
+    private JPanel panel1;
     public static JFrame frame;
+    private Controller controller;
 
     public AgendaMedico(Controller controller, JFrame frameChiamante) {
+        frame = new JFrame("Agenda");
+        frame.setContentPane(panel1);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.pack();
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
+
         cercaButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

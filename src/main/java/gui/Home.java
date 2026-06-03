@@ -18,7 +18,6 @@ public class Home {
 	private JButton btnGestionePrestazioni;
 	private JButton btnLogout;
 	private JLabel lblWelc; // label vuoto per dare il messaggio di benvenuto
-
 	private Controller controller;
 	private JFrame frame;
 
