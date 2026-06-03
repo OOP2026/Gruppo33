@@ -14,15 +14,27 @@ public class Controller {
 	private ArrayList<Reparto> reparti = new ArrayList<>();
 	private ArrayList<Paziente> pazienti = new ArrayList<>();
 	private ArrayList<Ricovero> ricoveri = new ArrayList<>();
+	private ArrayList<Letto> letti = new ArrayList<>();
 
 	public Controller() {
 		// dati per testare il sistema login
 		utenti.add(new Amministratore("admin1", "admin123"));
 
-		Reparto rNeurologia = new Reparto("Neurologia", "2kfdokf");
+		Reparto rNeurologia = new Reparto("Neurologia", "REP01");
+		Reparto rCardiologia = new  Reparto("Cardiologia", "REP02");
 		reparti.add(rNeurologia);
+		reparti.add(rCardiologia);
 
 		utenti.add(new Medico("medico1", "medico123", "Mario", "Rossi", rNeurologia));
+
+		Letto l1 = new Letto("001");
+		Letto l2 = new Letto("002");
+		Letto l3 = new Letto("003");
+		Letto l4 = new Letto("004");
+		letti.add(l1);
+		letti.add(l2);
+		letti.add(l3);
+		letti.add(l4);
 	}
 
 	// In base alle credenziali restituisce un ruolo, null se sono errate.
@@ -57,7 +69,16 @@ public class Controller {
 	public ArrayList<Paziente> getPazienti() {
 		return pazienti;
 	}
+
+	public ArrayList<Letto> getLetti(){
+		return letti;
+	}
+
 	public void registraPaziente(Paziente p) {
 		pazienti.add(p);
 	}
+	public  void registraReparto(Reparto r) {
+		reparti.add(r);
+	}
+
 }

@@ -2,10 +2,14 @@ package gui;
 
 import controller.Controller;
 import model.Paziente;
+import model.Reparto;
+import model.Letto;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+
 
 public class RegistraRicovero {
     public static JFrame frame;
@@ -15,9 +19,10 @@ public class RegistraRicovero {
     private JTextField txtdataDimissioniEffettuata;
     private JButton btnOK;
     private JButton btnAnnulla;
-    private JComboBox comboBoxP;
-    private JComboBox comboBoxR;
     private JComboBox comboBoxL;
+    private JComboBox comboBoxR;
+    private JComboBox comboBoxP;
+    private JButton aggiornaButton;
 
     public RegistraRicovero(Controller controller, JFrame frameChiamante) {
         frame = new JFrame("Registra Ricovero");
@@ -28,6 +33,14 @@ public class RegistraRicovero {
         btnOK.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                ArrayList<Paziente> pazienti = controller.getPazienti();
+                for (Paziente p : pazienti) comboBoxP.addItem(p.getNome() + " " + p.getCognome() + " " + "["+p.getCodiceFiscale()+"]");
+
+                ArrayList<Reparto> reparti = controller.getReparti();
+                for (Reparto r : reparti) comboBoxR.addItem(r.getNome() + " " + "("+r.getIdReparto()+")");
+
+                ArrayList<Letto> letti = controller.getLetti();
+                for (Letto l : letti) comboBoxL.addItem("Letto"+l.getCodiceUnivoco());
 
             }
         });
@@ -43,6 +56,12 @@ public class RegistraRicovero {
             @Override
             public void actionPerformed(ActionEvent e) {
 
+
+            }
+        });
+        aggiornaButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
 
             }
         });
