@@ -15,9 +15,10 @@ public class Controller {
 	private ArrayList<Paziente> pazienti = new ArrayList<>();
 	private ArrayList<Ricovero> ricoveri = new ArrayList<>();
 	private ArrayList<Letto> letti = new ArrayList<>();
+	private ArrayList<Stanza> stanze = new ArrayList<>();
 
 	public Controller() {
-		// dati per testare il sistema login
+		// dati per testare
 		utenti.add(new Amministratore("admin1", "admin123"));
 
 		Reparto rNeurologia = new Reparto("Neurologia", "REP01");
@@ -35,6 +36,12 @@ public class Controller {
 		letti.add(l2);
 		letti.add(l3);
 		letti.add(l4);
+
+		Stanza s1 = new Stanza(1, 1);
+		stanze.add(s1);
+
+
+
 	}
 
 	// In base alle credenziali restituisce un ruolo, null se sono errate.

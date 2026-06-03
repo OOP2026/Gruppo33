@@ -2,13 +2,21 @@ package gui;
 
 import controller.Controller;
 import javax.swing.*;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import model.Reparto;
+import model.Letto;
+import java.util.ArrayList;
 
 public class LettiDisponibili {
-    private JTable table1;
+    private JTable tableLetti;
     private JPanel panel1;
     private JButton btnIndietro;
+    private JComboBox comboBoxR;
+    private JButton cercaButton;
     public static JFrame frame;
 
     public LettiDisponibili(Controller controller, JFrame frameChiamante) {
@@ -19,6 +27,38 @@ public class LettiDisponibili {
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
 
+        ArrayList<Reparto> reparti = controller.getReparti();
+        for (Reparto r : reparti) {
+            comboBoxR.addItem(r.getNome() + " " + "("+r.getIdReparto()+")");
+
+            // per la tabella
+            DefaultTableModel model = new DefaultTableModel(
+                    new String[]{"Codice Letto", "Stato"}, 0) {
+                @Override
+                public boolean isCellEditable(int row, int column) {
+                    return false; // tabella non modificabile
+                }
+            };
+            tableLetti.setModel(model);
+
+            // Colora la riga in rosso se il letto è occupato
+            tableLetti.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
+                @Override
+                public Component getTableCellRendererComponent(JTable table, Object value,
+                                                               boolean isSelected, boolean hasFocus, int row, int column) {
+                    Component c = super.getTableCellRendererComponent(
+                            table, value, isSelected, hasFocus, row, column);
+                    String stato = (String) table.getValueAt(row, 1);
+                    if ("OCCUPATO".equals(stato)) {
+                        c.setForeground(Color.RED);
+                    } else {
+                        c.setForeground(Color.BLACK);
+                    }
+                    return c;
+                }
+            });
+        }
+
         btnIndietro.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -27,5 +67,13 @@ public class LettiDisponibili {
             frame.dispose();
             }
         });
+
+        cercaButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
     }
+
 }

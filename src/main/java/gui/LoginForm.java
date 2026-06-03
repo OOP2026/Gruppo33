@@ -51,4 +51,5 @@ public class LoginForm {
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
+
 }

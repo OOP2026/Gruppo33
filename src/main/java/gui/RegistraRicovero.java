@@ -30,17 +30,18 @@ public class RegistraRicovero {
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
+        ArrayList<Paziente> pazienti = controller.getPazienti();
+        for (Paziente p : pazienti) comboBoxP.addItem(p.getNome() + " " + p.getCognome() + " " + "["+p.getCodiceFiscale()+"]");
+
+        ArrayList<Reparto> reparti = controller.getReparti();
+        for (Reparto r : reparti) comboBoxR.addItem(r.getNome() + " " + "("+r.getIdReparto()+")");
+
+        ArrayList<Letto> letti = controller.getLetti();
+        for (Letto l : letti) comboBoxL.addItem("Letto"+l.getCodiceUnivoco());
+
         btnOK.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ArrayList<Paziente> pazienti = controller.getPazienti();
-                for (Paziente p : pazienti) comboBoxP.addItem(p.getNome() + " " + p.getCognome() + " " + "["+p.getCodiceFiscale()+"]");
-
-                ArrayList<Reparto> reparti = controller.getReparti();
-                for (Reparto r : reparti) comboBoxR.addItem(r.getNome() + " " + "("+r.getIdReparto()+")");
-
-                ArrayList<Letto> letti = controller.getLetti();
-                for (Letto l : letti) comboBoxL.addItem("Letto"+l.getCodiceUnivoco());
 
             }
         });
@@ -56,14 +57,8 @@ public class RegistraRicovero {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-
             }
         });
-        aggiornaButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
 
-            }
-        });
     }
 }

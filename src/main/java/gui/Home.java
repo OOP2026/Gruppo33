@@ -17,6 +17,7 @@ public class Home {
 	private JButton btnAgendaMedico;
 	private JButton btnGestionePrestazioni;
 	private JButton btnLogout;
+	private JLabel lblWelc; // label vuoto per dare il messaggio di benvenuto
 
 	private Controller controller;
 	private JFrame frame;
@@ -45,6 +46,11 @@ public class Home {
 		btnAgendaMedico.setVisible(isMedico);
 		btnGestionePrestazioni.setVisible(isMedico);
 
+		if (isAdmin) {
+			lblWelc.setText("Benvenuto amministratore");
+		} else if (isMedico) {
+			lblWelc.setText("Benvenuto medico");
+		}
 
 		btnRegistraPaziente.addActionListener(new ActionListener() {
 			@Override
@@ -86,21 +92,24 @@ public class Home {
 		btnAgendaMedico.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-
+				AgendaMedico agendaMedico = new AgendaMedico(controller, frame);
+				AgendaMedico.frame.setVisible(true);
+				frame.setVisible(false);
 			}
 		});
 
 		btnGestionePrestazioni.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-
+			GestionePrestazioni gestionePrestazioni = new GestionePrestazioni(controller, frame);
+			GestionePrestazioni.frame.setVisible(true);
+			frame.setVisible(false);
 			}
 		});
 
 		btnLogout.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// Torna al login
 				frame.dispose();
 				frameChiamante.setVisible(true);
 			}
