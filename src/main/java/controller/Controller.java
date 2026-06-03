@@ -51,7 +51,12 @@ public class Controller {
 		if (utenteCorrente instanceof Amministratore) return (Amministratore) utenteCorrente;
 		return null;
 	}
-
+	public ArrayList<Reparto> getReparti() {
+		return reparti;
+	}
+	public ArrayList<Paziente> getPazienti() {
+		return pazienti;
+	}
 	public void registraPaziente(Paziente p) {
 		pazienti.add(p);
 	}

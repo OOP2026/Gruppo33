@@ -8,7 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class RegistraRicovero {
-    public JFrame frame;
+    public static JFrame frame;
     private JPanel panel1;
     private JTextField txtdataDimissioniPrevista;
     private JTextField txtDataInizio;
@@ -36,6 +36,13 @@ public class RegistraRicovero {
             public void actionPerformed(ActionEvent e) {
                 frame.dispose();
                 frameChiamante.setVisible(true);
+            }
+        });
+        btnOK.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+
             }
         });
     }

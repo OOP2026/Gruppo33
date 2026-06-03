@@ -68,14 +68,18 @@ public class Home {
 		btnLettiDisponibili.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-
+			LettiDisponibili lettiDisponibili = new LettiDisponibili(controller, frame);
+			LettiDisponibili.frame.setVisible(true);
+			frame.setVisible(false);
 			}
 		});
 
 		btnPazientiScadenza.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-
+			PazientiScadenza pazientiScadenza = new PazientiScadenza(controller, frame);
+			PazientiScadenza.frame.setVisible(true);
+			frame.setVisible(false);
 			}
 		});
 
