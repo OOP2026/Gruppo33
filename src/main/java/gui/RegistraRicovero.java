@@ -8,6 +8,9 @@ import model.Letto;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.DateTimeException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 
@@ -56,8 +59,32 @@ public class RegistraRicovero {
         btnOK.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                if (comboBoxP.getSelectedIndex() < 0
+                        || comboBoxL.getSelectedIndex() < 0) {
+                    JOptionPane.showMessageDialog(frame, "Selezionare paziente e/o letto.", "Errore", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+                LocalDateTime dataInizio;
+                LocalDateTime dataDimissioniPrevista;
 
-            }
+              try {
+                  dataInizio = LocalDateTime.parse(txtDataInizio.getText());
+                  dataDimissioniPrevista = LocalDateTime.parse(txtdataDimissioniPrevista.getText());
+              }
+              catch (DateTimeParseException e1){
+                  JOptionPane.showMessageDialog(frame,
+                          "Formato data non valido. Usare: dd/MM/yyyy/HH:mm:ss", "Errore", JOptionPane.ERROR_MESSAGE);
+                  return;
+              }
+
+                if (!dataInizio.isBefore(dataDimissioniPrevista)) {
+                    JOptionPane.showMessageDialog(frame, "La data di inizio deve essere precedente alla dimissione prevista.",
+                            "Errore", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+                
+                }
+
         });
 
     }

@@ -88,4 +88,9 @@ public class Controller {
 		reparti.add(r);
 	}
 
+	public void registraRicovero(Ricovero ri){
+		ricoveri.add(ri);
+	}
+
+
 }
