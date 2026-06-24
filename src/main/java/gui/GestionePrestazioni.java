@@ -24,11 +24,13 @@ public class GestionePrestazioni {
         frame.pack();
         frame.setLocationRelativeTo(null);
 
-        btnRegistra.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-            }
-        });
+        if (btnRegistra != null) {
+            btnRegistra.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                }
+            });
+        }
         btnIndietro.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
