@@ -82,7 +82,7 @@ public class RegistraRicovero {
                             "Errore", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
-                
+
                 }
 
         });

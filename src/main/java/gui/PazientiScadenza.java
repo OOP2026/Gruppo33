@@ -20,7 +20,7 @@ public class PazientiScadenza {
         frame.setVisible(true);
 
 
-   ;     btnIndietro.addActionListener(new ActionListener() {
+        btnIndietro.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
             frameChiamante.setVisible(true);
