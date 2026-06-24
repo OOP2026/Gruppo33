@@ -2,6 +2,7 @@ package gui;
 
 import controller.Controller;
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -23,10 +24,11 @@ public class PazientiScadenza {
         btnIndietro.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            frameChiamante.setVisible(true);
-            frame.setVisible(false);
-            frame.dispose();
+                frameChiamante.setVisible(true);
+                frame.setVisible(false);
+                frame.dispose();
             }
         });
     }
+
 }

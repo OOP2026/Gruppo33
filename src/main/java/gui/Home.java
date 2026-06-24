@@ -3,6 +3,7 @@ package gui;
 import controller.Controller;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -32,7 +33,7 @@ public class Home {
 		frame.setLocationRelativeTo(null);
 
 		// Visibilità pulsanti in base al ruolo
-		boolean isAdmin  = "AMMINISTRATORE".equals(ruolo);
+		boolean isAdmin = "AMMINISTRATORE".equals(ruolo);
 		boolean isMedico = "MEDICO".equals(ruolo);
 
 		// Solo amministratore
@@ -54,9 +55,9 @@ public class Home {
 		btnRegistraPaziente.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-			RegistraPaziente registraPaziente = new RegistraPaziente(controller, frame);
-			registraPaziente.frame.setVisible(true);
-			frame.setVisible(false);
+				RegistraPaziente registraPaziente = new RegistraPaziente(controller, frame);
+				registraPaziente.frame.setVisible(true);
+				frame.setVisible(false);
 
 			}
 		});
@@ -64,27 +65,27 @@ public class Home {
 		btnRegistraRicovero.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-			RegistraRicovero registraRicovero = new RegistraRicovero(controller, frame);
-			registraRicovero.frame.setVisible(true);
-			frame.setVisible(false);
+				RegistraRicovero registraRicovero = new RegistraRicovero(controller, frame);
+				registraRicovero.frame.setVisible(true);
+				frame.setVisible(false);
 			}
 		});
 
 		btnLettiDisponibili.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-			LettiDisponibili lettiDisponibili = new LettiDisponibili(controller, frame);
-			LettiDisponibili.frame.setVisible(true);
-			frame.setVisible(false);
+				LettiDisponibili lettiDisponibili = new LettiDisponibili(controller, frame);
+				LettiDisponibili.frame.setVisible(true);
+				frame.setVisible(false);
 			}
 		});
 
 		btnPazientiScadenza.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-			PazientiScadenza pazientiScadenza = new PazientiScadenza(controller, frame);
-			PazientiScadenza.frame.setVisible(true);
-			frame.setVisible(false);
+				PazientiScadenza pazientiScadenza = new PazientiScadenza(controller, frame);
+				PazientiScadenza.frame.setVisible(true);
+				frame.setVisible(false);
 			}
 		});
 
@@ -100,9 +101,9 @@ public class Home {
 		btnGestionePrestazioni.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-			GestionePrestazioni gestionePrestazioni = new GestionePrestazioni(controller, frame);
-			GestionePrestazioni.frame.setVisible(true);
-			frame.setVisible(false);
+				GestionePrestazioni gestionePrestazioni = new GestionePrestazioni(controller, frame);
+				GestionePrestazioni.frame.setVisible(true);
+				frame.setVisible(false);
 			}
 		});
 
@@ -119,5 +120,6 @@ public class Home {
 	public JFrame getFrame() {
 		return frame;
 	}
+
 }
 

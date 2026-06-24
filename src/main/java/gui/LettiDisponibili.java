@@ -29,38 +29,39 @@ public class LettiDisponibili {
 
         ArrayList<Reparto> reparti = controller.getReparti();
         for (Reparto r : reparti) {
-            comboBoxR.addItem(r.getNome() + " " + "("+r.getIdReparto()+")");
+            comboBoxR.addItem(r.getNome() + " " + "(" + r.getIdReparto() + ")");
 
             // per la tabella
             tableLetti.setModel(new DefaultTableModel(new Object[][]{}, new String[]{
                     "Codice Letto", "Stato"}) {
 
-                });
-            };
-
-
-            // Colora la riga in rosso se il letto è occupato
-            tableLetti.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
-                @Override
-                public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-                    Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-                    String stato = (String) table.getValueAt(row, 1);
-                    if ("OCCUPATO".equals(stato)) {
-                        c.setForeground(Color.RED);
-                    } else {
-                        c.setForeground(Color.BLACK);
-                    }
-                    return c;
-                }
             });
+        }
+        ;
+
+
+        // Colora la riga in rosso se il letto è occupato
+        tableLetti.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+                String stato = (String) table.getValueAt(row, 1);
+                if ("OCCUPATO".equals(stato)) {
+                    c.setForeground(Color.RED);
+                } else {
+                    c.setForeground(Color.BLACK);
+                }
+                return c;
+            }
+        });
 
 
         btnIndietro.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            frame.setVisible(false);
-            frameChiamante.setVisible(true);
-            frame.dispose();
+                frame.setVisible(false);
+                frameChiamante.setVisible(true);
+                frame.dispose();
             }
         });
 
@@ -69,7 +70,7 @@ public class LettiDisponibili {
             public void actionPerformed(ActionEvent e) {
                 DefaultTableModel model = (DefaultTableModel) tableLetti.getModel();
                 ArrayList<Letto> letti = controller.getLetti();
-                if (letti!=null)
+                if (letti != null)
                     for (Letto l : letti)
                         model.addRow(new Object[]{l.getCodiceUnivoco()}); // {l.getCodiceUnivoco(), l.getStato()}); dà errore
 

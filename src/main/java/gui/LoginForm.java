@@ -3,6 +3,7 @@ package gui;
 import controller.Controller;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -23,7 +24,7 @@ public class LoginForm {
         btnAccedi.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String login    = txtLogin.getText();
+                String login = txtLogin.getText();
                 String password = new String(txtPassword.getPassword());
 
                 String ruolo = controller.login(login, password);
