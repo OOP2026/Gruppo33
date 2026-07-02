@@ -46,6 +46,7 @@ public class Home {
 		boolean isMedico = "MEDICO".equals(ruolo);
 
 		// Solo amministratore
+		if (btnRegistraPaziente == null) throw new IllegalStateException("btnRegistraPaziente non inizializzato");
 		btnRegistraPaziente.setVisible(isAdmin);
 		btnRegistraRicovero.setVisible(isAdmin);
 		btnLettiDisponibili.setVisible(isAdmin);

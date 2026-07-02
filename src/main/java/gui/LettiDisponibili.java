@@ -39,6 +39,7 @@ public class LettiDisponibili {
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
 
+        if (comboBoxR == null) throw new IllegalStateException("btncomboBoxR non inizializzato");
         List<Reparto> reparti = controller.getReparti();
         for (Reparto r : reparti) {
             comboBoxR.addItem(r.getNome() + " " + "(" + r.getIdReparto() + ")");

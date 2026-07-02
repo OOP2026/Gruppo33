@@ -36,6 +36,7 @@ public class GestionePrestazioni {
         frame.pack();
         frame.setLocationRelativeTo(null);
 
+        if (btnRegistra == null) throw new IllegalStateException("btnRegistra non inizializzato");
         btnRegistra.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

@@ -38,6 +38,7 @@ public class RegistraPaziente {
         frame.pack();
         frame.setLocationRelativeTo(frameChiamante);
 
+        if (btnOK == null) throw new IllegalStateException("btnOK non inizializzato");
         btnOK.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

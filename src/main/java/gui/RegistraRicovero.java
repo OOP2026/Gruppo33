@@ -33,6 +33,7 @@ public class RegistraRicovero {
     private JComboBox comboBoxP;
     private JButton aggiornaButton;
 
+
     /**
      * Instantiates a new Registra ricovero.
      *
@@ -45,8 +46,13 @@ public class RegistraRicovero {
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
+        if (comboBoxP == null) {
+            throw new IllegalStateException("btncomboBoxP non inizializzato");
+        }
         List<Paziente> pazienti = controller.getPazienti();
-        for (Paziente p : pazienti) comboBoxP.addItem(p.getNome() + " " + p.getCognome() + " " + "["+p.getCodiceFiscale()+"]");
+        for (Paziente p : pazienti)
+            comboBoxP.addItem(p.getNome() + " " + p.getCognome() + " " + "["+p.getCodiceFiscale()+"]");
+
 
         List<Reparto> reparti = controller.getReparti();
         for (Reparto r : reparti) comboBoxR.addItem(r.getNome() + " " + "("+r.getIdReparto()+")");
