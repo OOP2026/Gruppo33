@@ -39,7 +39,6 @@ public class LettiDisponibili {
         }
         ;
 
-
         // Colora la riga in rosso se il letto è occupato
         tableLetti.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
             @Override

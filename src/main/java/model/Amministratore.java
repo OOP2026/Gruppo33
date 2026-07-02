@@ -1,9 +1,10 @@
 package model;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Amministratore extends Utente {
-    private ArrayList<Paziente> pazienti = new ArrayList<>();
-    private ArrayList<Ricovero> ricoveri = new ArrayList<>();
+    private final ArrayList<Paziente> pazienti = new ArrayList<>();
+    private final ArrayList<Ricovero> ricoveri = new ArrayList<>();
 
 
     public Amministratore(String login, String password) {
@@ -23,7 +24,7 @@ public class Amministratore extends Utente {
     public void getPazientiInScadenza(Paziente paziente){
     }
 
-    public ArrayList<Letto> getLettiDisponibili(Reparto reparto) {
+    public List<Letto> getLettiDisponibili(Reparto reparto) {
         return reparto.getLettiDisponibili();
     }
 }

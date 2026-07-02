@@ -1,8 +1,8 @@
 package controller;
 
 import model.*;
-import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Controller {
 
@@ -70,14 +70,14 @@ public class Controller {
 		if (utenteCorrente instanceof Amministratore) return (Amministratore) utenteCorrente;
 		return null;
 	}
-	public ArrayList<Reparto> getReparti() {
+	public List<Reparto> getReparti() {
 		return reparti;
 	}
-	public ArrayList<Paziente> getPazienti() {
+	public List<Paziente> getPazienti() {
 		return pazienti;
 	}
 
-	public ArrayList<Letto> getLetti(){
+	public List<Letto> getLetti(){
 		return letti;
 	}
 

@@ -4,13 +4,14 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.time.DayOfWeek;
+import java.util.List;
 
 public class Medico extends Utente {
     private String nome;
     private String cognome;
     private Reparto reparto;
     private ArrayList<Prestazione> prestazioni = new ArrayList<>();
-    private ArrayList<TurnoLavorativo> turni = new ArrayList<>();
+    private final ArrayList<TurnoLavorativo> turni = new ArrayList<>();
 
     public Medico(String login, String password, String nome, String cognome, Reparto reparto) {
         super(login, password);
@@ -48,7 +49,7 @@ public class Medico extends Utente {
         return turni;
     }
 
-    public ArrayList<Prestazione> getPrestazioni() {
+    public List<Prestazione> getPrestazioni() {
         return prestazioni;
     }
 
@@ -102,7 +103,7 @@ public class Medico extends Utente {
         prestazioni.add(prestazione);
     }
 
-    public ArrayList<Prestazione> getAgenda (LocalDate data, Prestazione p) {
+    public List<Prestazione> getAgenda (LocalDate data, Prestazione p) {
         ArrayList<Prestazione> agenda = new ArrayList<>();
 
         if (p.getOraInizio().toLocalDate().equals(data))

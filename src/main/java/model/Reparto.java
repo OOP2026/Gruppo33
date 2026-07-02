@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Reparto {
     private String nome;
@@ -33,13 +34,13 @@ public void setIdReparto(String idReparto){
         stanze.add(stanza);
     }
 
-    public ArrayList<Letto> getLetti() {
+    public List<Letto> getLetti() {
         ArrayList<Letto> letti = new ArrayList<>();
         for (Stanza s : stanze) letti.addAll(s.getLetti());
         return letti;
     }
 
-    public ArrayList<Letto> getLettiDisponibili() {
+    public List<Letto> getLettiDisponibili() {
         ArrayList<Letto> disponibili = new ArrayList<>();
         for (Letto l : getLetti()) {
             if (l.getStato() == StatoLetto.DISPONIBILE)

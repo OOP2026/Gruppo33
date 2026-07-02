@@ -1,11 +1,12 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Stanza {
     private int numeroStanza;
     private int piano;
-    private ArrayList<Letto> letti = new ArrayList<>();
+    private final ArrayList<Letto> letti = new ArrayList<>();
 
     public Stanza(int numeroStanza, int piano){
         this.numeroStanza = numeroStanza;
@@ -26,7 +27,7 @@ public int getPiano(){
         return piano;
 }
 
-public ArrayList<Letto> getLetti(){
+public List<Letto> getLetti(){
         return letti;
 }
 

@@ -1,7 +1,7 @@
 package model;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Letto {
     private String codiceUnivoco;
@@ -29,7 +29,7 @@ public class Letto {
         this.stato = stato;
     }
 
-    public ArrayList<Ricovero> getRicoveri() {
+    public List<Ricovero> getRicoveri() {
         return ricoveri;
 
     }
