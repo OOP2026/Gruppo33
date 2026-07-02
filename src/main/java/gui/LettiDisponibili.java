@@ -9,7 +9,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import model.Reparto;
 import model.Letto;
-import java.util.ArrayList;
 import java.util.List;
 
 public class LettiDisponibili {
@@ -38,7 +37,6 @@ public class LettiDisponibili {
 
             });
         }
-        ;
 
         // Colora la riga in rosso se il letto è occupato
         tableLetti.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
