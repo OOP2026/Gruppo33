@@ -8,7 +8,6 @@ import model.Letto;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.List;
@@ -98,7 +97,6 @@ public class RegistraRicovero {
                 if (!dataInizio.isBefore(dataDimissioniPrevista)) {
                     JOptionPane.showMessageDialog(frame, "La data di inizio deve essere precedente alla dimissione prevista.",
                             "Errore", JOptionPane.ERROR_MESSAGE);
-                    return;
                 }
 
                 }
