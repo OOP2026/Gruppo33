@@ -1,5 +1,5 @@
 package model;
 
 public enum TipoPrestazione {
-    VISITA, INTERVENTO_CHIRURGICO;
+    VISITA, INTERVENTO_CHIRURGICO
 }

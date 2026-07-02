@@ -1,6 +1,6 @@
 package model;
 
 public enum StatoLetto {
-    OCCUPATO, DISPONIBILE;
+    OCCUPATO, DISPONIBILE
 
 }

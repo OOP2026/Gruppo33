@@ -2,7 +2,6 @@ package model;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.DayOfWeek;
 
 import static model.GiornoSettimana.LUNEDI;
 

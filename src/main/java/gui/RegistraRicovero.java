@@ -12,6 +12,7 @@ import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class RegistraRicovero {
@@ -33,13 +34,13 @@ public class RegistraRicovero {
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
-        ArrayList<Paziente> pazienti = controller.getPazienti();
+        List<Paziente> pazienti = controller.getPazienti();
         for (Paziente p : pazienti) comboBoxP.addItem(p.getNome() + " " + p.getCognome() + " " + "["+p.getCodiceFiscale()+"]");
 
-        ArrayList<Reparto> reparti = controller.getReparti();
+        List<Reparto> reparti = controller.getReparti();
         for (Reparto r : reparti) comboBoxR.addItem(r.getNome() + " " + "("+r.getIdReparto()+")");
 
-        ArrayList<Letto> letti = controller.getLetti();
+        List<Letto> letti = controller.getLetti();
         for (Letto l : letti) comboBoxL.addItem("Letto"+l.getCodiceUnivoco());
 
         btnOK.addActionListener(new ActionListener() {

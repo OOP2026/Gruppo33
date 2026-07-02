@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import model.Reparto;
 import model.Letto;
 import java.util.ArrayList;
+import java.util.List;
 
 public class LettiDisponibili {
     private JTable tableLetti;
@@ -27,7 +28,7 @@ public class LettiDisponibili {
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
 
-        ArrayList<Reparto> reparti = controller.getReparti();
+        List<Reparto> reparti = controller.getReparti();
         for (Reparto r : reparti) {
             comboBoxR.addItem(r.getNome() + " " + "(" + r.getIdReparto() + ")");
 
@@ -68,7 +69,7 @@ public class LettiDisponibili {
             @Override
             public void actionPerformed(ActionEvent e) {
                 DefaultTableModel model = (DefaultTableModel) tableLetti.getModel();
-                ArrayList<Letto> letti = controller.getLetti();
+                List<Letto> letti = controller.getLetti();
                 if (letti != null)
                     for (Letto l : letti)
                         model.addRow(new Object[]{l.getCodiceUnivoco()}); // {l.getCodiceUnivoco(), l.getStato()}); dà errore
