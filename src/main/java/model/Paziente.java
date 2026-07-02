@@ -2,40 +2,84 @@ package model;
 
 import java.util.ArrayList;
 
+/**
+ * The type Paziente.
+ */
 public class Paziente {
     private String nome;
     private String cognome;
     private String codiceFiscale;
-ArrayList<Ricovero> ricoveri = new ArrayList<>();
+    /**
+     * The Ricoveri.
+     */
+    ArrayList<Ricovero> ricoveri = new ArrayList<>();
 
-public Paziente(String nome, String cognome, String codiceFiscale){
+    /**
+     * Instantiates a new Paziente.
+     *
+     * @param nome          the nome
+     * @param cognome       the cognome
+     * @param codiceFiscale the codice fiscale
+     */
+    public Paziente(String nome, String cognome, String codiceFiscale){
     this.nome = nome;
     this.cognome = cognome;
     this.codiceFiscale = codiceFiscale;
 
 }
-public String getNome(){
+
+    /**
+     * Get nome string.
+     *
+     * @return the string
+     */
+    public String getNome(){
     return this.nome;
 }
 
-public void setNome(String nome){
+    /**
+     * Set nome.
+     *
+     * @param nome the nome
+     */
+    public void setNome(String nome){
     this.nome = nome;
 }
 
-public String getCognome(){
+    /**
+     * Get cognome string.
+     *
+     * @return the string
+     */
+    public String getCognome(){
     return this.cognome;
 }
 
-public void setCognome(String cognome){
+    /**
+     * Set cognome.
+     *
+     * @param cognome the cognome
+     */
+    public void setCognome(String cognome){
     this.cognome = cognome;
 }
 
-public String getCodiceFiscale(){
+    /**
+     * Get codice fiscale string.
+     *
+     * @return the string
+     */
+    public String getCodiceFiscale(){
 
     return this.codiceFiscale;
 }
 
-public void setCodiceFiscale(String codiceFiscale){
+    /**
+     * Set codice fiscale.
+     *
+     * @param codiceFiscale the codice fiscale
+     */
+    public void setCodiceFiscale(String codiceFiscale){
     this.codiceFiscale = codiceFiscale;
 }
 

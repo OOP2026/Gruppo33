@@ -3,35 +3,76 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The type Stanza.
+ */
 public class Stanza {
     private int numeroStanza;
     private int piano;
     private final ArrayList<Letto> letti = new ArrayList<>();
 
+    /**
+     * Instantiates a new Stanza.
+     *
+     * @param numeroStanza the numero stanza
+     * @param piano        the piano
+     */
     public Stanza(int numeroStanza, int piano){
         this.numeroStanza = numeroStanza;
         this.piano = piano;
     }
 
-public void setNumeroStanza(int numeroStanza){
+    /**
+     * Set numero stanza.
+     *
+     * @param numeroStanza the numero stanza
+     */
+    public void setNumeroStanza(int numeroStanza){
         this.numeroStanza = numeroStanza;
 }
-public int getNumeroStanza(){
+
+    /**
+     * Get numero stanza int.
+     *
+     * @return the int
+     */
+    public int getNumeroStanza(){
         return numeroStanza;
 }
-public void setPiano(int piano){
+
+    /**
+     * Set piano.
+     *
+     * @param piano the piano
+     */
+    public void setPiano(int piano){
         this.piano = piano;
 }
 
-public int getPiano(){
+    /**
+     * Get piano int.
+     *
+     * @return the int
+     */
+    public int getPiano(){
         return piano;
 }
 
-public List<Letto> getLetti(){
+    /**
+     * Get letti list.
+     *
+     * @return the list
+     */
+    public List<Letto> getLetti(){
         return letti;
 }
 
-public void addLetto(Letto l){
+    /**
+     * Add letto.
+     *
+     * @param l the l
+     */
+    public void addLetto(Letto l){
         letti.add(l);
 }
 

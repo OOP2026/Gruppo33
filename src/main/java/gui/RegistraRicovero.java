@@ -11,11 +11,16 @@ import java.awt.event.ActionListener;
 import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
 import java.util.List;
 
 
+/**
+ * The type Registra ricovero.
+ */
 public class RegistraRicovero {
+    /**
+     * The constant frame.
+     */
     public static JFrame frame;
     private JPanel panel1;
     private JTextField txtdataDimissioniPrevista;
@@ -28,6 +33,12 @@ public class RegistraRicovero {
     private JComboBox comboBoxP;
     private JButton aggiornaButton;
 
+    /**
+     * Instantiates a new Registra ricovero.
+     *
+     * @param controller     the controller
+     * @param frameChiamante the frame chiamante
+     */
     public RegistraRicovero(Controller controller, JFrame frameChiamante) {
         frame = new JFrame("Registra Ricovero");
         frame.setContentPane(panel1);

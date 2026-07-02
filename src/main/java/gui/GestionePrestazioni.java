@@ -5,6 +5,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import controller.Controller;
 
+/**
+ * The type Gestione prestazioni.
+ */
 public class GestionePrestazioni {
 
     private JComboBox comboBoxPaziente;
@@ -14,9 +17,18 @@ public class GestionePrestazioni {
     private JTextField txtOraFine;
     private JButton btnRegistra;
     private JButton btnIndietro;
+    /**
+     * The constant frame.
+     */
     public static JFrame frame;
     private Controller controller;
 
+    /**
+     * Instantiates a new Gestione prestazioni.
+     *
+     * @param controller     the controller
+     * @param frameChiamante the frame chiamante
+     */
     public GestionePrestazioni(Controller controller, JFrame frameChiamante) {
         frame = new JFrame("Gestici le prestiazioni");
         frame.setContentPane(panel1);

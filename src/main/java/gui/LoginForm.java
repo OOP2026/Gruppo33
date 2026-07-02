@@ -7,6 +7,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * The type Login form.
+ */
 public class LoginForm {
 
     private JPanel panelLogin;
@@ -18,6 +21,9 @@ public class LoginForm {
     private Controller controller;
     private static JFrame frame;
 
+    /**
+     * Instantiates a new Login form.
+     */
     public LoginForm() {
         this.controller = new Controller();
 
@@ -43,6 +49,11 @@ public class LoginForm {
         });
     }
 
+    /**
+     * The entry point of application.
+     *
+     * @param args the input arguments
+     */
     public static void main(String[] args) {
         frame = new JFrame("Login - Sistema Ospedaliero");
         LoginForm loginForm = new LoginForm();

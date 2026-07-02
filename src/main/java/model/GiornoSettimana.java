@@ -1,6 +1,36 @@
 package model;
 
+/**
+ * The enum Giorno settimana.
+ */
 public enum GiornoSettimana {
-    LUNEDI, MARTEDI, MERCOLEDI, GIOVEDI, VENERDI, SABATO, DOMENICA
+    /**
+     * Lunedi giorno settimana.
+     */
+    LUNEDI,
+    /**
+     * Martedi giorno settimana.
+     */
+    MARTEDI,
+    /**
+     * Mercoledi giorno settimana.
+     */
+    MERCOLEDI,
+    /**
+     * Giovedi giorno settimana.
+     */
+    GIOVEDI,
+    /**
+     * Venerdi giorno settimana.
+     */
+    VENERDI,
+    /**
+     * Sabato giorno settimana.
+     */
+    SABATO,
+    /**
+     * Domenica giorno settimana.
+     */
+    DOMENICA
 
 }

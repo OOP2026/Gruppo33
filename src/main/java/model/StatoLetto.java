@@ -1,6 +1,16 @@
 package model;
 
+/**
+ * The enum Stato letto.
+ */
 public enum StatoLetto {
-    OCCUPATO, DISPONIBILE
+    /**
+     * Occupato stato letto.
+     */
+    OCCUPATO,
+    /**
+     * Disponibile stato letto.
+     */
+    DISPONIBILE
 
 }

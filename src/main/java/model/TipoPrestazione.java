@@ -1,5 +1,15 @@
 package model;
 
+/**
+ * The enum Tipo prestazione.
+ */
 public enum TipoPrestazione {
-    VISITA, INTERVENTO_CHIRURGICO
+    /**
+     * Visita tipo prestazione.
+     */
+    VISITA,
+    /**
+     * Intervento chirurgico tipo prestazione.
+     */
+    INTERVENTO_CHIRURGICO
 }

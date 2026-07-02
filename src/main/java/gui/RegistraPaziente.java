@@ -6,6 +6,9 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * The type Registra paziente.
+ */
 public class RegistraPaziente {
 
     private JTextField txtNome;
@@ -14,9 +17,18 @@ public class RegistraPaziente {
     private JButton btnOK;
     private JButton btnAnnulla;
     private JPanel panel1;
+    /**
+     * The Frame.
+     */
     public JFrame frame;
     private Controller controller;
 
+    /**
+     * Instantiates a new Registra paziente.
+     *
+     * @param controller     the controller
+     * @param frameChiamante the frame chiamante
+     */
     public RegistraPaziente(Controller controller, JFrame frameChiamante) {
         this.controller = controller;
 

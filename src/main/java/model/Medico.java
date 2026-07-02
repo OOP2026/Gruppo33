@@ -6,6 +6,9 @@ import java.util.ArrayList;
 import java.time.DayOfWeek;
 import java.util.List;
 
+/**
+ * The type Medico.
+ */
 public class Medico extends Utente {
     private String nome;
     private String cognome;
@@ -13,6 +16,15 @@ public class Medico extends Utente {
     private ArrayList<Prestazione> prestazioni = new ArrayList<>();
     private final ArrayList<TurnoLavorativo> turni = new ArrayList<>();
 
+    /**
+     * Instantiates a new Medico.
+     *
+     * @param login    the login
+     * @param password the password
+     * @param nome     the nome
+     * @param cognome  the cognome
+     * @param reparto  the reparto
+     */
     public Medico(String login, String password, String nome, String cognome, Reparto reparto) {
         super(login, password);
         this.nome = nome;
@@ -20,39 +32,85 @@ public class Medico extends Utente {
         this.reparto = reparto;
     }
 
+    /**
+     * Gets nome.
+     *
+     * @return the nome
+     */
     public String getNome() {
         return this.nome;
     }
 
+    /**
+     * Sets nome.
+     *
+     * @param nome the nome
+     */
     public void setNome(String nome) {
         this.nome = nome;
     }
 
+    /**
+     * Gets cognome.
+     *
+     * @return the cognome
+     */
     public String getCognome() {
         return this.cognome;
     }
 
+    /**
+     * Sets cognome.
+     *
+     * @param cognome the cognome
+     */
     public void setCognome(String cognome) {
         this.cognome = cognome;
     }
 
+    /**
+     * Gets reparto.
+     *
+     * @return the reparto
+     */
     public Reparto getReparto() {
         return reparto;
     }
 
+    /**
+     * Sets reparto.
+     *
+     * @param r the r
+     */
     public void setReparto(Reparto r) {
         this.reparto = r;
 
     }
 
+    /**
+     * Gets turni.
+     *
+     * @return the turni
+     */
     public ArrayList<TurnoLavorativo> getTurni() {
         return turni;
     }
 
+    /**
+     * Gets prestazioni.
+     *
+     * @return the prestazioni
+     */
     public List<Prestazione> getPrestazioni() {
         return prestazioni;
     }
 
+    /**
+     * Register esito.
+     *
+     * @param p     the p
+     * @param testo the testo
+     */
     public void registerEsito(Prestazione p, String testo) {
         p.setEsito(testo);
     }
@@ -95,6 +153,11 @@ public class Medico extends Utente {
         return false;
     }
 
+    /**
+     * Register prestazione.
+     *
+     * @param prestazione the prestazione
+     */
     public void registerPrestazione(Prestazione prestazione){
         if (!nelTurno(prestazione.getOraInizio(), prestazione.getOraFine()))
             throw new IllegalStateException("La prestazione non rientra in un turno lavorativo.");
@@ -103,6 +166,13 @@ public class Medico extends Utente {
         prestazioni.add(prestazione);
     }
 
+    /**
+     * Gets agenda.
+     *
+     * @param data the data
+     * @param p    the p
+     * @return the agenda
+     */
     public List<Prestazione> getAgenda (LocalDate data, Prestazione p) {
         ArrayList<Prestazione> agenda = new ArrayList<>();
 

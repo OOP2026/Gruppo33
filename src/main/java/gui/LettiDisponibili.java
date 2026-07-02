@@ -11,14 +11,26 @@ import model.Reparto;
 import model.Letto;
 import java.util.List;
 
+/**
+ * The type Letti disponibili.
+ */
 public class LettiDisponibili {
     private JTable tableLetti;
     private JPanel panel1;
     private JButton btnIndietro;
     private JComboBox comboBoxR;
     private JButton cercaButton;
+    /**
+     * The constant frame.
+     */
     public static JFrame frame;
 
+    /**
+     * Instantiates a new Letti disponibili.
+     *
+     * @param controller     the controller
+     * @param frameChiamante the frame chiamante
+     */
     public LettiDisponibili(Controller controller, JFrame frameChiamante) {
         frame = new JFrame("Letti disponibili");
         frame.setContentPane(panel1);

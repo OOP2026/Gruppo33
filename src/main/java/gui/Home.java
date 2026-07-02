@@ -6,6 +6,9 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * The type Home.
+ */
 public class Home {
 
 	private JPanel panel1;
@@ -21,6 +24,13 @@ public class Home {
 	private Controller controller;
 	private JFrame frame;
 
+	/**
+	 * Instantiates a new Home.
+	 *
+	 * @param controller     the controller
+	 * @param frameChiamante the frame chiamante
+	 * @param ruolo          the ruolo
+	 */
 	public Home(Controller controller, JFrame frameChiamante, String ruolo) {
 		this.controller = controller;
 
@@ -116,6 +126,11 @@ public class Home {
 	}
 
 
+	/**
+	 * Gets frame.
+	 *
+	 * @return the frame
+	 */
 	public JFrame getFrame() {
 		return frame;
 	}
