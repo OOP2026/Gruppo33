@@ -5,8 +5,16 @@ import java.time.LocalTime;
 
 import static model.GiornoSettimana.LUNEDI;
 
+/**
+ * The type Test model.
+ */
 public class TestModel {
 
+	/**
+	 * The entry point of application.
+	 *
+	 * @param args the input arguments
+	 */
 	public static void main(String[] args) {
 		Utente u = new Utente("topolino","minni");
 		System.out.println(u.login("pippo","pluto"));
