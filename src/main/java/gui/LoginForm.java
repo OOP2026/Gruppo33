@@ -3,7 +3,6 @@ package gui;
 import controller.Controller;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -26,6 +25,10 @@ public class LoginForm {
      */
     public LoginForm() {
         this.controller = new Controller();
+
+        if (btnAccedi == null) {
+            throw new IllegalStateException("btnAccedi non inizializzato");
+        }
 
         btnAccedi.addActionListener(new ActionListener() {
             @Override
