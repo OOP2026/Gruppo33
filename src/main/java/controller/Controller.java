@@ -40,11 +40,21 @@ public class Controller {
 		letti.add(l4);
 
 		Stanza s1 = new Stanza(1, 1);
+		Stanza s2 = new Stanza(2, 1);
 		stanze.add(s1);
 		s1.addLetto(l1);
+		s1.addLetto(l2);
+		s1.addLetto(l3);
+		s1.addLetto(l4);
 
 		rNeurologia.addStanza(s1);
 
+		Letto l5 = new Letto("005");
+		Letto l6 = new Letto("006");
+		s2.addLetto(l5);
+		s2.addLetto(l6);
+
+		rCardiologia.addStanza(s2);
 
 	}
 

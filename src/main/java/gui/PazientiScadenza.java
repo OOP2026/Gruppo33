@@ -4,14 +4,18 @@ import controller.Controller;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDateTime;
 
 /**
  * The type Pazienti scadenza.
  */
 public class PazientiScadenza {
-    private JTable table1;
+    private JTable tablePazienti;
     private JButton btnIndietro;
     private JPanel panel1;
+    private JButton btnOggi;
+    private JButton btnCerca;
+    private JTextField txtData;
     /**
      * The constant frame.
      */
@@ -38,6 +42,19 @@ public class PazientiScadenza {
                 frameChiamante.setVisible(true);
                 frame.setVisible(false);
                 frame.dispose();
+            }
+        });
+        btnCerca.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+
+        btnOggi.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
             }
         });
     }

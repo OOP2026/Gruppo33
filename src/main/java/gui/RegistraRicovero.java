@@ -47,6 +47,7 @@ public class RegistraRicovero {
         frame.setContentPane(panel1);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.pack();
+        frame.setLocationRelativeTo(frameChiamante);
         frame.setVisible(true);
         if (comboBoxP == null) {
             throw new IllegalStateException("btncomboBoxP non inizializzato");
@@ -106,7 +107,8 @@ public class RegistraRicovero {
                 try{
                     controller.registraRicovero(paziente, letto, dataInizio, dataDimissioniPrevista);
                     JOptionPane.showMessageDialog(frame, "Ricovero registrato correttamente.", "Successo", JOptionPane.INFORMATION_MESSAGE);
-
+                    frame.dispose();
+                    frameChiamante.setVisible(true);
 
                 } catch (IllegalStateException ex) {
 
