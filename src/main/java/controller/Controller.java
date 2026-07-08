@@ -2,6 +2,7 @@ package controller;
 
 import model.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -119,5 +120,18 @@ public class Controller {
 
 	}
 
+
+
+	public List<Ricovero> getRicoveriInScadenza (LocalDateTime data) {
+		List<Ricovero> inScadenza = new ArrayList<>();
+		for (Ricovero r: ricoveri){
+
+			if (r.getDataDimissioniPrevista().equals(data)) {
+				inScadenza.add(r);
+			}
+		}
+		return inScadenza;
+
+	}
 
 }

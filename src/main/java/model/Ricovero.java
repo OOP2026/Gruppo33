@@ -82,4 +82,9 @@ public class Ricovero {
     public void setDataDimissioniEffettuata(LocalDateTime dataDimissioniEffettuata){
         this.dataDimissioniEffettuata = dataDimissioniEffettuata;
     }
+
+    public Paziente getPaziente (){
+        return paziente;
+    }
+
 }
