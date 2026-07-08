@@ -16,7 +16,6 @@ public class LoginForm {
     private JPasswordField txtPassword;
     private JButton btnAccedi;
     private JLabel lblErrore;
-
     private Controller controller;
     private static JFrame frame;
 

@@ -13,6 +13,7 @@ public class Ricovero {
     private Paziente paziente;
 
 
+
     /**
      * Instantiates a new Ricovero.
      *

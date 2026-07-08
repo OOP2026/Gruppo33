@@ -1,6 +1,8 @@
 package controller;
 
 import model.*;
+
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,7 +41,9 @@ public class Controller {
 
 		Stanza s1 = new Stanza(1, 1);
 		stanze.add(s1);
+		s1.addLetto(l1);
 
+		rNeurologia.addStanza(s1);
 
 
 	}
@@ -77,8 +81,8 @@ public class Controller {
 		return pazienti;
 	}
 
-	public List<Letto> getLetti(){
-		return letti;
+	public List<Letto> getLettiDisp(Reparto reparto){
+		return reparto.getLettiDisponibili();
 	}
 
 	public void registraPaziente(Paziente p) {
@@ -88,8 +92,21 @@ public class Controller {
 		reparti.add(r);
 	}
 
-	public void registraRicovero(Ricovero ri){
-		ricoveri.add(ri);
+	public void registraRicovero(Paziente paziente, Letto letto, LocalDateTime dataInizio, LocalDateTime dimissioniPreviste ){
+		for (Ricovero r: letto.getRicoveri()){
+			boolean Sovrapposto = dataInizio.isBefore(r.getDataDimissioniPrevista()) && dimissioniPreviste.isAfter(r.getDataInizio());
+			if (Sovrapposto){
+				throw new IllegalStateException(
+						"Il letto è già occupato in questo periodo.");
+
+			}
+
+		}
+		Ricovero ricovero = new Ricovero(dataInizio, dimissioniPreviste, null, paziente);
+		letto.getRicoveri().add(ricovero);
+		letto.setStato(StatoLetto.OCCUPATO);
+		ricoveri.add(ricovero);
+
 	}
 
 

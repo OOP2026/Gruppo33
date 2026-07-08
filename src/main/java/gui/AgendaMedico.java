@@ -34,7 +34,7 @@ public class AgendaMedico {
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
 
-        if (cercaButton == null) throw new IllegalStateException("btncercaButton non inizializzato");
+        if (cercaButton == null) throw new IllegalStateException("cercaButton non inizializzato");
         cercaButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

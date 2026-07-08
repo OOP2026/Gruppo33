@@ -40,16 +40,28 @@ public class LettiDisponibili {
         frame.setVisible(true);
 
         if (comboBoxR == null) throw new IllegalStateException("btncomboBoxR non inizializzato");
+
         List<Reparto> reparti = controller.getReparti();
         for (Reparto r : reparti) {
             comboBoxR.addItem(r.getNome() + " " + "(" + r.getIdReparto() + ")");
 
-            // per la tabella
-            tableLetti.setModel(new DefaultTableModel(new Object[][]{}, new String[]{
-                    "Codice Letto", "Stato"}) {
-
-            });
         }
+
+            DefaultTableModel model = new DefaultTableModel(
+                    new String[]{"Codice Letto", "Stato"}, 0) {
+                @Override
+                public boolean isCellEditable(int row, int column) {
+                    return false; // tabella in sola lettura
+                }
+            };
+            tableLetti.setModel(model);
+
+            // per la tabella
+            //tableLetti.setModel(new DefaultTableModel(new Object[][]{}, new String[]{
+                    //"Codice Letto", "Stato"}) {
+
+           // });
+
 
         // Colora la riga in rosso se il letto è occupato
         tableLetti.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
@@ -79,11 +91,15 @@ public class LettiDisponibili {
         cercaButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                DefaultTableModel model = (DefaultTableModel) tableLetti.getModel();
-                List<Letto> letti = controller.getLetti();
-                if (letti != null)
+                int idx = comboBoxR.getSelectedIndex();
+                if (idx < 0) return;
+                Reparto rSelezionato = reparti.get(idx);
+                model.setRowCount(0);
+                //DefaultTableModel model = (DefaultTableModel) tableLetti.getModel();
+                List<Letto> letti = rSelezionato.getLetti();
+                //if (letti != null)
                     for (Letto l : letti)
-                        model.addRow(new Object[]{l.getCodiceUnivoco()}); // {l.getCodiceUnivoco(), l.getStato()}); dà errore
+                        model.addRow(new Object[]{l.getCodiceUnivoco(), l.getStato().toString()});
 
             }
         });

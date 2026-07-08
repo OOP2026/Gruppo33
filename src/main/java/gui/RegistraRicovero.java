@@ -4,11 +4,14 @@ import controller.Controller;
 import model.Paziente;
 import model.Reparto;
 import model.Letto;
+import model.Ricovero;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.List;
 
@@ -56,15 +59,7 @@ public class RegistraRicovero {
         List<Reparto> reparti = controller.getReparti();
         for (Reparto r : reparti) comboBoxR.addItem(r.getNome() + " " + "("+r.getIdReparto()+")");
 
-        List<Letto> letti = controller.getLetti();
-        for (Letto l : letti) comboBoxL.addItem("Letto"+l.getCodiceUnivoco());
 
-        btnOK.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-            }
-        });
         btnAnnulla.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -83,25 +78,60 @@ public class RegistraRicovero {
                 }
                 LocalDateTime dataInizio;
                 LocalDateTime dataDimissioniPrevista;
+                LocalDateTime dataDimissioniEffettuata = null;
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
               try {
-                  dataInizio = LocalDateTime.parse(txtDataInizio.getText());
-                  dataDimissioniPrevista = LocalDateTime.parse(txtdataDimissioniPrevista.getText());
+                  dataInizio = LocalDateTime.parse(txtDataInizio.getText(), formatter);
+                  dataDimissioniPrevista = LocalDateTime.parse(txtdataDimissioniPrevista.getText(), formatter);
+
               }
               catch (DateTimeParseException e1){
                   JOptionPane.showMessageDialog(frame,
-                          "Formato data non valido. Usare: dd/MM/yyyy/HH:mm:ss", "Errore", JOptionPane.ERROR_MESSAGE);
+                          "Formato data non valido. Usare: dd/MM/yyyy HH:mm", "Errore", JOptionPane.ERROR_MESSAGE);
                   return;
               }
 
-                if (!dataInizio.isBefore(dataDimissioniPrevista)) {
+                if (!dataInizio.isAfter(dataDimissioniPrevista)) {
                     JOptionPane.showMessageDialog(frame, "La data di inizio deve essere precedente alla dimissione prevista.",
                             "Errore", JOptionPane.ERROR_MESSAGE);
                 }
+
+                Paziente paziente = pazienti.get(comboBoxP.getSelectedIndex());
+                int idxReparto =  comboBoxR.getSelectedIndex();
+                Reparto rSelezionato = reparti.get(idxReparto);
+                List<Letto> letti = controller.getLettiDisp(rSelezionato);
+                Letto letto = letti.get(comboBoxL.getSelectedIndex());
+
+                try{
+                    controller.registraRicovero(paziente, letto, dataInizio, dataDimissioniPrevista);
+                    JOptionPane.showMessageDialog(frame, "Ricovero registrato correttamente.", "Successo", JOptionPane.INFORMATION_MESSAGE);
+
+
+                } catch (IllegalStateException ex) {
+
+                    JOptionPane.showMessageDialog(frame, ex.getMessage(), "Errore", JOptionPane.ERROR_MESSAGE);
+                }
+
 
                 }
 
         });
 
+        comboBoxR.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                comboBoxL.removeAllItems();
+                int idx = comboBoxR.getSelectedIndex();
+                if (idx < 0) return;
+                Reparto rSelezionato = reparti.get(idx);
+                List<Letto> letti = controller.getLettiDisp(rSelezionato);
+                for (Letto l : letti) {
+                    comboBoxL.addItem("Letto"+l.getCodiceUnivoco());
+                }
+
+
+            }
+        });
     }
 }
