@@ -104,23 +104,20 @@ public class Controller {
 	}
 
 	public void registraRicovero(Paziente paziente, Letto letto, LocalDateTime dataInizio, LocalDateTime dimissioniPreviste ){
-		for (Ricovero r: letto.getRicoveri()){
-			boolean Sovrapposto = dataInizio.isBefore(r.getDataDimissioniPrevista()) && dimissioniPreviste.isAfter(r.getDataInizio());
-			if (Sovrapposto){
+		for (Ricovero r: paziente.getRicoveri()){
+			if (!dataInizio.isBefore(r.getDataDimissioniPrevista())
+					&& !r.getDataInizio().isBefore(dimissioniPreviste)){
 				throw new IllegalStateException(
-						"Il letto è già occupato in questo periodo.");
-
+						"Il paziente è già assegnato in un altro letto in questo periodo.");
 			}
-
 		}
-		Ricovero ricovero = new Ricovero(dataInizio, dimissioniPreviste, null, paziente);
+		Ricovero ricovero = new Ricovero(dataInizio, dimissioniPreviste, null, paziente, letto);
 		letto.getRicoveri().add(ricovero);
 		letto.setStato(StatoLetto.OCCUPATO);
 		ricoveri.add(ricovero);
+		paziente.addRicovero(ricovero);
 
 	}
-
-
 
 	public List<Ricovero> getRicoveriInScadenza (LocalDate data) {
 		List<Ricovero> inScadenza = new ArrayList<>();

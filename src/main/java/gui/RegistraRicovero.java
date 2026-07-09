@@ -89,20 +89,24 @@ public class RegistraRicovero {
               }
               catch (DateTimeParseException e1){
                   JOptionPane.showMessageDialog(frame,
-                          "Formato data non valido. Usare: dd/MM/yyyy HH:mm", "Errore", JOptionPane.ERROR_MESSAGE);
+                          "Formato data non valido. Usare: dd/MM/yyyy HH:mm\n(Verifica se hai lasciato uno spazio dopo l'ora)", "Errore", JOptionPane.ERROR_MESSAGE);
+
                   return;
               }
 
                 if (!dataInizio.isAfter(dataDimissioniPrevista)) {
                     JOptionPane.showMessageDialog(frame, "La data di inizio deve essere precedente alla dimissione prevista.",
                             "Errore", JOptionPane.ERROR_MESSAGE);
+                  return;
                 }
+
 
                 Paziente paziente = pazienti.get(comboBoxP.getSelectedIndex());
                 int idxReparto =  comboBoxR.getSelectedIndex();
                 Reparto rSelezionato = reparti.get(idxReparto);
                 List<Letto> letti = controller.getLettiDisp(rSelezionato);
                 Letto letto = letti.get(comboBoxL.getSelectedIndex());
+
 
                 try{
                     controller.registraRicovero(paziente, letto, dataInizio, dataDimissioniPrevista);
@@ -111,7 +115,6 @@ public class RegistraRicovero {
                     frameChiamante.setVisible(true);
 
                 } catch (IllegalStateException ex) {
-
                     JOptionPane.showMessageDialog(frame, ex.getMessage(), "Errore", JOptionPane.ERROR_MESSAGE);
                 }
 

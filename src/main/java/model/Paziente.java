@@ -83,4 +83,14 @@ public class Paziente {
     this.codiceFiscale = codiceFiscale;
 }
 
+    public ArrayList<Ricovero> getRicoveri(){
+        return ricoveri;
+
+    }
+
+    public void addRicovero(Ricovero ricovero){
+        ricoveri.add(ricovero);
+    }
+
+
 }

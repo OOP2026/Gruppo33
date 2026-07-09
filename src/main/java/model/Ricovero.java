@@ -11,6 +11,7 @@ public class Ricovero {
     private LocalDateTime dataDimissioniPrevista;
     private LocalDateTime dataDimissioniEffettuata;
     private Paziente paziente;
+    private Letto letto;
 
 
 
@@ -22,7 +23,7 @@ public class Ricovero {
      * @param dataDimissioniEffettuata the data dimissioni effettuata
      * @param paziente                 the paziente
      */
-    public Ricovero(LocalDateTime dataInizio, LocalDateTime dataDimissioniPrevista, LocalDateTime dataDimissioniEffettuata, Paziente paziente){
+    public Ricovero(LocalDateTime dataInizio, LocalDateTime dataDimissioniPrevista, LocalDateTime dataDimissioniEffettuata, Paziente paziente, Letto letto){
         this.dataInizio = dataInizio;
         this.dataDimissioniPrevista = dataDimissioniPrevista;
         this.dataDimissioniEffettuata = dataDimissioniEffettuata;

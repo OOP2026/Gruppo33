@@ -54,9 +54,6 @@ public class PazientiScadenza {
 
        DefaultTableModel model= (DefaultTableModel) tablePazienti.getModel();
 
-
-
-
         if (btnIndietro == null) throw new IllegalStateException("btnIndietro non inizializzato");
         btnIndietro.addActionListener(new ActionListener() {
             @Override
