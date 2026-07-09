@@ -29,7 +29,7 @@ public class PazientiScadenza {
      */
     public static JFrame frame;
 
-    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
 
     /**
@@ -71,10 +71,10 @@ public class PazientiScadenza {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                LocalDateTime data;
+                LocalDate data;
 
                 try {
-                    data = LocalDateTime.parse(txtData.getText().trim(), FORMATTER);
+                    data = LocalDate.parse(txtData.getText().trim(), FORMATTER);
                 } catch (DateTimeParseException ex) {
                     JOptionPane.showMessageDialog(frame,
                             "Formato data non valido.\nUsare: dd/MM/yyyy",
@@ -82,7 +82,7 @@ public class PazientiScadenza {
                 }
 
                 model.setRowCount(0);
-                List<Ricovero> ricoveriInScadenza = controller.getRicoveriInScadenza(LocalDateTime.parse(txtData.getText().trim(), FORMATTER));
+                List<Ricovero> ricoveriInScadenza = controller.getRicoveriInScadenza(LocalDate.parse(txtData.getText().trim(), FORMATTER));
                 if (ricoveriInScadenza.isEmpty()){
                     JOptionPane.showMessageDialog(frame, "Nessun paziente in scadenza in questa data.", "Info", JOptionPane.INFORMATION_MESSAGE);
                     return;
@@ -106,7 +106,7 @@ public class PazientiScadenza {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                txtData.setText(LocalDate.now().format(FORMATTER));
+                txtData.setText(LocalDateTime.now().format(FORMATTER));
 
             }
         });

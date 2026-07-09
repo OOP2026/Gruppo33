@@ -122,11 +122,10 @@ public class Controller {
 
 
 
-	public List<Ricovero> getRicoveriInScadenza (LocalDateTime data) {
+	public List<Ricovero> getRicoveriInScadenza (LocalDate data) {
 		List<Ricovero> inScadenza = new ArrayList<>();
 		for (Ricovero r: ricoveri){
-
-			if (r.getDataDimissioniPrevista().equals(data)) {
+			if (r.getDataDimissioniPrevista().toLocalDate().equals(data)) {
 				inScadenza.add(r);
 			}
 		}
