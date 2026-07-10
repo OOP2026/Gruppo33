@@ -7,9 +7,6 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import model.Letto;
-import model.Reparto;
 import java.util.List;
 
 /**
@@ -42,10 +39,9 @@ public class LettiDisponibili {
 
         if (comboBoxR == null) throw new IllegalStateException("btncomboBoxR non inizializzato");
 
-        List<Reparto> reparti = controller.getReparti();
-        for (Reparto r : reparti) {
-            comboBoxR.addItem(r.getNome() + " " + "(" + r.getIdReparto() + ")");
-
+        List<String> nomiReparti = controller.getNomiReparti();
+        for (String r : nomiReparti) {
+            comboBoxR.addItem(r);
         }
 
             DefaultTableModel model = new DefaultTableModel(
@@ -56,12 +52,6 @@ public class LettiDisponibili {
                 }
             };
             tableLetti.setModel(model);
-
-            // per la tabella
-            //tableLetti.setModel(new DefaultTableModel(new Object[][]{}, new String[]{
-                    //"Codice Letto", "Stato"}) {
-
-           // });
 
 
         // Colora la riga in rosso se il letto è occupato
@@ -94,14 +84,13 @@ public class LettiDisponibili {
             public void actionPerformed(ActionEvent e) {
                 int idx = comboBoxR.getSelectedIndex();
                 if (idx < 0) return;
-                Reparto rSelezionato = reparti.get(idx);
                 model.setRowCount(0);
-                //DefaultTableModel model = (DefaultTableModel) tableLetti.getModel();
-                List<Letto> letti = controller.getLettiByReparto(rSelezionato);
-                //if (letti != null)
-                    for (Letto l : letti)
-                        model.addRow(new Object[]{l.getCodiceUnivoco(), l.getStato().toString()});
+                List<String> letti = controller.getCodiciLettiByReparto(idx);
+                for (String s : letti) {
+                    String[] parti = s.split(" - ");
+                    model.addRow(new Object[]{parti[0], parti[1]});
 
+                }
             }
         });
     }

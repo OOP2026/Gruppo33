@@ -5,8 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 import controller.Controller;
-import model.Paziente;
-import model.Ricovero;
+
 
 /**
  * The type Gestione prestazioni.
@@ -38,12 +37,6 @@ public class GestionePrestazioni {
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.pack();
         frame.setLocationRelativeTo(frameChiamante);
-
-       List<Ricovero> ricoveri = controller.getRicoveri();
-       for (Ricovero r:  ricoveri) {
-           Paziente p = r.getPaziente();
-
-       }
 
 
 

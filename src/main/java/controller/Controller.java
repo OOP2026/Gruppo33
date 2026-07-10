@@ -25,7 +25,7 @@ public class Controller {
 		utenti.add(new Amministratore("admin1", "admin123"));
 
 		Reparto rNeurologia = new Reparto("Neurologia", "REP01");
-		Reparto rCardiologia = new  Reparto("Cardiologia", "REP02");
+		Reparto rCardiologia = new Reparto("Cardiologia", "REP02");
 		reparti.add(rNeurologia);
 		reparti.add(rCardiologia);
 
@@ -60,7 +60,6 @@ public class Controller {
 	}
 
 
-
 	public String login(String login, String password) {
 		for (Utente u : utenti) {
 			if (u.login(login, password)) {
@@ -85,14 +84,16 @@ public class Controller {
 		if (utenteCorrente instanceof Amministratore) return (Amministratore) utenteCorrente;
 		return null;
 	}
+
 	public List<Reparto> getReparti() {
 		return reparti;
 	}
+
 	public List<Paziente> getPazienti() {
 		return pazienti;
 	}
 
-	public List<String> getNomiPazienti(){
+	public List<String> getNomiPazienti() {
 		ArrayList<String> nomi = new ArrayList<>();
 		for (Paziente p : pazienti)
 			nomi.add(p.getNome() + " " + p.getCognome()
@@ -101,7 +102,7 @@ public class Controller {
 
 	}
 
-	public List<String> getNomiReparti(){
+	public List<String> getNomiReparti() {
 		ArrayList<String> nomi = new ArrayList<>();
 		for (Reparto r : reparti)
 			nomi.add(r.getNome() + " (" + r.getIdReparto() + ")");
@@ -117,7 +118,7 @@ public class Controller {
 	}
 
 
-	public List<Letto> getLettiDisp(Reparto reparto){
+	public List<Letto> getLettiDisp(Reparto reparto) {
 		return reparto.getLettiDisponibili();
 	}
 
@@ -126,11 +127,19 @@ public class Controller {
 	}
 
 	public void registraPaziente(String nome, String cognome, String cf) {
-		Paziente p  = new Paziente(nome, cognome, cf);
+		Paziente p = new Paziente(nome, cognome, cf);
 		pazienti.add(p);
 
 	}
 
+	public List<String> getCodiciLettiByReparto(int indexReparto) {
+		List<String> codici = new ArrayList<>();
+		Reparto r = reparti.get(indexReparto);
+		for (Letto l : r.getLetti())
+			codici.add(l.getCodiceUnivoco() + " - " + l.getStato().toString());
+		return codici;
+
+	}
 
 
 	public  void registraReparto(Reparto r) {
