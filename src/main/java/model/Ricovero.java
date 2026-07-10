@@ -14,7 +14,6 @@ public class Ricovero {
     private Letto letto;
 
 
-
     /**
      * Instantiates a new Ricovero.
      *
@@ -22,6 +21,7 @@ public class Ricovero {
      * @param dataDimissioniPrevista   the data dimissioni prevista
      * @param dataDimissioniEffettuata the data dimissioni effettuata
      * @param paziente                 the paziente
+     * @param letto                    the letto
      */
     public Ricovero(LocalDateTime dataInizio, LocalDateTime dataDimissioniPrevista, LocalDateTime dataDimissioniEffettuata, Paziente paziente, Letto letto){
         this.dataInizio = dataInizio;
@@ -84,6 +84,11 @@ public class Ricovero {
         this.dataDimissioniEffettuata = dataDimissioniEffettuata;
     }
 
+    /**
+     * Get paziente paziente.
+     *
+     * @return the paziente
+     */
     public Paziente getPaziente (){
         return paziente;
     }

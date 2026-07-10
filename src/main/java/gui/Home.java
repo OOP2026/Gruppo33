@@ -59,7 +59,7 @@ public class Home {
 		if (isAdmin) {
 			lblWelc.setText("Benvenuto amministratore");
 		} else if (isMedico) {
-			lblWelc.setText("Benvenuto medico");
+			lblWelc.setText("Benvenuto Dottore");
 		}
 
 		btnRegistraPaziente.addActionListener(new ActionListener() {
