@@ -52,14 +52,16 @@ public class GestionePrestazioni {
         frame.setLocationRelativeTo(frameChiamante);
 
        List<String> pazienti = controller.getNomiPazienti();
-        for (String s : pazienti) comboBoxPaziente.addItem(s);
+       if (comboBoxPaziente == null) throw new IllegalStateException("comboBoxPaziente non inizializzato");
+       for (String s : pazienti) comboBoxPaziente.addItem(s);
 
-        List<String> tipi = controller.getTipiPrestazione();
-        for (String s : tipi) comboBoxTipo.addItem(s);
+       List<String> tipi = controller.getTipiPrestazione();
+       for (String s : tipi) comboBoxTipo.addItem(s);
 
 
-        if (btnRegistra == null) throw new IllegalStateException("btnRegistra non inizializzato");
-        btnRegistra.addActionListener(new ActionListener() {
+       if (btnRegistra == null) throw new IllegalStateException("btnRegistra non inizializzato");
+
+       btnRegistra.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
@@ -89,6 +91,9 @@ public class GestionePrestazioni {
                             "Errore", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
+
+                if(comboBoxTipo == null) throw new IllegalStateException("comboBoxTipo non inizializzato");
+
                 try {
                     controller.registraPrestazione(
                             comboBoxPaziente.getSelectedIndex(),
