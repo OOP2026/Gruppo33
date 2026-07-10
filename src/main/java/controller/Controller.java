@@ -89,8 +89,22 @@ public class Controller {
 		return reparti;
 	}
 
-	public List<Paziente> getPazienti() {
-		return pazienti;
+	public List<String[]> getPazientiInScadenza(LocalDate data) {
+
+		List<String[]> risultato = new ArrayList<>();
+		for (Ricovero r : ricoveri) {
+			if (r.getDataDimissioniPrevista().toLocalDate().equals(data)) {
+				Paziente p = r.getPaziente();
+				risultato.add(new String[]{
+						p.getNome(),
+						p.getCognome(),
+						p.getCodiceFiscale(),
+						r.getDataDimissioniPrevista().toString()
+				});
+
+			}
+		}
+		return risultato;
 	}
 
 	public List<String> getNomiPazienti() {
@@ -141,11 +155,6 @@ public class Controller {
 
 	}
 
-
-	public  void registraReparto(Reparto r) {
-		reparti.add(r);
-	}
-
 	public void registraRicovero(int indexPaziente, int indexReparto,
 								 int indexLetto, LocalDateTime dataInizio,
 								 LocalDateTime dimissioniPreviste){
@@ -176,6 +185,7 @@ public class Controller {
 		}
 		return inScadenza;
 	}
+
 	public List<Ricovero> getRicoveri() {
 		return ricoveri;
 	}

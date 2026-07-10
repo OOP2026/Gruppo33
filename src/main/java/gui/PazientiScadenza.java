@@ -1,9 +1,6 @@
 package gui;
 
 import controller.Controller;
-import model.Paziente;
-import model.Ricovero;
-
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
@@ -79,20 +76,15 @@ public class PazientiScadenza {
                 }
 
                 model.setRowCount(0);
-                List<Ricovero> ricoveriInScadenza = controller.getRicoveriInScadenza(LocalDate.parse(txtData.getText().trim(), FORMATTER));
-                if (ricoveriInScadenza.isEmpty()){
+
+                List<String[]> pazienti =
+                        controller.getPazientiInScadenza(LocalDate.parse(txtData.getText().trim(), FORMATTER));
+                if (pazienti.isEmpty()){
                     JOptionPane.showMessageDialog(frame, "Nessun paziente in scadenza in questa data.", "Info", JOptionPane.INFORMATION_MESSAGE);
                     return;
                 }
-                for (Ricovero r : ricoveriInScadenza) {
-                    Paziente p = r.getPaziente();
-                    model.addRow(new Object[]{
-                            p.getNome(),
-                            p.getCognome(),
-                            p.getCodiceFiscale(),
-                            r.getDataDimissioniPrevista().format(
-                                    DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"))
-                    });
+                for (String[] riga : pazienti) {
+                    model.addRow(new Object[]{riga[0], riga[1], riga[2], riga[3]});
                 }
 
 
