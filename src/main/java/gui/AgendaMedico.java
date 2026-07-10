@@ -9,11 +9,14 @@ import controller.Controller;
  * The type Agenda medico.
  */
 public class AgendaMedico {
-    private JComboBox comboBoxDorW;
     private JButton btnIndietro;
     private JButton cercaButton;
     private JTable tabellaAgenda;
     private JPanel panel1;
+    private JRadioButton radioGiornalieraRadio;
+    private JRadioButton radioSettimanale;
+    private JButton modificaEsitoButton;
+    private JButton oggiButton;
     /**
      * The constant frame.
      */
@@ -31,7 +34,7 @@ public class AgendaMedico {
         frame.setContentPane(panel1);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.pack();
-        frame.setLocationRelativeTo(null);
+        frame.setLocationRelativeTo(frameChiamante);
         frame.setVisible(true);
 
         if (cercaButton == null) throw new IllegalStateException("cercaButton non inizializzato");
@@ -47,6 +50,18 @@ public class AgendaMedico {
                 frame.setVisible(false);
                 frameChiamante.setVisible(true);
                 frame.dispose();
+
+            }
+        });
+        modificaEsitoButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+        oggiButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
 
             }
         });

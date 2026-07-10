@@ -42,7 +42,7 @@ public class PazientiScadenza {
         frame = new JFrame("Pazienti in scadenza");
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setContentPane(panel1);
-        frame.setLocationRelativeTo(null);
+        frame.setLocationRelativeTo(frameChiamante);
         frame.pack();
         frame.setVisible(true);
 

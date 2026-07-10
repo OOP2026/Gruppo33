@@ -92,8 +92,37 @@ public class Controller {
 		return pazienti;
 	}
 
+	public List<String> getNomiPazienti(){
+		ArrayList<String> nomi = new ArrayList<>();
+		for (Paziente p : pazienti)
+			nomi.add(p.getNome() + " " + p.getCognome()
+					+ " [" + p.getCodiceFiscale() + "]");
+		return nomi;
+
+	}
+
+	public List<String> getNomiReparti(){
+		ArrayList<String> nomi = new ArrayList<>();
+		for (Reparto r : reparti)
+			nomi.add(r.getNome() + " (" + r.getIdReparto() + ")");
+		return nomi;
+	}
+
+	public List<String> getCodiciLettiDisponibili(int indexReparto) {
+		ArrayList<String> codici = new ArrayList<>();
+		Reparto r = reparti.get(indexReparto);
+		for (Letto l : r.getLettiDisponibili())
+			codici.add(l.getCodiceUnivoco());
+		return codici;
+	}
+
+
 	public List<Letto> getLettiDisp(Reparto reparto){
 		return reparto.getLettiDisponibili();
+	}
+
+	public List<Letto> getLettiByReparto(Reparto r) {
+		return r.getLetti();
 	}
 
 	public void registraPaziente(Paziente p) {
@@ -103,7 +132,12 @@ public class Controller {
 		reparti.add(r);
 	}
 
-	public void registraRicovero(Paziente paziente, Letto letto, LocalDateTime dataInizio, LocalDateTime dimissioniPreviste ){
+	public void registraRicovero(int indexPaziente, int indexReparto,
+								 int indexLetto, LocalDateTime dataInizio,
+								 LocalDateTime dimissioniPreviste){
+		Paziente paziente = pazienti.get(indexPaziente);
+		Reparto reparto = reparti.get(indexReparto);
+		Letto letto = reparto.getLettiDisponibili().get(indexLetto);
 		for (Ricovero r: paziente.getRicoveri()){
 			if (!dataInizio.isBefore(r.getDataDimissioniPrevista())
 					&& !r.getDataInizio().isBefore(dimissioniPreviste)){
@@ -127,7 +161,9 @@ public class Controller {
 			}
 		}
 		return inScadenza;
-
+	}
+	public List<Ricovero> getRicoveri() {
+		return ricoveri;
 	}
 
 }

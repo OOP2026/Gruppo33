@@ -7,8 +7,9 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import model.Reparto;
+
 import model.Letto;
+import model.Reparto;
 import java.util.List;
 
 /**
@@ -96,7 +97,7 @@ public class LettiDisponibili {
                 Reparto rSelezionato = reparti.get(idx);
                 model.setRowCount(0);
                 //DefaultTableModel model = (DefaultTableModel) tableLetti.getModel();
-                List<Letto> letti = rSelezionato.getLetti();
+                List<Letto> letti = controller.getLettiByReparto(rSelezionato);
                 //if (letti != null)
                     for (Letto l : letti)
                         model.addRow(new Object[]{l.getCodiceUnivoco(), l.getStato().toString()});

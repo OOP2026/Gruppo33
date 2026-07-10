@@ -3,7 +3,10 @@ package gui;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 import controller.Controller;
+import model.Paziente;
+import model.Ricovero;
 
 /**
  * The type Gestione prestazioni.
@@ -12,7 +15,7 @@ public class GestionePrestazioni {
 
     private JComboBox comboBoxPaziente;
     private JPanel panel1;
-    private JComboBox comboBoxTipo; //si riferisce agli enum visita o intervento chirurgico
+    private JComboBox comboBoxTipo; // si riferisce agli enum visita o intervento chirurgico
     private JTextField txtOraInizio;
     private JTextField txtOraFine;
     private JButton btnRegistra;
@@ -34,7 +37,16 @@ public class GestionePrestazioni {
         frame.setContentPane(panel1);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.pack();
-        frame.setLocationRelativeTo(null);
+        frame.setLocationRelativeTo(frameChiamante);
+
+       List<Ricovero> ricoveri = controller.getRicoveri();
+       for (Ricovero r:  ricoveri) {
+           Paziente p = r.getPaziente();
+
+       }
+
+
+
 
         if (btnRegistra == null) throw new IllegalStateException("btnRegistra non inizializzato");
         btnRegistra.addActionListener(new ActionListener() {

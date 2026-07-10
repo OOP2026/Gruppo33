@@ -1,15 +1,9 @@
 package gui;
 
 import controller.Controller;
-import model.Paziente;
-import model.Reparto;
-import model.Letto;
-import model.Ricovero;
-
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -52,13 +46,13 @@ public class RegistraRicovero {
         if (comboBoxP == null) {
             throw new IllegalStateException("btncomboBoxP non inizializzato");
         }
-        List<Paziente> pazienti = controller.getPazienti();
-        for (Paziente p : pazienti)
-            comboBoxP.addItem(p.getNome() + " " + p.getCognome() + " " + "["+p.getCodiceFiscale()+"]");
+        List<String> nomiPazienti = controller.getNomiPazienti();
+        for (String s : nomiPazienti)
+            comboBoxP.addItem(s);
 
 
-        List<Reparto> reparti = controller.getReparti();
-        for (Reparto r : reparti) comboBoxR.addItem(r.getNome() + " " + "("+r.getIdReparto()+")");
+        List<String> nomiReparti = controller.getNomiReparti();
+        for (String s : nomiReparti) comboBoxR.addItem(s);
 
 
         btnAnnulla.addActionListener(new ActionListener() {
@@ -101,15 +95,14 @@ public class RegistraRicovero {
                 }
 
 
-                Paziente paziente = pazienti.get(comboBoxP.getSelectedIndex());
-                int idxReparto =  comboBoxR.getSelectedIndex();
-                Reparto rSelezionato = reparti.get(idxReparto);
-                List<Letto> letti = controller.getLettiDisp(rSelezionato);
-                Letto letto = letti.get(comboBoxL.getSelectedIndex());
 
 
                 try{
-                    controller.registraRicovero(paziente, letto, dataInizio, dataDimissioniPrevista);
+                    controller.registraRicovero(comboBoxP.getSelectedIndex(),
+                            comboBoxR.getSelectedIndex(),
+                            comboBoxL.getSelectedIndex(),
+                            dataInizio,
+                            dataDimissioniPrevista);
                     JOptionPane.showMessageDialog(frame, "Ricovero registrato correttamente.", "Successo", JOptionPane.INFORMATION_MESSAGE);
                     frame.dispose();
                     frameChiamante.setVisible(true);
@@ -129,11 +122,8 @@ public class RegistraRicovero {
                 comboBoxL.removeAllItems();
                 int idx = comboBoxR.getSelectedIndex();
                 if (idx < 0) return;
-                Reparto rSelezionato = reparti.get(idx);
-                List<Letto> letti = controller.getLettiDisp(rSelezionato);
-                for (Letto l : letti) {
-                    comboBoxL.addItem("Letto"+l.getCodiceUnivoco());
-                }
+                List<String> letti = controller.getCodiciLettiDisponibili(idx);
+                for (String s : letti) comboBoxL.addItem(s);
 
 
             }
