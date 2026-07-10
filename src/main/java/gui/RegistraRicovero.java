@@ -43,6 +43,8 @@ public class RegistraRicovero {
         frame.pack();
         frame.setLocationRelativeTo(frameChiamante);
         frame.setVisible(true);
+
+
         if (comboBoxP == null) {
             throw new IllegalStateException("btncomboBoxP non inizializzato");
         }

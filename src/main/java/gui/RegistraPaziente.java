@@ -1,7 +1,6 @@
 package gui;
 
 import controller.Controller;
-import model.Paziente;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -52,9 +51,7 @@ public class RegistraPaziente {
                     return;
                 }
 
-                Paziente p = new Paziente(nome, cognome, cf);
-                controller.registraPaziente(p);
-
+                controller.registraPaziente(nome, cognome, cf);
                 JOptionPane.showMessageDialog(frame, "Paziente registrato con successo.", "Successo", JOptionPane.INFORMATION_MESSAGE);
                 frame.dispose();
                 frameChiamante.setVisible(true);

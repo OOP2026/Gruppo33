@@ -59,7 +59,7 @@ public class Controller {
 
 	}
 
-	// In base alle credenziali restituisce un ruolo, null se sono errate.
+
 
 	public String login(String login, String password) {
 		for (Utente u : utenti) {
@@ -125,9 +125,14 @@ public class Controller {
 		return r.getLetti();
 	}
 
-	public void registraPaziente(Paziente p) {
+	public void registraPaziente(String nome, String cognome, String cf) {
+		Paziente p  = new Paziente(nome, cognome, cf);
 		pazienti.add(p);
+
 	}
+
+
+
 	public  void registraReparto(Reparto r) {
 		reparti.add(r);
 	}
