@@ -1,22 +1,8 @@
 package implementazioneDao;
-import database_connection.ConnessioneDatabase;
-import dao.RicoveroDAO;
 
-import java.sql.Connection;
-import java.sql.SQLException;
 
 public class UtentePostgresDao  {
 
-    private Connection connection;
-
-    public UtentePostgresDao() {
-
-        try {
-            connection = ConnessioneDatabase.getInstance().connection;
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
 
 }
 

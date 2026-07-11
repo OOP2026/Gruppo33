@@ -14,7 +14,7 @@ public class PrestazionePostgresDAO implements PrestazioneDAO {
         try {
             connection = ConnessioneDatabase.getInstance().connection;
         } catch (SQLException e) {
-            e.printStackTrace();
+           // e.printStackTrace();
         }
     }
 

@@ -18,7 +18,7 @@ public class ConnessioneDatabase {
             connection = DriverManager.getConnection(URL, NOME, PASSWORD);
         } catch (ClassNotFoundException ex) {
             System.out.println("Database Connection CreationFailed: " + ex.getMessage());
-            ex.printStackTrace();
+           // ex.printStackTrace();
         }
     }
     public static ConnessioneDatabase getInstance() throws SQLException {

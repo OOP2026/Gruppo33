@@ -15,7 +15,7 @@ public class AmministratorePostgresDAO implements AmministratoreDAO {
         try {
             connection = ConnessioneDatabase.getInstance().connection;
         } catch (SQLException e) {
-            e.printStackTrace();
+          //  e.printStackTrace();
         }
     }
 
