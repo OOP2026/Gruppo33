@@ -1,15 +1,15 @@
 package implementazioneDao;
+import dao.PrestazioneDAO;
 import database_connection.ConnessioneDatabase;
-import dao.RicoveroDAO;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 
-public class UtentePostgresDao  {
+public class PrestazionePostgresDAO implements PrestazioneDAO {
 
     private Connection connection;
 
-    public UtentePostgresDao() {
+    public PrestazionePostgresDAO() {
 
         try {
             connection = ConnessioneDatabase.getInstance().connection;
@@ -19,4 +19,3 @@ public class UtentePostgresDao  {
     }
 
 }
-

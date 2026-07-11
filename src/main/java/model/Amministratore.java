@@ -46,6 +46,9 @@ public class Amministratore extends Utente {
      * @param paziente the paziente
      */
     public void getPazientiInScadenza(Paziente paziente){
+
+
+
     }
 
     /**

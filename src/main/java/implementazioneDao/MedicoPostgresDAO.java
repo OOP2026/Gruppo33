@@ -1,15 +1,15 @@
 package implementazioneDao;
 import database_connection.ConnessioneDatabase;
-import dao.RicoveroDAO;
+import dao.MedicoDAO;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 
-public class UtentePostgresDao  {
+public class MedicoPostgresDAO implements MedicoDAO {
 
-    private Connection connection;
+private Connection connection;
 
-    public UtentePostgresDao() {
+public MedicoPostgresDAO() {
 
         try {
             connection = ConnessioneDatabase.getInstance().connection;
@@ -19,4 +19,5 @@ public class UtentePostgresDao  {
     }
 
 }
+
 

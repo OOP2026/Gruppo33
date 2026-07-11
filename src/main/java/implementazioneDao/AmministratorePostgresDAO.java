@@ -1,16 +1,17 @@
 package implementazioneDao;
+
+import dao.AmministratoreDAO;
 import database_connection.ConnessioneDatabase;
-import dao.RicoveroDAO;
+import model.Amministratore;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 
-public class UtentePostgresDao  {
+public class AmministratorePostgresDAO implements AmministratoreDAO {
 
     private Connection connection;
 
-    public UtentePostgresDao() {
-
+    public AmministratorePostgresDAO(){
         try {
             connection = ConnessioneDatabase.getInstance().connection;
         } catch (SQLException e) {
@@ -18,5 +19,10 @@ public class UtentePostgresDao  {
         }
     }
 
-}
+    @Override
+    public void registraPaziente(String nome, String cognome, String cf) {
 
+
+    }
+
+}

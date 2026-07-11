@@ -5,11 +5,11 @@ import dao.RicoveroDAO;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-public class UtentePostgresDao  {
+public class RicoveroPostgresDAO implements RicoveroDAO {
 
     private Connection connection;
 
-    public UtentePostgresDao() {
+    public RicoveroPostgresDAO() {
 
         try {
             connection = ConnessioneDatabase.getInstance().connection;
@@ -19,4 +19,3 @@ public class UtentePostgresDao  {
     }
 
 }
-
