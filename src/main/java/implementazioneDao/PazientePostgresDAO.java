@@ -1,23 +1,24 @@
 package implementazioneDao;
+
+import dao.PazienteDAO;
 import database_connection.ConnessioneDatabase;
-import dao.MedicoDAO;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 
-public class MedicoPostgresDAO implements MedicoDAO {
+public class PazientePostgresDAO implements PazienteDAO {
 
-private Connection connection;
+    private Connection connection;
 
-public MedicoPostgresDAO() {
+    public PazientePostgresDAO() {
 
         try {
             connection = ConnessioneDatabase.getInstance().connection;
         } catch (SQLException e) {
-           // e.printStackTrace();
+            // e.printStackTrace();
         }
     }
 
+
+
 }
-
-
