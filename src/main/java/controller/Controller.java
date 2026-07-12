@@ -4,6 +4,7 @@ import model.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +15,8 @@ public class Controller {
 
 	// Dati dell'utente autenticato
 	private Utente utenteCorrente;
+    private Amministratore amministratore;
+	private Medico medico;
 
 	// Dati di sistema
 	private ArrayList<Utente> utenti = new ArrayList<>();
@@ -28,7 +31,9 @@ public class Controller {
 	 */
 	public Controller() {
 		// dati per testare
-		utenti.add(new Amministratore("admin1", "admin123"));
+		Amministratore admin = new Amministratore("admin1", "admin123");
+		utenti.add(admin);
+		this.amministratore = admin;
 
 		Reparto rNeurologia = new Reparto("Neurologia", "REP01");
 		Reparto rCardiologia = new Reparto("Cardiologia", "REP02");
@@ -36,6 +41,9 @@ public class Controller {
 		reparti.add(rCardiologia);
 
 		utenti.add(new Medico("medico1", "medico123", "Mario", "Rossi", rNeurologia));
+
+		TurnoLavorativo t1 = new TurnoLavorativo(GiornoSettimana.GIOVEDI, LocalTime.of(14, 0), LocalTime.of(23, 0));
+
 
 		Letto l1 = new Letto("001");
 		Letto l2 = new Letto("002");
@@ -113,29 +121,6 @@ public class Controller {
 		return null;
 	}
 
-	/**
-	 * Gets pazienti in scadenza.
-	 *
-	 * @param data the data
-	 * @return the pazienti in scadenza
-	 */
-	public List<String[]> getPazientiInScadenza(LocalDate data) {
-
-		List<String[]> risultato = new ArrayList<>();
-		for (Ricovero r : ricoveri) {
-			if (r.getDataDimissioniPrevista().toLocalDate().equals(data)) {
-				Paziente p = r.getPaziente();
-				risultato.add(new String[]{
-						p.getNome(),
-						p.getCognome(),
-						p.getCodiceFiscale(),
-						r.getDataDimissioniPrevista().toString()
-				});
-
-			}
-		}
-		return risultato;
-	}
 
 	/**
 	 * Gets nomi pazienti.
@@ -143,7 +128,6 @@ public class Controller {
 	 * @return the nomi pazienti
 	 */
 	public List<String> getNomiPazienti() {
-		Amministratore amministratore = getAmministratoreCorrente();
 		List<Paziente> p = amministratore.getPazienti();
 		ArrayList<String> nomi = new ArrayList<>();
 		for (Paziente paziente : p)
@@ -152,6 +136,28 @@ public class Controller {
 		return nomi;
 
 	}
+
+
+	/**
+	 * Gets pazienti in scadenza.
+	 *
+	 * @param data the data
+	 * @return the pazienti in scadenza
+	 */
+	public List<String[]> getPazientiInScadenza(LocalDate data) {
+		List<String[]> risultato = new ArrayList<>();
+		for (Ricovero r : amministratore.getPazientiInScadenza(data)) {
+			Paziente p = r.getPaziente();
+			risultato.add(new String[]{
+					p.getNome(),
+					p.getCognome(),
+					p.getCodiceFiscale(),
+					r.getDataDimissioniPrevista().toString()
+			});
+		}
+		return risultato;
+	}
+
 
 	/**
 	 * Gets nomi reparti.
@@ -208,8 +214,7 @@ public class Controller {
 	 * @param cf      the cf
 	 */
 	public void registraPaziente(String nome, String cognome, String cf) {
-		Amministratore amministratore = getAmministratoreCorrente();
-		amministratore.registerPaziente(nome, cognome, cf);
+	amministratore.registerPaziente(nome, cognome, cf);
 
 	}
 
@@ -240,21 +245,11 @@ public class Controller {
 	public void registraRicovero(int indexPaziente, int indexReparto,
 								 int indexLetto, LocalDateTime dataInizio,
 								 LocalDateTime dimissioniPreviste){
-		Paziente paziente = pazienti.get(indexPaziente);
+		Paziente paziente = amministratore.getPazienti().get(indexPaziente);
 		Reparto reparto = reparti.get(indexReparto);
 		Letto letto = reparto.getLettiDisponibili().get(indexLetto);
-		for (Ricovero r: paziente.getRicoveri()){
-			if (!dataInizio.isBefore(r.getDataDimissioniPrevista())
-					&& !r.getDataInizio().isBefore(dimissioniPreviste)){
-				throw new IllegalStateException(
-						"Il paziente è già assegnato in un altro letto in questo periodo.");
-			}
-		}
-		Ricovero ricovero = new Ricovero(dataInizio, dimissioniPreviste, null, paziente, letto);
-		letto.getRicoveri().add(ricovero);
-		letto.setStato(StatoLetto.OCCUPATO);
-		ricoveri.add(ricovero);
-		paziente.addRicovero(ricovero);
+		getAmministratoreCorrente().registerRicovero(paziente, letto,
+				dataInizio, dimissioniPreviste);
 
 	}
 

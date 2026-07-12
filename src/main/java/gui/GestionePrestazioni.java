@@ -51,8 +51,11 @@ public class GestionePrestazioni {
         frame.pack();
         frame.setLocationRelativeTo(frameChiamante);
 
+
        List<String> pazienti = controller.getNomiPazienti();
+
        if (comboBoxPaziente == null) throw new IllegalStateException("comboBoxPaziente non inizializzato");
+
        for (String s : pazienti) comboBoxPaziente.addItem(s);
 
        List<String> tipi = controller.getTipiPrestazione();
@@ -109,7 +112,9 @@ public class GestionePrestazioni {
                     JOptionPane.showMessageDialog(frame,
                             ex.getMessage(),
                             "Errore", JOptionPane.ERROR_MESSAGE);
+
                 }
+
             }
         });
 

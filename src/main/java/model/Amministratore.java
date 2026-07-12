@@ -1,4 +1,6 @@
 package model;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,8 +38,23 @@ public class Amministratore extends Utente {
      *
      * @param ricovero the ricovero
      */
-    public void registerRicovero(Ricovero ricovero){
+    public void registerRicovero(Paziente paziente, Letto letto,
+                                 LocalDateTime dataInizio,
+                                 LocalDateTime dimissioniPreviste){
+        for (Ricovero r : paziente.getRicoveri()) {
+            if (!dataInizio.isBefore(r.getDataDimissioniPrevista())
+                    && !r.getDataInizio().isBefore(dimissioniPreviste)) {
+                throw new IllegalStateException(
+                        "Il paziente è già assegnato in un altro letto in questo periodo.");
+            }
+        }
+
+        Ricovero ricovero = new Ricovero(dataInizio, dimissioniPreviste, null, paziente, letto);
+        letto.getRicoveri().add(ricovero);
+        letto.setStato(StatoLetto.OCCUPATO);
+        paziente.addRicovero(ricovero);
         ricoveri.add(ricovero);
+
     }
 
 
@@ -53,10 +70,14 @@ public class Amministratore extends Utente {
     }
 
 
-    public void getPazientiInScadenza(Paziente paziente){
-
-
-
+    public List<Ricovero> getPazientiInScadenza(LocalDate data) {
+        List<Ricovero> inScadenza = new ArrayList<>();
+        for (Ricovero r : ricoveri) {
+            if (r.getDataDimissioniPrevista().toLocalDate().equals(data)) {
+                inScadenza.add(r);
+            }
+        }
+        return inScadenza;
     }
 
     /**

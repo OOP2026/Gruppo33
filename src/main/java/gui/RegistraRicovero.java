@@ -96,9 +96,6 @@ public class RegistraRicovero {
                   return;
                 }
 
-
-
-
                 try{
                     controller.registraRicovero(comboBoxP.getSelectedIndex(),
                             comboBoxR.getSelectedIndex(),

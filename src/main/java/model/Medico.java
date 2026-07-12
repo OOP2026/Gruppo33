@@ -101,6 +101,12 @@ public class Medico extends Utente {
      *
      * @return the prestazioni
      */
+
+    public void addTurnoLavorativo(TurnoLavorativo t) {
+       turni.add(t);
+    }
+
+
     public List<Prestazione> getPrestazioni() {
         return prestazioni;
     }
