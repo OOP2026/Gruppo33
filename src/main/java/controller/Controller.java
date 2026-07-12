@@ -143,10 +143,12 @@ public class Controller {
 	 * @return the nomi pazienti
 	 */
 	public List<String> getNomiPazienti() {
+		Amministratore amministratore = getAmministratoreCorrente();
+		List<Paziente> p = amministratore.getPazienti();
 		ArrayList<String> nomi = new ArrayList<>();
-		for (Paziente p : pazienti)
-			nomi.add(p.getNome() + " " + p.getCognome()
-					+ " [" + p.getCodiceFiscale() + "]");
+		for (Paziente paziente : p)
+			nomi.add(paziente.getNome() + " " + paziente.getCognome()
+					+ " [" + paziente.getCodiceFiscale() + "]");
 		return nomi;
 
 	}
@@ -206,8 +208,8 @@ public class Controller {
 	 * @param cf      the cf
 	 */
 	public void registraPaziente(String nome, String cognome, String cf) {
-		Paziente p = new Paziente(nome, cognome, cf);
-		pazienti.add(p);
+		Amministratore amministratore = getAmministratoreCorrente();
+		amministratore.registerPaziente(nome, cognome, cf);
 
 	}
 

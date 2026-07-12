@@ -25,8 +25,9 @@ public class Amministratore extends Utente {
      *
      * @param paziente the paziente
      */
-    public void registerPaziente(Paziente paziente){
-        pazienti.add(paziente);
+    public void registerPaziente(String nome, String cognome, String cf){
+        Paziente p = new Paziente(nome, cognome, cf);
+        pazienti.add(p);
 
     }
 
@@ -44,7 +45,14 @@ public class Amministratore extends Utente {
      * Get pazienti in scadenza.
      *
      * @param paziente the paziente
+     *
      */
+
+    public List<Paziente> getPazienti(){
+        return pazienti;
+    }
+
+
     public void getPazientiInScadenza(Paziente paziente){
 
 
