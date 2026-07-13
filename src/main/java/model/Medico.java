@@ -120,30 +120,10 @@ public class Medico extends Utente {
     public void registerEsito(Prestazione p, String testo) {
         p.setEsito(testo);
     }
-    private GiornoSettimana toGiornoSettimana(DayOfWeek dow) {
-        switch (dow) {
-            case MONDAY:
-                return GiornoSettimana.LUNEDI;
-            case TUESDAY:
-                return GiornoSettimana.MARTEDI;
-            case WEDNESDAY:
-                return GiornoSettimana.MERCOLEDI;
-            case THURSDAY:
-                return GiornoSettimana.GIOVEDI;
-            case FRIDAY:
-                return GiornoSettimana.VENERDI;
-            case SATURDAY:
-                return GiornoSettimana.SABATO;
-            default:
-                return GiornoSettimana.DOMENICA;
-        }
-    }
-
     private boolean nelTurno(LocalDateTime inizio, LocalDateTime fine){
-        GiornoSettimana giornoRichiesto = toGiornoSettimana(inizio.getDayOfWeek());
         for (TurnoLavorativo t : turni) {
-            if (t.getGiorno() == giornoRichiesto
-                    && t.copre(inizio, fine)) {
+            if (t.getGiorno().equals(inizio.getDayOfWeek())
+                    && t.copre(inizio.toLocalTime(), fine.toLocalTime())) {
                 return true;
             }
         }

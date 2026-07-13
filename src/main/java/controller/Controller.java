@@ -4,7 +4,8 @@ import dao.PazienteDAO;
 import implementazioneDao.PazientePostgresDAO;
 import model.*;
 
-import java.sql.SQLException;
+
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -48,8 +49,22 @@ public class Controller {
 		this.medico = medico;
 
 		//turno lavorativo
-		TurnoLavorativo t1 = new TurnoLavorativo(GiornoSettimana.GIOVEDI, LocalDateTime.of(2026, 7, 9, 14, 0),
-				LocalDateTime.of(2026, 7, 9, 23, 0));
+		TurnoLavorativo t1 = new TurnoLavorativo(DayOfWeek.MONDAY, LocalTime.of(14, 0), LocalTime.of(23, 0));
+		TurnoLavorativo t2 = new TurnoLavorativo(DayOfWeek.TUESDAY, LocalTime.of(14, 0), LocalTime.of(23, 0));
+		TurnoLavorativo t3 = new TurnoLavorativo(DayOfWeek.WEDNESDAY, LocalTime.of(14, 0), LocalTime.of(23, 0));
+		TurnoLavorativo t4 = new TurnoLavorativo(DayOfWeek.THURSDAY, LocalTime.of(14, 0), LocalTime.of(23, 0));
+		TurnoLavorativo t5 = new TurnoLavorativo(DayOfWeek.FRIDAY, LocalTime.of(14, 0), LocalTime.of(23, 0));
+		TurnoLavorativo t6 = new TurnoLavorativo(DayOfWeek.SATURDAY, LocalTime.of(14, 0), LocalTime.of(23, 0));
+		TurnoLavorativo t7 = new TurnoLavorativo(DayOfWeek.SUNDAY, LocalTime.of(14, 0), LocalTime.of(23, 0));
+
+		medico.addTurnoLavorativo(t1);
+		medico.addTurnoLavorativo(t2);
+		medico.addTurnoLavorativo(t3);
+		medico.addTurnoLavorativo(t4);
+		medico.addTurnoLavorativo(t5);
+		medico.addTurnoLavorativo(t6);
+		medico.addTurnoLavorativo(t7);
+
 
 
 		Letto l1 = new Letto("001");
@@ -78,7 +93,18 @@ public class Controller {
 
 		rCardiologia.addStanza(s2);
 
-	}
+		ArrayList<String> nomi = new ArrayList<>();
+		ArrayList<String> cognomi = new ArrayList<>();
+		ArrayList<String> codiciF = new ArrayList<>();
+		PazienteDAO pdao = new PazientePostgresDAO();
+		pdao.leggiPazientiDB(nomi, cognomi, codiciF);
+		for (int i = 0; i < nomi.size(); i++) {
+			Paziente p = new Paziente(nomi.get(i), cognomi.get(i), codiciF.get(i));
+			amministratore.registerPaziente(nomi.get(i), cognomi.get(i), codiciF.get(i));
+		}
+
+
+		}
 
 
 	/**
@@ -135,13 +161,21 @@ public class Controller {
 	 * @return the nomi pazienti
 	 */
 	public List<String> getNomiPazienti() {
-		List<Paziente> p = amministratore.getPazienti();
 		ArrayList<String> nomi = new ArrayList<>();
-		for (Paziente paziente : p)
+		for (Paziente p : amministratore.getPazienti())
+			nomi.add(p.getNome() + " " + p.getCognome()
+					+ " [" + p.getCodiceFiscale() + "]");
+		return nomi;
+	}
+
+	public List<String> getNomiPazientiRicoverati() {
+		ArrayList<String> nomi = new ArrayList<>();
+		for (Ricovero r : amministratore.getRicoveri()) {
+			Paziente paziente = r.getPaziente();
 			nomi.add(paziente.getNome() + " " + paziente.getCognome()
 					+ " [" + paziente.getCodiceFiscale() + "]");
+		}
 		return nomi;
-
 	}
 
 
@@ -225,8 +259,8 @@ public class Controller {
         amministratore.registerPaziente(nome, cognome, cf);
 		pdao.inserisciPazienteDB(nome, cognome, cf);
 
+		}
 
-	}
 
 	/**
 	 * Gets codici letti by reparto.
@@ -303,10 +337,41 @@ public class Controller {
 	 */
 	public void registraPrestazione(int indexRicovero, int indexTipo,
 									LocalDateTime oraInizio, LocalDateTime oraFine) {
-		Ricovero ricovero = ricoveri.get(indexRicovero);
+		Ricovero ricovero = amministratore.getRicoveri().get(indexRicovero);
 		TipoPrestazione tipo = TipoPrestazione.values()[indexTipo];
 		Prestazione p = new Prestazione(null, tipo, oraInizio, oraFine, ricovero);
 		medico.registerPrestazione(p);
+	}
+
+
+
+	public void getPrestazioniGiornaliere() {
+
+		// ...
+
+	}
+
+
+	public void getPrestazioniSettimanali() {
+
+
+		// ...
+
+
+	}
+
+
+	public void getPrestazioniByIndex(int index) {
+
+		// ...
+
+	}
+
+
+	public void modificaEsito(String esito) {
+
+		// ...
+
 	}
 
 

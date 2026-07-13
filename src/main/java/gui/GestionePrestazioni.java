@@ -52,7 +52,7 @@ public class GestionePrestazioni {
         frame.setLocationRelativeTo(frameChiamante);
 
 
-       List<String> pazienti = controller.getNomiPazienti();
+       List<String> pazienti = controller.getNomiPazientiRicoverati();
 
        if (comboBoxPaziente == null) throw new IllegalStateException("comboBoxPaziente non inizializzato");
 

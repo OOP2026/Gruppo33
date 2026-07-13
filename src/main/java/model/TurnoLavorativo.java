@@ -1,5 +1,6 @@
 package model;
 
+import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
@@ -7,9 +8,9 @@ import java.time.LocalTime;
  * The type Turno lavorativo.
  */
 public class TurnoLavorativo {
-    private GiornoSettimana giorno;
-    private LocalDateTime oraInizio;
-    private LocalDateTime oraFine;
+    private DayOfWeek giorno;
+    private LocalTime oraInizio;
+    private LocalTime oraFine;
 
     /**
      * Instantiates a new Turno lavorativo.
@@ -18,7 +19,7 @@ public class TurnoLavorativo {
      * @param oraInizio the ora inizio
      * @param oraFine   the ora fine
      */
-    public TurnoLavorativo(GiornoSettimana giorno, LocalDateTime oraInizio, LocalDateTime oraFine){
+    public TurnoLavorativo(DayOfWeek giorno, LocalTime oraInizio, LocalTime oraFine){
         this.giorno = giorno;
         this.oraInizio = oraInizio;
         this.oraFine = oraFine;
@@ -29,7 +30,7 @@ public class TurnoLavorativo {
      *
      * @return the giorno
      */
-    public GiornoSettimana getGiorno() {
+    public DayOfWeek getGiorno() {
         return giorno;
     }
 
@@ -38,7 +39,7 @@ public class TurnoLavorativo {
      *
      * @param giorno the giorno
      */
-    public void setGiorno (GiornoSettimana giorno)   {
+    public void setGiorno (DayOfWeek giorno)   {
         this.giorno = giorno;
     }
 
@@ -47,7 +48,7 @@ public class TurnoLavorativo {
      *
      * @return the ora inizio
      */
-    public LocalDateTime getOraInizio() {
+    public LocalTime getOraInizio() {
         return oraInizio;
     }
 
@@ -56,7 +57,7 @@ public class TurnoLavorativo {
      *
      * @param oraInizio the ora inizio
      */
-    public void setOraInizio(LocalDateTime oraInizio) {
+    public void setOraInizio(LocalTime oraInizio) {
         this.oraInizio = oraInizio;
     }
 
@@ -65,7 +66,7 @@ public class TurnoLavorativo {
      *
      * @return the ora fine
      */
-    public LocalDateTime getOraFine() {
+    public LocalTime getOraFine() {
         return oraFine;
     }
 
@@ -74,7 +75,7 @@ public class TurnoLavorativo {
      *
      * @param oraFine the ora fine
      */
-    public void setOraFine(LocalDateTime oraFine) {
+    public void setOraFine(LocalTime oraFine) {
         this.oraFine = oraFine;
     }
 
@@ -85,7 +86,7 @@ public class TurnoLavorativo {
      * @param fine   the fine
      * @return the boolean
      */
-    public boolean copre(LocalDateTime inizio, LocalDateTime fine) {
+    public boolean copre(LocalTime inizio, LocalTime fine) {
         return !inizio.isBefore(oraInizio) && !fine.isAfter(oraFine);
     }
 }

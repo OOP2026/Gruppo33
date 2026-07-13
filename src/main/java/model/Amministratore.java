@@ -25,7 +25,9 @@ public class Amministratore extends Utente {
     /**
      * Register paziente.
      *
-     * @param paziente the paziente
+     * @param nome    the nome
+     * @param cognome the cognome
+     * @param cf      the cf
      */
     public void registerPaziente(String nome, String cognome, String cf){
         Paziente p = new Paziente(nome, cognome, cf);
@@ -36,7 +38,10 @@ public class Amministratore extends Utente {
     /**
      * Register ricovero.
      *
-     * @param ricovero the ricovero
+     * @param paziente           the paziente
+     * @param letto              the letto
+     * @param dataInizio         the data inizio
+     * @param dimissioniPreviste the dimissioni previste
      */
     public void registerRicovero(Paziente paziente, Letto letto,
                                  LocalDateTime dataInizio,
@@ -62,14 +67,19 @@ public class Amministratore extends Utente {
      * Get pazienti in scadenza.
      *
      * @param paziente the paziente
-     *
+     * @return the list
      */
-
     public List<Paziente> getPazienti(){
         return pazienti;
     }
 
 
+    /**
+     * Gets pazienti in scadenza.
+     *
+     * @param data the data
+     * @return the pazienti in scadenza
+     */
     public List<Ricovero> getPazientiInScadenza(LocalDate data) {
         List<Ricovero> inScadenza = new ArrayList<>();
         for (Ricovero r : ricoveri) {
@@ -89,4 +99,9 @@ public class Amministratore extends Utente {
     public List<Letto> getLettiDisponibili(Reparto reparto) {
         return reparto.getLettiDisponibili();
     }
+
+    public List<Ricovero> getRicoveri() {
+        return ricoveri;
+    }
+
 }

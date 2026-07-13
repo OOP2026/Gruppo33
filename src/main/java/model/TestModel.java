@@ -27,7 +27,7 @@ public class TestModel {
 		Reparto r = new Reparto("Neurologia", "2kfdokf");
 		//TurnoLavorativo turno = new TurnoLavorativo (LUNEDI, LocalDateTime.of(16, 0, 0), LocalDateTime.of(23,0, 0));
 		Stanza s = new Stanza(1, 1);
-		Letto l = new Letto("12jnn");
+		Letto l = new Letto("001");
 		Medico med1 = new Medico("topolino", "minni", "Franco", "Rossi", r);
 
 		med1.registerEsito(p, "La visita non ha riscontrato nuove diagnosi");

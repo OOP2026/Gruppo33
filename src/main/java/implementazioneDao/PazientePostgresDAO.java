@@ -57,9 +57,9 @@ public class PazientePostgresDAO implements PazienteDAO {
 
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                nomi.add(rs.getString("Nome"));
-                cognomi.add(rs.getString("Cognome"));
-                codiciF.add(rs.getString("CodiceFiscale"));
+                nomi.add(rs.getString("nome"));
+                cognomi.add(rs.getString("cognome"));
+                codiciF.add(rs.getString("cf"));
 
             }
             rs.close();

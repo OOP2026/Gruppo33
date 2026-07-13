@@ -79,9 +79,7 @@ public class AgendaMedico {
                     return;
 
                 }
-
                 model.setRowCount(0);
-
                 List<String[]> Prestazioni;
 
 
