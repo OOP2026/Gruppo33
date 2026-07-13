@@ -85,7 +85,7 @@ public class RegistraRicovero {
               }
               catch (DateTimeParseException e1){
                   JOptionPane.showMessageDialog(frame,
-                          "Formato data non valido. Usare: dd/MM/yyyy HH:mm\n(Verifica se hai lasciato uno spazio dopo l'ora)", "Errore", JOptionPane.ERROR_MESSAGE);
+                          "Formato data non valido. Usare: dd/MM/yyyy HH:mm\n(Verifica di aver lasciato uno spazio dopo l'ora)", "Errore", JOptionPane.ERROR_MESSAGE);
 
                   return;
               }

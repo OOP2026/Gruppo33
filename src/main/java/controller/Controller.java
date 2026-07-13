@@ -40,9 +40,13 @@ public class Controller {
 		reparti.add(rNeurologia);
 		reparti.add(rCardiologia);
 
-		utenti.add(new Medico("medico1", "medico123", "Mario", "Rossi", rNeurologia));
+		Medico medico = new Medico("medico1", "medico123", "Mario", "Rossi", rNeurologia);
+		utenti.add(medico);
+		this.medico = medico;
 
-		TurnoLavorativo t1 = new TurnoLavorativo(GiornoSettimana.GIOVEDI, LocalTime.of(14, 0), LocalTime.of(23, 0));
+		//turno lavorativo
+		TurnoLavorativo t1 = new TurnoLavorativo(GiornoSettimana.GIOVEDI, LocalDateTime.of(2026, 7, 9, 14, 0),
+				LocalDateTime.of(2026, 7, 9, 23, 0));
 
 
 		Letto l1 = new Letto("001");
@@ -293,7 +297,6 @@ public class Controller {
 	 */
 	public void registraPrestazione(int indexRicovero, int indexTipo,
 									LocalDateTime oraInizio, LocalDateTime oraFine) {
-		Medico medico = getMedicoCorrente();
 		Ricovero ricovero = ricoveri.get(indexRicovero);
 		TipoPrestazione tipo = TipoPrestazione.values()[indexTipo];
 		Prestazione p = new Prestazione(null, tipo, oraInizio, oraFine, ricovero);

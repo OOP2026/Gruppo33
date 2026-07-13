@@ -45,7 +45,7 @@ public class GestionePrestazioni {
      * @param frameChiamante the frame chiamante
      */
     public GestionePrestazioni(Controller controller, JFrame frameChiamante) {
-        frame = new JFrame("Gestici le prestiazioni");
+        frame = new JFrame("Gestici le prestazioni");
         frame.setContentPane(panel1);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.pack();

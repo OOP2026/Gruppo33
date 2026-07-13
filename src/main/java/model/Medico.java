@@ -143,7 +143,7 @@ public class Medico extends Utente {
         GiornoSettimana giornoRichiesto = toGiornoSettimana(inizio.getDayOfWeek());
         for (TurnoLavorativo t : turni) {
             if (t.getGiorno() == giornoRichiesto
-                    && t.copre(inizio.toLocalTime(), fine.toLocalTime())) {
+                    && t.copre(inizio, fine)) {
                 return true;
             }
         }

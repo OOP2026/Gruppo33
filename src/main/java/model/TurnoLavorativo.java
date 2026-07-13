@@ -1,5 +1,6 @@
 package model;
 
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 /**
@@ -7,8 +8,8 @@ import java.time.LocalTime;
  */
 public class TurnoLavorativo {
     private GiornoSettimana giorno;
-    private LocalTime oraInizio;
-    private LocalTime oraFine;
+    private LocalDateTime oraInizio;
+    private LocalDateTime oraFine;
 
     /**
      * Instantiates a new Turno lavorativo.
@@ -17,7 +18,7 @@ public class TurnoLavorativo {
      * @param oraInizio the ora inizio
      * @param oraFine   the ora fine
      */
-    public TurnoLavorativo(GiornoSettimana giorno, LocalTime oraInizio, LocalTime oraFine){
+    public TurnoLavorativo(GiornoSettimana giorno, LocalDateTime oraInizio, LocalDateTime oraFine){
         this.giorno = giorno;
         this.oraInizio = oraInizio;
         this.oraFine = oraFine;
@@ -46,7 +47,7 @@ public class TurnoLavorativo {
      *
      * @return the ora inizio
      */
-    public LocalTime getOraInizio() {
+    public LocalDateTime getOraInizio() {
         return oraInizio;
     }
 
@@ -55,7 +56,7 @@ public class TurnoLavorativo {
      *
      * @param oraInizio the ora inizio
      */
-    public void setOraInizio(LocalTime oraInizio) {
+    public void setOraInizio(LocalDateTime oraInizio) {
         this.oraInizio = oraInizio;
     }
 
@@ -64,7 +65,7 @@ public class TurnoLavorativo {
      *
      * @return the ora fine
      */
-    public LocalTime getOraFine() {
+    public LocalDateTime getOraFine() {
         return oraFine;
     }
 
@@ -73,7 +74,7 @@ public class TurnoLavorativo {
      *
      * @param oraFine the ora fine
      */
-    public void setOraFine(LocalTime oraFine) {
+    public void setOraFine(LocalDateTime oraFine) {
         this.oraFine = oraFine;
     }
 
@@ -84,7 +85,7 @@ public class TurnoLavorativo {
      * @param fine   the fine
      * @return the boolean
      */
-    public boolean copre(LocalTime inizio, LocalTime fine) {
+    public boolean copre(LocalDateTime inizio, LocalDateTime fine) {
         return !inizio.isBefore(oraInizio) && !fine.isAfter(oraFine);
     }
 }
