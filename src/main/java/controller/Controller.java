@@ -1,7 +1,10 @@
 package controller;
 
+import dao.PazienteDAO;
+import implementazioneDao.PazientePostgresDAO;
 import model.*;
 
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -218,7 +221,10 @@ public class Controller {
 	 * @param cf      the cf
 	 */
 	public void registraPaziente(String nome, String cognome, String cf) {
-	amministratore.registerPaziente(nome, cognome, cf);
+	PazienteDAO pdao = new PazientePostgresDAO();
+        amministratore.registerPaziente(nome, cognome, cf);
+		pdao.inserisciPazienteDB(nome, cognome, cf);
+
 
 	}
 
