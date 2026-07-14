@@ -28,16 +28,16 @@ public class PazientePostgresDAO implements PazienteDAO {
 
         String sql = "INSERT INTO \"paziente\"(\"cf\", \"nome\", \"cognome\") VALUES (?, ?, ?);";
 
-        try (PreparedStatement inserisciPazienteDB = connection.prepareStatement(sql)) {
+        try (PreparedStatement inserisciPazientePS = connection.prepareStatement(sql)) {
 
             if (nome == null || nome.trim().isEmpty() || cognome == null || cognome.trim().isEmpty() || codiceFiscale == null || codiceFiscale.trim().isEmpty()) {
                 throw new IllegalArgumentException("Il nome, cognome e codice fiscale del paziente non possono essere vuoti.");
             }
 
-            inserisciPazienteDB.setString(2, nome.trim());
-            inserisciPazienteDB.setString(3, cognome.trim());
-            inserisciPazienteDB.setString(1, codiceFiscale.trim());
-            inserisciPazienteDB.executeUpdate();
+            inserisciPazientePS.setString(2, nome.trim());
+            inserisciPazientePS.setString(3, cognome.trim());
+            inserisciPazientePS.setString(1, codiceFiscale.trim());
+            inserisciPazientePS.executeUpdate();
             connection.close();
 
         } catch (SQLException e) {

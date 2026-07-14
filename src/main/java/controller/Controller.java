@@ -292,7 +292,7 @@ public class Controller {
 		Paziente paziente = amministratore.getPazienti().get(indexPaziente);
 		Reparto reparto = reparti.get(indexReparto);
 		Letto letto = reparto.getLettiDisponibili().get(indexLetto);
-		getAmministratoreCorrente().registerRicovero(paziente, letto,
+		amministratore.registerRicovero(paziente, letto,
 				dataInizio, dimissioniPreviste);
 
 	}
@@ -345,34 +345,53 @@ public class Controller {
 
 
 
-	public void getPrestazioniGiornaliere() {
+	public List<String[]> getPrestazioniGiornaliere(LocalDate data) {
+		ArrayList<String[]> prestazioniGiornaliere = new ArrayList<>();
+		for (Prestazione p : medico.getPrestazioni()) {
+			if (p.getOraInizio().toLocalDate().equals(data)) {
+				prestazioniGiornaliere.add(new String[]{
+						p.getOraInizio().toString(),
+						p.getOraFine().toString(),
+						p.getTipo().toString(),
+						p.getRicovero().getPaziente().getNome() +
+						p.getRicovero().getPaziente().getCognome(),
+						p.getEsito()
 
-		// ...
+				});
+			}
 
-	}
-
-
-	public void getPrestazioniSettimanali() {
-
-
-		// ...
-
-
-	}
-
-
-	public void getPrestazioniByIndex(int index) {
-
-		// ...
+		}
+		return prestazioniGiornaliere;
 
 	}
 
 
-	public void modificaEsito(String esito) {
+	public List <String[]> getPrestazioniSettimanali(LocalDate data) {
+		ArrayList<String[]> prestazioniSettimanali = new ArrayList<>();
+		LocalDate lunedi = data.with(DayOfWeek.MONDAY);
+		LocalDate domenica = lunedi.plusDays(6);
+		for (Prestazione p : medico.getPrestazioni()) {
+			if (p.getOraInizio().toLocalDate().isAfter(lunedi)
+				&& p.getOraFine().toLocalDate().isBefore(domenica)) {
+				prestazioniSettimanali.add(new String[]{
+						p.getOraInizio().toString(),
+						p.getOraFine().toString(),
+						p.getTipo().toString(),
+						p.getRicovero().getPaziente().getNome() + p.getRicovero().getPaziente().getCognome(),
+						p.getEsito()
+				});
 
-		// ...
+			}
 
+		}
+
+		return  prestazioniSettimanali;
 	}
 
+
+	public void modificaEsito(int indexPrestazione, String esito) {
+		medico.getPrestazioni().get(indexPrestazione).setEsito(esito);
+
+	}
 
 }

@@ -84,6 +84,16 @@ public class Prestazione {
     }
 
 
+    public TipoPrestazione getTipo () {
+        return tipo;
+
+    }
+
+    public Ricovero getRicovero() {
+        return ricovero;
+    }
+
+
     /**
      * Si accavalla con boolean.
      *

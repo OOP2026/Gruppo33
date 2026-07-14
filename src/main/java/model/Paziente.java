@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The type Paziente.
@@ -88,7 +89,7 @@ public class Paziente {
      *
      * @return the array list
      */
-    public ArrayList<Ricovero> getRicoveri(){
+    public List<Ricovero> getRicoveri(){
         return ricoveri;
 
     }

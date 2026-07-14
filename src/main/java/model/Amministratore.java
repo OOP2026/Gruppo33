@@ -66,7 +66,6 @@ public class Amministratore extends Utente {
     /**
      * Get pazienti in scadenza.
      *
-     * @param paziente the paziente
      * @return the list
      */
     public List<Paziente> getPazienti(){
@@ -100,6 +99,11 @@ public class Amministratore extends Utente {
         return reparto.getLettiDisponibili();
     }
 
+    /**
+     * Gets ricoveri.
+     *
+     * @return the ricoveri
+     */
     public List<Ricovero> getRicoveri() {
         return ricoveri;
     }

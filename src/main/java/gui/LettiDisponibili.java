@@ -46,10 +46,6 @@ public class LettiDisponibili {
 
             DefaultTableModel model = new DefaultTableModel(
                     new String[]{"Codice Letto", "Stato"}, 0) {
-                @Override
-                public boolean isCellEditable(int row, int column) {
-                    return false; // tabella in sola lettura
-                }
             };
             tableLetti.setModel(model);
 

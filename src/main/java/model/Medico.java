@@ -3,7 +3,7 @@ package model;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.time.DayOfWeek;
+
 import java.util.List;
 
 /**
@@ -92,8 +92,14 @@ public class Medico extends Utente {
      *
      * @return the turni
      */
-    public ArrayList<TurnoLavorativo> getTurni() {
+    public List<TurnoLavorativo> getTurni() {
         return turni;
+    }
+
+
+
+    public void addTurnoLavorativo(TurnoLavorativo t) {
+       turni.add(t);
     }
 
     /**
@@ -101,12 +107,6 @@ public class Medico extends Utente {
      *
      * @return the prestazioni
      */
-
-    public void addTurnoLavorativo(TurnoLavorativo t) {
-       turni.add(t);
-    }
-
-
     public List<Prestazione> getPrestazioni() {
         return prestazioni;
     }

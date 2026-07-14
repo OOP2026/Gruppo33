@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.time.format.DateTimeFormatter;
@@ -95,7 +96,7 @@ public class PazientiScadenza {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                txtData.setText(LocalDateTime.now().format(FORMATTER));
+                txtData.setText(LocalDateTime.now(ZoneId.systemDefault()).format(FORMATTER));
 
             }
         });
