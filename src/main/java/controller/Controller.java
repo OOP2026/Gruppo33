@@ -1,7 +1,9 @@
 package controller;
 
 import dao.PazienteDAO;
+import dao.RicoveroDAO;
 import implementazioneDao.PazientePostgresDAO;
+import implementazioneDao.RicoveroPostgresDAO;
 import model.*;
 
 
@@ -9,6 +11,7 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,7 +46,6 @@ public class Controller {
 		Reparto rCardiologia = new Reparto("Cardiologia", "REP02");
 		reparti.add(rNeurologia);
 		reparti.add(rCardiologia);
-
 		Medico medico = new Medico("medico1", "medico123", "Mario", "Rossi", rNeurologia);
 		utenti.add(medico);
 		this.medico = medico;
@@ -103,8 +105,24 @@ public class Controller {
 			amministratore.registerPaziente(nomi.get(i), cognomi.get(i), codiciF.get(i));
 		}
 
+		ArrayList<LocalDateTime> dateInizio  = new ArrayList<>();
+		ArrayList<LocalDateTime> dateDimissioniPreviste = new ArrayList<>();
+		ArrayList<String> codiciFisc = new ArrayList<>();
+		ArrayList<String> codiciLetto = new ArrayList<>();
+		RicoveroDAO rdao = new RicoveroPostgresDAO();
+		rdao.leggiRicoveroDB(dateInizio, dateDimissioniPreviste, codiciFisc, codiciLetto);
+		for (int i=0; i<codiciLetto.size(); i++) {
+
+			Paziente paz = getPazienteDaCf(codiciFisc.get(i));
+			Letto lett = getLettoDaCodice(codiciLetto.get(i));
+			if (paz != null && lett != null) {
+				amministratore.registerRicovero(paz, lett, dateInizio.get(i), dateDimissioniPreviste.get(i));
+			}
 
 		}
+
+
+	}
 
 
 	/**
@@ -295,6 +313,13 @@ public class Controller {
 		amministratore.registerRicovero(paziente, letto,
 				dataInizio, dimissioniPreviste);
 
+		RicoveroDAO rdao = new RicoveroPostgresDAO();
+		rdao.inserisciRicoveroDB(
+				dataInizio,
+				dimissioniPreviste,
+				paziente.getCodiceFiscale(),
+				letto.getCodiceUnivoco()
+		);
 	}
 
 	/**
@@ -393,5 +418,25 @@ public class Controller {
 		medico.getPrestazioni().get(indexPrestazione).setEsito(esito);
 
 	}
+
+	public Paziente getPazienteDaCf (String cf) {
+		for (Paziente p : amministratore.getPazienti()){
+			if  (p.getCodiceFiscale().equals(cf)){
+				return p;
+			}
+
+		}
+
+		return null;
+	}
+
+	public Letto getLettoDaCodice (String codiceunivoco) {
+		for (Reparto r : reparti)
+			for (Letto l : r.getLetti())
+				if (l.getCodiceUnivoco().equals(codiceunivoco))
+					return l;
+		return null;
+	}
+
 
 }

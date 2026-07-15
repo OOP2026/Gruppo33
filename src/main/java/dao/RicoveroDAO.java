@@ -1,16 +1,16 @@
 package dao;
-
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public interface RicoveroDAO {
 
-    void inserisciRicoveroDB(String idRicovero, String dataInizio,
-                             String dataDimissioniPrevista, String cf,
+    void inserisciRicoveroDB(LocalDateTime dataInizio,
+                             LocalDateTime dataDimissioniPrevista, String cf,
                              String codiceUnivoco);
 
-    void leggiRicoveroDB(ArrayList<String> idRicoveri, ArrayList<String> dateInizio,
-                         ArrayList<String> dateDimissioniPreviste,
-                         ArrayList<String> codiciF, ArrayList<String> codiciLetto);
+    void leggiRicoveroDB(ArrayList<LocalDateTime> dateInizio,
+                         ArrayList<LocalDateTime> dateDimissioniPreviste,
+                         ArrayList<String> codiciFisc, ArrayList<String> codiciLetto);
 
 
 

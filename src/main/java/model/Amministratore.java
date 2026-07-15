@@ -54,7 +54,7 @@ public class Amministratore extends Utente {
             }
         }
 
-        Ricovero ricovero = new Ricovero(dataInizio, dimissioniPreviste, null, paziente, letto);
+        Ricovero ricovero = new Ricovero(dataInizio, dimissioniPreviste, paziente, letto);
         letto.getRicoveri().add(ricovero);
         letto.setStato(StatoLetto.OCCUPATO);
         paziente.addRicovero(ricovero);

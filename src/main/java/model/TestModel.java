@@ -22,7 +22,7 @@ public class TestModel {
 
 		Paziente pa = new Paziente("Pasquale", "Rossi", "RSSPQL80A01F839I");
 		Letto letto = new Letto("001");
-		Ricovero ricovero1 = new Ricovero(LocalDateTime.of(2026, 5, 2, 16, 23, 0 ), LocalDateTime.now(), null, pa, letto);
+		Ricovero ricovero1 = new Ricovero(LocalDateTime.of(2026, 5, 2, 16, 23, 0 ), LocalDateTime.now(), pa, letto);
 		Prestazione p = new Prestazione("Positivo", TipoPrestazione.VISITA,LocalDateTime.now(), LocalDateTime.now(), ricovero1);
 		Reparto r = new Reparto("Neurologia", "2kfdokf");
 		//TurnoLavorativo turno = new TurnoLavorativo (LUNEDI, LocalDateTime.of(16, 0, 0), LocalDateTime.of(23,0, 0));
