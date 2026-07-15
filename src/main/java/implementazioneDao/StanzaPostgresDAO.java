@@ -1,7 +1,7 @@
 package implementazioneDao;
 
 import database_connection.ConnessioneDatabase;
-import dao.RepartoDAO;
+import dao.StanzaDAO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,11 +9,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class RepartoPostgresDAO implements RepartoDAO {
+public class StanzaPostgresDAO implements StanzaDAO {
 
     private Connection connection;
 
-    public RepartoPostgresDAO() {
+    public StanzaPostgresDAO() {
         try {
             connection = ConnessioneDatabase.getInstance().connection;
         } catch (SQLException e) {
@@ -22,14 +22,17 @@ public class RepartoPostgresDAO implements RepartoDAO {
     }
 
     @Override
-    public void leggiRepartiDB(ArrayList<String> idReparti, ArrayList<String> nomiReparti) {
-        String sql = "SELECT \"idreparto\", \"nome\" FROM \"reparto\";";
+    public void leggiStanzeDB(ArrayList<Integer> numeriStanza,
+                              ArrayList<Integer> piani,
+                              ArrayList<String> idRepartiFK) {
+        String sql = "SELECT \"numerostanza\", \"piano\", \"idreparto\" FROM \"stanza\";";
 
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                idReparti.add(rs.getString("idreparto"));
-                nomiReparti.add(rs.getString("nome"));
+                numeriStanza.add(rs.getInt("numerostanza"));
+                piani.add(rs.getInt("piano"));
+                idRepartiFK.add(rs.getString("idreparto"));
             }
             rs.close();
         } catch (SQLException e) {

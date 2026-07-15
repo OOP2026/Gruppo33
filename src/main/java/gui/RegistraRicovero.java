@@ -75,7 +75,6 @@ public class RegistraRicovero {
                 }
                 LocalDateTime dataInizio;
                 LocalDateTime dataDimissioniPrevista;
-                LocalDateTime dataDimissioniEffettuata = null;
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
               try {

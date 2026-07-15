@@ -20,15 +20,13 @@ import java.util.List;
  */
 public class Controller {
 
-	// Dati dell'utente autenticato
+	// Dati dell'utente autenticat
 	private Utente utenteCorrente;
     private Amministratore amministratore;
 	private Medico medico;
 
-	// Dati di sistema
 	private ArrayList<Utente> utenti = new ArrayList<>();
 	private ArrayList<Reparto> reparti = new ArrayList<>();
-	private ArrayList<Paziente> pazienti = new ArrayList<>();
 	private ArrayList<Ricovero> ricoveri = new ArrayList<>();
 	private ArrayList<Letto> letti = new ArrayList<>();
 	private ArrayList<Stanza> stanze = new ArrayList<>();
