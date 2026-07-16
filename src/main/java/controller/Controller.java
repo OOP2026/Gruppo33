@@ -99,22 +99,24 @@ public class Controller {
 		PazienteDAO pdao = new PazientePostgresDAO();
 		pdao.leggiPazientiDB(nomi, cognomi, codiciF);
 		for (int i = 0; i < nomi.size(); i++) {
-			Paziente p = new Paziente(nomi.get(i), cognomi.get(i), codiciF.get(i));
 			amministratore.registerPaziente(nomi.get(i), cognomi.get(i), codiciF.get(i));
 		}
 
+		ArrayList<Integer> idRicoveri = new ArrayList<>();
 		ArrayList<LocalDateTime> dateInizio  = new ArrayList<>();
 		ArrayList<LocalDateTime> dateDimissioniPreviste = new ArrayList<>();
 		ArrayList<String> codiciFisc = new ArrayList<>();
 		ArrayList<String> codiciLetto = new ArrayList<>();
 		RicoveroDAO rdao = new RicoveroPostgresDAO();
-		rdao.leggiRicoveroDB(dateInizio, dateDimissioniPreviste, codiciFisc, codiciLetto);
+		rdao.leggiRicoveroDB(idRicoveri, dateInizio, dateDimissioniPreviste, codiciFisc, codiciLetto);
 		for (int i=0; i<codiciLetto.size(); i++) {
-
 			Paziente paz = getPazienteDaCf(codiciFisc.get(i));
 			Letto lett = getLettoDaCodice(codiciLetto.get(i));
 			if (paz != null && lett != null) {
 				amministratore.registerRicovero(paz, lett, dateInizio.get(i), dateDimissioniPreviste.get(i));
+				for (Ricovero r : amministratore.getRicoveri()){
+					r.setIdRicovero(idRicoveri.get(i));
+				}
 			}
 
 		}

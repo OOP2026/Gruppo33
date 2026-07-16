@@ -8,7 +8,7 @@ public interface RicoveroDAO {
                              LocalDateTime dataDimissioniPrevista, String cf,
                              String codiceUnivoco);
 
-    void leggiRicoveroDB(ArrayList<LocalDateTime> dateInizio,
+    void leggiRicoveroDB(ArrayList <Integer> idRicoveri, ArrayList<LocalDateTime> dateInizio,
                          ArrayList<LocalDateTime> dateDimissioniPreviste,
                          ArrayList<String> codiciFisc, ArrayList<String> codiciLetto);
 

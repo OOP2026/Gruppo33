@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
  * The type Ricovero.
  */
 public class Ricovero {
-
+    private int idRicovero;
     private LocalDateTime dataInizio;
     private LocalDateTime dataDimissioniPrevista;
     private LocalDateTime dataDimissioniEffettuata;
@@ -26,6 +26,8 @@ public class Ricovero {
         this.dataInizio = dataInizio;
         this.dataDimissioniPrevista = dataDimissioniPrevista;
         this.paziente = paziente;
+        this.letto = letto;
+        this.idRicovero = -1;
     }
 
     /**
@@ -90,5 +92,17 @@ public class Ricovero {
     public Paziente getPaziente (){
         return paziente;
     }
+
+    public void setIdRicovero(int idRicovero) {
+        this.idRicovero = idRicovero;
+
+    }
+
+
+    public int getIdRicovero(){
+        return idRicovero;
+    }
+
+
 
 }
