@@ -113,6 +113,9 @@ public class GestionePrestazioni {
                             ex.getMessage(),
                             "Errore", JOptionPane.ERROR_MESSAGE);
 
+                } catch (Exception ex2){
+                    JOptionPane.showMessageDialog(frame, ex2.getMessage(),
+                            "Errore di database", JOptionPane.ERROR_MESSAGE);
                 }
 
             }

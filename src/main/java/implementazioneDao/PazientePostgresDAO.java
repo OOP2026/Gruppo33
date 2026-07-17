@@ -17,41 +17,37 @@ public class PazientePostgresDAO implements PazienteDAO {
 
         try {
             connection = ConnessioneDatabase.getInstance().connection;
-        } catch (SQLException e) {
+        } catch (Exception e) {
            e.printStackTrace();
         }
     }
 
 
     @Override
-    public void inserisciPazienteDB(String nome, String cognome, String codiceFiscale) {
+    public void inserisciPazienteDB(String nome, String cognome, String codiceFiscale) throws SQLException {
 
         String sql = "INSERT INTO \"paziente\"(\"cf\", \"nome\", \"cognome\") VALUES (?, ?, ?);";
 
-        try (PreparedStatement inserisciPazientePS = connection.prepareStatement(sql)) {
+       try (PreparedStatement inserisciPazientePS = connection.prepareStatement(sql)) {
 
-            if (nome == null || nome.trim().isEmpty() || cognome == null || cognome.trim().isEmpty() || codiceFiscale == null || codiceFiscale.trim().isEmpty()) {
-                throw new IllegalArgumentException("Il nome, cognome e codice fiscale del paziente non possono essere vuoti.");
-            }
-            inserisciPazientePS.setString(1, codiceFiscale.trim());
-            inserisciPazientePS.setString(2, nome.trim());
-            inserisciPazientePS.setString(3, cognome.trim());
-            inserisciPazientePS.executeUpdate();
-            connection.close();
 
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-
+           if (nome == null || nome.trim().isEmpty() || cognome == null || cognome.trim().isEmpty() || codiceFiscale == null || codiceFiscale.trim().isEmpty()) {
+               throw new IllegalArgumentException("Il nome, cognome e codice fiscale del paziente non possono essere vuoti.");
+           }
+           inserisciPazientePS.setString(1, codiceFiscale.trim());
+           inserisciPazientePS.setString(2, nome.trim());
+           inserisciPazientePS.setString(3, cognome.trim());
+           inserisciPazientePS.executeUpdate();
+       }
 
     }
 
     @Override
-    public void leggiPazientiDB(ArrayList<String> nomi, ArrayList<String> cognomi, ArrayList<String> codiciF) {
+    public void leggiPazientiDB(ArrayList<String> nomi, ArrayList<String> cognomi, ArrayList<String> codiciF) throws SQLException {
 
         String sql= "Select \"cf\", \"nome\", \"cognome\" from \"paziente\";";
 
-        try (PreparedStatement ps = connection.prepareStatement(sql)){
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
 
 
             ResultSet rs = ps.executeQuery();
@@ -64,13 +60,6 @@ public class PazientePostgresDAO implements PazienteDAO {
             rs.close();
         }
 
-        catch (SQLException e){
-            System.err.println("Errore nell'esecuzione della query");
-            e.printStackTrace();
-        }
-
-
     }
-
 
 }

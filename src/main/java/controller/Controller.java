@@ -5,11 +5,12 @@ import implementazioneDao.*;
 import model.*;
 
 
+import java.sql.SQLException;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,14 +21,14 @@ public class Controller {
 
 	// Dati dell'utente autenticat
 	private Utente utenteCorrente;
-    private Amministratore amministratore;
-	private Medico medico;
+    private final Amministratore amministratore;
+	private final Medico medico;
 
-	private ArrayList<Utente> utenti = new ArrayList<>();
-	private ArrayList<Reparto> reparti = new ArrayList<>();
-	private ArrayList<Ricovero> ricoveri = new ArrayList<>();
-	private ArrayList<Letto> letti = new ArrayList<>();
-	private ArrayList<Stanza> stanze = new ArrayList<>();
+	private final ArrayList<Utente> utenti = new ArrayList<>();
+	private final ArrayList<Reparto> reparti = new ArrayList<>();
+	private final ArrayList<Ricovero> ricoveri = new ArrayList<>();
+	private final ArrayList<Letto> letti = new ArrayList<>();
+	private final ArrayList<Stanza> stanze = new ArrayList<>();
 
 	/**
 	 * Instantiates a new Controller.
@@ -42,9 +43,9 @@ public class Controller {
 		Reparto rCardiologia = new Reparto("Cardiologia", "REP02");
 		reparti.add(rNeurologia);
 		reparti.add(rCardiologia);
-		Medico medico = new Medico("medico1", "medico123", "Mario", "Rossi", rNeurologia);
-		utenti.add(medico);
-		this.medico = medico;
+		Medico medico1 = new Medico("medico1", "medico123", "Mario", "Rossi", rNeurologia);
+		utenti.add(medico1);
+		this.medico = medico1;
 
 		//turno lavorativo
 		TurnoLavorativo t1 = new TurnoLavorativo(DayOfWeek.MONDAY, LocalTime.of(14, 0), LocalTime.of(23, 0));
@@ -55,13 +56,13 @@ public class Controller {
 		TurnoLavorativo t6 = new TurnoLavorativo(DayOfWeek.SATURDAY, LocalTime.of(14, 0), LocalTime.of(23, 0));
 		TurnoLavorativo t7 = new TurnoLavorativo(DayOfWeek.SUNDAY, LocalTime.of(14, 0), LocalTime.of(23, 0));
 
-		medico.addTurnoLavorativo(t1);
-		medico.addTurnoLavorativo(t2);
-		medico.addTurnoLavorativo(t3);
-		medico.addTurnoLavorativo(t4);
-		medico.addTurnoLavorativo(t5);
-		medico.addTurnoLavorativo(t6);
-		medico.addTurnoLavorativo(t7);
+		medico1.addTurnoLavorativo(t1);
+		medico1.addTurnoLavorativo(t2);
+		medico1.addTurnoLavorativo(t3);
+		medico1.addTurnoLavorativo(t4);
+		medico1.addTurnoLavorativo(t5);
+		medico1.addTurnoLavorativo(t6);
+		medico1.addTurnoLavorativo(t7);
 
 
 
@@ -95,9 +96,13 @@ public class Controller {
 		ArrayList<String> cognomi = new ArrayList<>();
 		ArrayList<String> codiciF = new ArrayList<>();
 		PazienteDAO pdao = new PazientePostgresDAO();
-		pdao.leggiPazientiDB(nomi, cognomi, codiciF);
-		for (int i = 0; i < nomi.size(); i++) {
-			amministratore.registerPaziente(nomi.get(i), cognomi.get(i), codiciF.get(i));
+		try {
+			pdao.leggiPazientiDB(nomi, cognomi, codiciF);
+			for (int i = 0; i < nomi.size(); i++) {
+				amministratore.registerPaziente(nomi.get(i), cognomi.get(i), codiciF.get(i));
+			}
+		} catch (SQLException ex) {
+			System.err.println("Errore nel caricamento del database (Pazienti registrati)");
 		}
 
 		ArrayList<Integer> idRicoveri = new ArrayList<>();
@@ -125,21 +130,21 @@ public class Controller {
 		ArrayList<String> esiti = new  ArrayList<>();
 		ArrayList<Integer> idRicoveriDellePrestazioni = new ArrayList<>();
 		PrestazioneDAO prestazioneDAO = new PrestazionePostgresDAO();
-		prestazioneDAO.leggiPrestazioniDB(dataOreInizio, dateOraFine, tipiPrestazione, esiti, idRicoveriDellePrestazioni);
+		try {
+			prestazioneDAO.leggiPrestazioniDB(dataOreInizio, dateOraFine, tipiPrestazione, esiti, idRicoveriDellePrestazioni);
 
-		for (int i = 0; i < dataOreInizio.size(); i++) {
-			int idRicoveroCorrente = idRicoveriDellePrestazioni.get(i);
-			Ricovero ricovero = getRicoveroDaId(idRicoveroCorrente);
-			if (ricovero != null) {
-				TipoPrestazione tipo = TipoPrestazione.valueOf(tipiPrestazione.get(i));
-				Prestazione p = new Prestazione(esiti.get(i), tipo, dataOreInizio.get(i), dateOraFine.get(i), ricovero);
-				medico.registerPrestazione(p);
+			for (int i = 0; i < dataOreInizio.size(); i++) {
+				int idRicoveroCorrente = idRicoveriDellePrestazioni.get(i);
+				Ricovero ricovero = getRicoveroDaId(idRicoveroCorrente);
+				if (ricovero != null) {
+					TipoPrestazione tipo = TipoPrestazione.valueOf(tipiPrestazione.get(i));
+					Prestazione p = new Prestazione(esiti.get(i), tipo, dataOreInizio.get(i), dateOraFine.get(i), ricovero);
+					medico1.registerPrestazione(p);
+				}
 			}
+		} catch  (SQLException ex2) {
+			System.err.println("Errore nel caricamento del database (Prestazioni registrate)");
 		}
-
-
-
-
 
 	}
 
@@ -205,6 +210,11 @@ public class Controller {
 		return nomi;
 	}
 
+	/**
+	 * Gets nomi pazienti ricoverati.
+	 *
+	 * @return the nomi pazienti ricoverati
+	 */
 	public List<String> getNomiPazientiRicoverati() {
 		ArrayList<String> nomi = new ArrayList<>();
 		for (Ricovero r : amministratore.getRicoveri()) {
@@ -231,6 +241,7 @@ public class Controller {
 			Paziente p = r.getPaziente();
 			String dimissioneEffettuata = (r.getDataDimissioniEffettuata() != null) ? r.getDataDimissioniEffettuata().toString() : "-";
 			risultato.add(new String[]{
+					String.valueOf(r.getIdRicovero()),
 					p.getNome(),
 					p.getCognome(),
 					p.getCodiceFiscale(),
@@ -242,12 +253,20 @@ public class Controller {
 	}
 
 
-	public void dimettiPaziente(int IndexPaziente, LocalDateTime data) {
-
-		amministratore.getRicoveri().get(IndexPaziente).setDataDimissioniEffettuata(data);
+	/**
+	 * Dimetti paziente.
+	 *
+	 * @param idRicovero the id ricovero
+	 * @param data       the data
+	 */
+	public void dimettiPaziente(int idRicovero, LocalDateTime data) {
+		Ricovero ricovero = getRicoveroDaId(idRicovero);
+		if (ricovero == null) {
+			throw new IllegalArgumentException("Ricovero non trovato");
+		}
+		ricovero.setDataDimissioniPrevista(data);
 
 	}
-
 
 
 	/**
@@ -303,13 +322,19 @@ public class Controller {
 	 * @param nome    the nome
 	 * @param cognome the cognome
 	 * @param cf      the cf
+	 * @throws SQLIntegrityConstraintViolationException the sql integrity constraint violation exception
 	 */
-	public void registraPaziente(String nome, String cognome, String cf) {
-	PazienteDAO pdao = new PazientePostgresDAO();
-        amministratore.registerPaziente(nome, cognome, cf);
-		pdao.inserisciPazienteDB(nome, cognome, cf);
+	public void registraPaziente(String nome, String cognome, String cf) throws SQLIntegrityConstraintViolationException {
+		PazienteDAO pdao = new PazientePostgresDAO();
 
+		try {
+			amministratore.registerPaziente(nome, cognome, cf);
+			pdao.inserisciPazienteDB(nome, cognome, cf);
+
+		} catch (SQLException e) {
+			throw new SQLIntegrityConstraintViolationException ("Paziente già registrato in sistema");
 		}
+	}
 
 
 	/**
@@ -338,7 +363,7 @@ public class Controller {
 	 */
 	public void registraRicovero(int indexPaziente, int indexReparto,
 								 int indexLetto, LocalDateTime dataInizio,
-								 LocalDateTime dimissioniPreviste){
+								 LocalDateTime dimissioniPreviste) {
 		Paziente paziente = amministratore.getPazienti().get(indexPaziente);
 		Reparto reparto = reparti.get(indexReparto);
 		Letto letto = reparto.getLettiDisponibili().get(indexLetto);
@@ -391,20 +416,31 @@ public class Controller {
 	 * @param indexTipo     the index tipo
 	 * @param oraInizio     the ora inizio
 	 * @param oraFine       the ora fine
+	 * @throws Exception the exception
 	 */
 	public void registraPrestazione(int indexRicovero, int indexTipo,
-									LocalDateTime oraInizio, LocalDateTime oraFine) {
+									LocalDateTime oraInizio, LocalDateTime oraFine) throws Exception {
 		Ricovero ricovero = amministratore.getRicoveri().get(indexRicovero);
 		TipoPrestazione tipo = TipoPrestazione.values()[indexTipo];
 		Prestazione p = new Prestazione(null, tipo, oraInizio, oraFine, ricovero);
 		medico.registerPrestazione(p);
 
 		PrestazioneDAO pdao = new PrestazionePostgresDAO();
-		pdao.inserisciPrestazioneDB(oraInizio, oraFine, tipo.toString(), p.getEsito(), ricovero.getIdRicovero());
+		try {
+			pdao.inserisciPrestazioneDB(oraInizio, oraFine, tipo.toString(), p.getEsito(), ricovero.getIdRicovero());
+		} catch (SQLException e) {
+			throw new Exception ("Errore nell'esecuzione della query");
+
+		}
 	}
 
 
-
+	/**
+	 * Gets prestazioni giornaliere.
+	 *
+	 * @param data the data
+	 * @return the prestazioni giornaliere
+	 */
 	public List<String[]> getPrestazioniGiornaliere(LocalDate data) {
 		ArrayList<String[]> prestazioniGiornaliere = new ArrayList<>();
 		for (Prestazione p : medico.getPrestazioni()) {
@@ -426,6 +462,12 @@ public class Controller {
 	}
 
 
+	/**
+	 * Gets prestazioni settimanali.
+	 *
+	 * @param data the data
+	 * @return the prestazioni settimanali
+	 */
 	public List <String[]> getPrestazioniSettimanali(LocalDate data) {
 		ArrayList<String[]> prestazioniSettimanali = new ArrayList<>();
 		LocalDate lunedi = data.with(DayOfWeek.MONDAY);
@@ -449,11 +491,23 @@ public class Controller {
 	}
 
 
+	/**
+	 * Modifica esito.
+	 *
+	 * @param indexPrestazione the index prestazione
+	 * @param esito            the esito
+	 */
 	public void modificaEsito(int indexPrestazione, String esito) {
 		medico.getPrestazioni().get(indexPrestazione).setEsito(esito);
 
 	}
 
+	/**
+	 * Gets paziente da cf.
+	 *
+	 * @param cf the cf
+	 * @return the paziente da cf
+	 */
 	public Paziente getPazienteDaCf (String cf) {
 		for (Paziente p : amministratore.getPazienti()){
 			if  (p.getCodiceFiscale().equals(cf)){
@@ -465,6 +519,12 @@ public class Controller {
 		return null;
 	}
 
+	/**
+	 * Gets letto da codice.
+	 *
+	 * @param codiceunivoco the codiceunivoco
+	 * @return the letto da codice
+	 */
 	public Letto getLettoDaCodice (String codiceunivoco) {
 		for (Reparto r : reparti)
 			for (Letto l : r.getLetti())

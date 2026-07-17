@@ -22,12 +22,14 @@ public class PrestazionePostgresDAO implements PrestazioneDAO {
     }
 
     @Override
-    public void inserisciPrestazioneDB(LocalDateTime dataOraInizio, LocalDateTime dataOraFine, String tipoPrestazione, String esito, int idRicovero) {
+    public void inserisciPrestazioneDB(LocalDateTime dataOraInizio, LocalDateTime dataOraFine, String tipoPrestazione, String esito, int idRicovero) throws  SQLException {
+
+
 
         String sql = "INSERT INTO prestazione (\"dataorainizio\", \"dataorafine\", \"tipoprestazione\", \"esito\", \"idricovero\") " + "VALUES (?, ?, ?, ?, ?);";
 
 
-        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+        try { PreparedStatement ps = connection.prepareStatement(sql);
 
             ps.setTimestamp(1, java.sql.Timestamp.valueOf(dataOraInizio));
             ps.setTimestamp(2, java.sql.Timestamp.valueOf(dataOraFine));
@@ -36,16 +38,15 @@ public class PrestazionePostgresDAO implements PrestazioneDAO {
             ps.setInt(5, idRicovero);
             ps.executeUpdate();
             connection.close();
-        }
-        catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-
+        } catch (SQLException ex) {
+        System.err.println(ex.getMessage());}
     }
+
+
 
     @Override
     public void leggiPrestazioniDB(ArrayList<LocalDateTime> dataOreInizio, ArrayList<LocalDateTime> dateOraFine,
-                                   ArrayList<String> tipiPrestazione,  ArrayList<String> esiti, ArrayList<Integer> idRicoveriFK) {
+                                   ArrayList<String> tipiPrestazione,  ArrayList<String> esiti, ArrayList<Integer> idRicoveriFK) throws SQLException {
 
         String sql = "SELECT \"dataorainizio\", \"dataorafine\", \"tipoprestazione\", \"esito\", \"idricovero\" FROM \"prestazione\";";
 

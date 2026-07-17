@@ -52,10 +52,19 @@ public class RegistraPaziente {
                     return;
                 }
 
-                controller.registraPaziente(nome, cognome, cf);
-                JOptionPane.showMessageDialog(frame, "Paziente registrato con successo.", "Successo", JOptionPane.INFORMATION_MESSAGE);
-                frame.dispose();
-                frameChiamante.setVisible(true);
+               try {
+                   controller.registraPaziente(nome, cognome, cf);
+
+                   JOptionPane.showMessageDialog(frame, "Paziente registrato con successo.", "Successo", JOptionPane.INFORMATION_MESSAGE);
+                   frame.dispose();
+                   frameChiamante.setVisible(true);
+
+               } catch (Exception ex) {
+
+                   JOptionPane.showMessageDialog(frame, ex.getMessage(), "Errore", JOptionPane.ERROR_MESSAGE);
+               }
+
+
             }
         });
 

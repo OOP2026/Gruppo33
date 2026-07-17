@@ -48,7 +48,7 @@ public class PazientiScadenza {
 
         if (tablePazienti == null) throw new IllegalStateException("tablePazienti non inizializzato");
        tablePazienti.setModel(new DefaultTableModel(new Object[][]{}, new String[]{
-               "Nome", "Cognome", "Codice Fiscale", "Dimissione prevista", "Dimissione effettuata"}
+              "idRicovero", "Nome", "Cognome", "Codice Fiscale", "Dimissione prevista", "Dimissione effettuata"}
        ));
 
        DefaultTableModel model= (DefaultTableModel) tablePazienti.getModel();
@@ -86,7 +86,7 @@ public class PazientiScadenza {
                     return;
                 }
                 for (String[] riga : pazienti) {
-                    model.addRow(new Object[]{riga[0], riga[1], riga[2], riga[3], riga[4]});
+                    model.addRow(new Object[]{riga[0], riga[1], riga[2], riga[3], riga[4], riga[5]});
 
 
                 }
@@ -111,7 +111,8 @@ public class PazientiScadenza {
                     JOptionPane.showMessageDialog(frame, "Seleziona un paziente dalla tabella.", "Attenzione", JOptionPane.WARNING_MESSAGE);
                     return;
                 }
-                controller.dimettiPaziente(rigaTab, LocalDateTime.now(ZoneId.systemDefault()));
+                int idRicovero = Integer.parseInt((String) model.getValueAt(rigaTab, 0));
+                controller.dimettiPaziente(idRicovero, LocalDateTime.now(ZoneId.systemDefault()));
                 JOptionPane.showMessageDialog(frame, "Paziente dimesso con successo.");
                 model.setRowCount(0);
 
