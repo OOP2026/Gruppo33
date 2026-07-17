@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public interface RicoveroDAO {
 
-    void inserisciRicoveroDB(LocalDateTime dataInizio,
+    int inserisciRicoveroDB(LocalDateTime dataInizio,
                              LocalDateTime dataDimissioniPrevista, String cf,
                              String codiceUnivoco);
 

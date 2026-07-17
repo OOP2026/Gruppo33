@@ -33,10 +33,9 @@ public class PazientePostgresDAO implements PazienteDAO {
             if (nome == null || nome.trim().isEmpty() || cognome == null || cognome.trim().isEmpty() || codiceFiscale == null || codiceFiscale.trim().isEmpty()) {
                 throw new IllegalArgumentException("Il nome, cognome e codice fiscale del paziente non possono essere vuoti.");
             }
-
+            inserisciPazientePS.setString(1, codiceFiscale.trim());
             inserisciPazientePS.setString(2, nome.trim());
             inserisciPazientePS.setString(3, cognome.trim());
-            inserisciPazientePS.setString(1, codiceFiscale.trim());
             inserisciPazientePS.executeUpdate();
             connection.close();
 

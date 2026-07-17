@@ -21,7 +21,6 @@ public class RegistraRicovero {
     private JPanel panel1;
     private JTextField txtdataDimissioniPrevista;
     private JTextField txtDataInizio;
-    private JTextField txtdataDimissioniEffettuata;
     private JButton btnOK;
     private JButton btnAnnulla;
     private JComboBox comboBoxL;
@@ -89,7 +88,7 @@ public class RegistraRicovero {
                   return;
               }
 
-                if (!dataInizio.isAfter(dataDimissioniPrevista)) {
+                if (dataInizio.isAfter(dataDimissioniPrevista)) {
                     JOptionPane.showMessageDialog(frame, "La data di inizio deve essere precedente alla dimissione prevista.",
                             "Errore", JOptionPane.ERROR_MESSAGE);
                   return;

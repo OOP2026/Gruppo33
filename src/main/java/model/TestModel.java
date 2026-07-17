@@ -1,9 +1,11 @@
 package model;
-
+/*
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 import static model.GiornoSettimana.LUNEDI;
+
+ */
 
 /**
  * The type Test model.
@@ -16,6 +18,8 @@ public class TestModel {
 	 * @param args the input arguments
 	 */
 	public static void main(String[] args) {
+		//outdated
+		/*
 		Utente u = new Utente("topolino","minni");
 		System.out.println(u.login("pippo","pluto"));
 		System.out.println(u.login("topolino","minni"));
@@ -35,6 +39,7 @@ public class TestModel {
 		//System.out.println(turno.copre( LocalTime.of(16, 0, 0), LocalTime.of(23,0, 0)));
 		//System.out.println(turno.copre( LocalTime.of(13, 0, 0), LocalTime.of(15,0, 0)));
 		s.addLetto(l);
+  		*/
 
 	}
 

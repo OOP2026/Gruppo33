@@ -23,7 +23,7 @@ public class RicoveroPostgresDAO implements RicoveroDAO {
     }
 
     @Override
-    public void inserisciRicoveroDB(LocalDateTime dataInizio, LocalDateTime dataDimissioniPrevista, String cf, String codiceUnivoco) {
+    public int inserisciRicoveroDB(LocalDateTime dataInizio, LocalDateTime dataDimissioniPrevista, String cf, String codiceUnivoco) {
 
 
         String sql = "INSERT INTO \"ricovero\" (\"datainizio\", \"datadimissioniprevista\", \"cf\", \"codiceunivoco\") " + "VALUES (?, ?, ?, ?) " +
@@ -32,8 +32,8 @@ public class RicoveroPostgresDAO implements RicoveroDAO {
 
         try (PreparedStatement inserisciRicoveroPS = connection.prepareStatement(sql)) {
 
-            inserisciRicoveroPS.setTimestamp(2, java.sql.Timestamp.valueOf(dataInizio));
-            inserisciRicoveroPS.setTimestamp(1, java.sql.Timestamp.valueOf(dataDimissioniPrevista));
+            inserisciRicoveroPS.setTimestamp(1, java.sql.Timestamp.valueOf(dataInizio));
+            inserisciRicoveroPS.setTimestamp(2, java.sql.Timestamp.valueOf(dataDimissioniPrevista));
             inserisciRicoveroPS.setString(3, cf.trim());
             inserisciRicoveroPS.setString(4, codiceUnivoco.trim());
             try (ResultSet rs = inserisciRicoveroPS.executeQuery()) {
@@ -41,7 +41,7 @@ public class RicoveroPostgresDAO implements RicoveroDAO {
 
                 if (rs.next()) {
                     rs.getInt("idricovero");
-                    return;
+                    return rs.getInt("idricovero");
                 }
                 throw new RuntimeException("Inserimento ricovero fallito: nessun id restituito");
             }

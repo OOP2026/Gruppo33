@@ -47,14 +47,14 @@ public class Amministratore extends Utente {
                                  LocalDateTime dataInizio,
                                  LocalDateTime dimissioniPreviste){
         for (Ricovero r : paziente.getRicoveri()) {
-            if (!dataInizio.isBefore(r.getDataDimissioniPrevista())
-                    && !r.getDataInizio().isBefore(dimissioniPreviste)) {
+            if (dataInizio.isBefore(r.getDataDimissioniPrevista())
+                    && r.getDataInizio().isBefore(dimissioniPreviste)) {
                 throw new IllegalStateException(
                         "Il paziente è già assegnato in un altro letto in questo periodo.");
             }
         }
 
-        Ricovero ricovero = new Ricovero(dataInizio, dimissioniPreviste, paziente, letto);
+        Ricovero ricovero = new Ricovero(dataInizio, dimissioniPreviste, null, paziente, letto);
         letto.getRicoveri().add(ricovero);
         letto.setStato(StatoLetto.OCCUPATO);
         paziente.addRicovero(ricovero);

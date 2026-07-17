@@ -20,8 +20,9 @@ public class PazientiScadenza {
     private JButton btnIndietro;
     private JPanel panel1;
     private JButton btnOggi;
-    private JButton btnCerca;
+    private JButton btnAggiorna;
     private JTextField txtData;
+    private JButton dimettiButton;
     /**
      * The constant frame.
      */
@@ -47,7 +48,7 @@ public class PazientiScadenza {
 
         if (tablePazienti == null) throw new IllegalStateException("tablePazienti non inizializzato");
        tablePazienti.setModel(new DefaultTableModel(new Object[][]{}, new String[]{
-               "Nome", "Cognome", "Codice Fiscale", "Dimissione prevista"}
+               "Nome", "Cognome", "Codice Fiscale", "Dimissione prevista", "Dimissione effettuata"}
        ));
 
        DefaultTableModel model= (DefaultTableModel) tablePazienti.getModel();
@@ -62,7 +63,7 @@ public class PazientiScadenza {
             }
         });
 
-        btnCerca.addActionListener(new ActionListener() {
+        btnAggiorna.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
@@ -85,9 +86,10 @@ public class PazientiScadenza {
                     return;
                 }
                 for (String[] riga : pazienti) {
-                    model.addRow(new Object[]{riga[0], riga[1], riga[2], riga[3]});
-                }
+                    model.addRow(new Object[]{riga[0], riga[1], riga[2], riga[3], riga[4]});
 
+
+                }
 
             }
         });
@@ -97,6 +99,22 @@ public class PazientiScadenza {
             public void actionPerformed(ActionEvent e) {
 
                 txtData.setText(LocalDateTime.now(ZoneId.systemDefault()).format(FORMATTER));
+
+            }
+        });
+
+        dimettiButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int rigaTab = tablePazienti.getSelectedRow();
+                if (rigaTab == -1) {
+                    JOptionPane.showMessageDialog(frame, "Seleziona un paziente dalla tabella.", "Attenzione", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+                controller.dimettiPaziente(rigaTab, LocalDateTime.now(ZoneId.systemDefault()));
+                JOptionPane.showMessageDialog(frame, "Paziente dimesso con successo.");
+                model.setRowCount(0);
+
 
             }
         });

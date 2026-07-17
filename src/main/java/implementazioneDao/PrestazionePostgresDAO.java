@@ -22,10 +22,9 @@ public class PrestazionePostgresDAO implements PrestazioneDAO {
     }
 
     @Override
-    public void inserisciPrestazioneDB(LocalDateTime dataOraInizio, LocalDateTime dataOraFine, String tipoPrestazione, String esito) {
+    public void inserisciPrestazioneDB(LocalDateTime dataOraInizio, LocalDateTime dataOraFine, String tipoPrestazione, String esito, int idRicovero) {
 
-        String sql = "INSERT INTO prestazione (\"dataoranizio\", \"dataorafine\", \"tipoprestazione\", " +
-                "\"idricovero\", " + "VALUES (?, ?, ?, ?);";
+        String sql = "INSERT INTO prestazione (\"dataorainizio\", \"dataorafine\", \"tipoprestazione\", \"esito\", \"idricovero\") " + "VALUES (?, ?, ?, ?, ?);";
 
 
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
@@ -34,6 +33,7 @@ public class PrestazionePostgresDAO implements PrestazioneDAO {
             ps.setTimestamp(2, java.sql.Timestamp.valueOf(dataOraFine));
             ps.setString(3, tipoPrestazione);
             ps.setString(4, esito);
+            ps.setInt(5, idRicovero);
             ps.executeUpdate();
             connection.close();
         }
@@ -45,17 +45,18 @@ public class PrestazionePostgresDAO implements PrestazioneDAO {
 
     @Override
     public void leggiPrestazioniDB(ArrayList<LocalDateTime> dataOreInizio, ArrayList<LocalDateTime> dateOraFine,
-                                   ArrayList<String> tipiPrestazione,  ArrayList<String> esiti) {
+                                   ArrayList<String> tipiPrestazione,  ArrayList<String> esiti, ArrayList<Integer> idRicoveriFK) {
 
-        String sql = "SELECT \"dataoranizio\", \"dataorafine\", \"tipoprestazione\", \"esito\", FROM \"prestazione\";";
+        String sql = "SELECT \"dataorainizio\", \"dataorafine\", \"tipoprestazione\", \"esito\", \"idricovero\" FROM \"prestazione\";";
 
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                dataOreInizio.add(rs.getTimestamp("dataoranizio").toLocalDateTime());
+                dataOreInizio.add(rs.getTimestamp("dataorainizio").toLocalDateTime());
                 dateOraFine.add(rs.getTimestamp("dataorafine").toLocalDateTime());
                 tipiPrestazione.add(rs.getString("tipoprestazione"));
                 esiti.add(rs.getString("esito"));
+                idRicoveriFK.add(rs.getInt("idricovero"));
             }
             rs.close();
         } catch (SQLException e) {

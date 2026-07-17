@@ -1,9 +1,7 @@
 package controller;
 
-import dao.PazienteDAO;
-import dao.RicoveroDAO;
-import implementazioneDao.PazientePostgresDAO;
-import implementazioneDao.RicoveroPostgresDAO;
+import dao.*;
+import implementazioneDao.*;
 import model.*;
 
 
@@ -114,12 +112,33 @@ public class Controller {
 			Letto lett = getLettoDaCodice(codiciLetto.get(i));
 			if (paz != null && lett != null) {
 				amministratore.registerRicovero(paz, lett, dateInizio.get(i), dateDimissioniPreviste.get(i));
-				for (Ricovero r : amministratore.getRicoveri()){
-					r.setIdRicovero(idRicoveri.get(i));
-				}
+				 Ricovero r = amministratore.getRicoveri().get(amministratore.getRicoveri().size()-1);
+				 r.setIdRicovero(idRicoveri.get(i));
+
 			}
 
 		}
+
+		ArrayList<LocalDateTime> dataOreInizio = new ArrayList<>();
+		ArrayList<LocalDateTime> dateOraFine = new ArrayList<>();
+		ArrayList<String> tipiPrestazione  = new ArrayList<>();
+		ArrayList<String> esiti = new  ArrayList<>();
+		ArrayList<Integer> idRicoveriDellePrestazioni = new ArrayList<>();
+		PrestazioneDAO prestazioneDAO = new PrestazionePostgresDAO();
+		prestazioneDAO.leggiPrestazioniDB(dataOreInizio, dateOraFine, tipiPrestazione, esiti, idRicoveriDellePrestazioni);
+
+		for (int i = 0; i < dataOreInizio.size(); i++) {
+			int idRicoveroCorrente = idRicoveriDellePrestazioni.get(i);
+			Ricovero ricovero = getRicoveroDaId(idRicoveroCorrente);
+			if (ricovero != null) {
+				TipoPrestazione tipo = TipoPrestazione.valueOf(tipiPrestazione.get(i));
+				Prestazione p = new Prestazione(esiti.get(i), tipo, dataOreInizio.get(i), dateOraFine.get(i), ricovero);
+				medico.registerPrestazione(p);
+			}
+		}
+
+
+
 
 
 	}
@@ -206,16 +225,29 @@ public class Controller {
 	public List<String[]> getPazientiInScadenza(LocalDate data) {
 		List<String[]> risultato = new ArrayList<>();
 		for (Ricovero r : amministratore.getPazientiInScadenza(data)) {
+			if (r.getDataDimissioniEffettuata() != null) {
+				continue;
+			}
 			Paziente p = r.getPaziente();
+			String dimissioneEffettuata = (r.getDataDimissioniEffettuata() != null) ? r.getDataDimissioniEffettuata().toString() : "-";
 			risultato.add(new String[]{
 					p.getNome(),
 					p.getCognome(),
 					p.getCodiceFiscale(),
-					r.getDataDimissioniPrevista().toString()
+					r.getDataDimissioniPrevista().toString(),
+					dimissioneEffettuata
 			});
 		}
 		return risultato;
 	}
+
+
+	public void dimettiPaziente(int IndexPaziente, LocalDateTime data) {
+
+		amministratore.getRicoveri().get(IndexPaziente).setDataDimissioniEffettuata(data);
+
+	}
+
 
 
 	/**
@@ -366,6 +398,9 @@ public class Controller {
 		TipoPrestazione tipo = TipoPrestazione.values()[indexTipo];
 		Prestazione p = new Prestazione(null, tipo, oraInizio, oraFine, ricovero);
 		medico.registerPrestazione(p);
+
+		PrestazioneDAO pdao = new PrestazionePostgresDAO();
+		pdao.inserisciPrestazioneDB(oraInizio, oraFine, tipo.toString(), p.getEsito(), ricovero.getIdRicovero());
 	}
 
 
@@ -437,6 +472,15 @@ public class Controller {
 					return l;
 		return null;
 	}
+
+
+	private Ricovero getRicoveroDaId(int idRicovero){
+		for (Ricovero r : amministratore.getRicoveri())
+			if (r.getIdRicovero() == idRicovero)
+				return r;
+		return null;
+	}
+
 
 
 }

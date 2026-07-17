@@ -6,10 +6,10 @@ import java.util.ArrayList;
 public interface PrestazioneDAO {
 
     void inserisciPrestazioneDB(LocalDateTime dataOraInizio, LocalDateTime dataOraFine,
-                                String tipoPrestazione, String esito);
+                                String tipoPrestazione, String esito, int idRicovero);
 
     void leggiPrestazioniDB(ArrayList<LocalDateTime> dataOreInizio, ArrayList<LocalDateTime> dateOraFine,
-                            ArrayList<String> tipiPrestazione, ArrayList<String> esiti);
+                            ArrayList<String> tipiPrestazione, ArrayList<String> esiti, ArrayList<Integer> idRicoveriFK);
 
 
 
