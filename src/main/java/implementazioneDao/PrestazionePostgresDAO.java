@@ -29,7 +29,8 @@ public class PrestazionePostgresDAO implements PrestazioneDAO {
         String sql = "INSERT INTO prestazione (\"dataorainizio\", \"dataorafine\", \"tipoprestazione\", \"esito\", \"idricovero\") " + "VALUES (?, ?, ?, ?, ?);";
 
 
-        try { PreparedStatement ps = connection.prepareStatement(sql);
+
+          try (PreparedStatement ps = connection.prepareStatement(sql)) {
 
             ps.setTimestamp(1, java.sql.Timestamp.valueOf(dataOraInizio));
             ps.setTimestamp(2, java.sql.Timestamp.valueOf(dataOraFine));
@@ -37,9 +38,7 @@ public class PrestazionePostgresDAO implements PrestazioneDAO {
             ps.setString(4, esito);
             ps.setInt(5, idRicovero);
             ps.executeUpdate();
-            connection.close();
-        } catch (SQLException ex) {
-        System.err.println(ex.getMessage());}
+        }
     }
 
 
