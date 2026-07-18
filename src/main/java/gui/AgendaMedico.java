@@ -32,12 +32,6 @@ public class AgendaMedico {
     public static JFrame frame;
     private Controller controller;
 
-    /**
-     * Instantiates a new Agenda medico.
-     *
-     * @param controller     the controller
-     * @param frameChiamante the frame chiamante
-     */
 
     private static final DateTimeFormatter FORMATTER =
             DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");

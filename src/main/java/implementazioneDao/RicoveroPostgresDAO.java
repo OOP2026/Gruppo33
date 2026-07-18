@@ -9,10 +9,16 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
+/**
+ * The type Ricovero postgres dao.
+ */
 public class RicoveroPostgresDAO implements RicoveroDAO {
 
     private Connection connection;
 
+    /**
+     * Instantiates a new Ricovero postgres dao.
+     */
     public RicoveroPostgresDAO() {
 
         try {

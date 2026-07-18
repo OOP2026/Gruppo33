@@ -8,10 +8,16 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
+/**
+ * The type Prestazione postgres dao.
+ */
 public class PrestazionePostgresDAO implements PrestazioneDAO {
 
     private Connection connection;
 
+    /**
+     * Instantiates a new Prestazione postgres dao.
+     */
     public PrestazionePostgresDAO() {
 
         try {
@@ -59,13 +65,7 @@ public class PrestazionePostgresDAO implements PrestazioneDAO {
                 idRicoveriFK.add(rs.getInt("idricovero"));
             }
             rs.close();
-        } catch (SQLException e) {
-            System.err.println("Errore nell'esecuzione della query");
-            e.printStackTrace();
         }
-
-
-
 
     }
 

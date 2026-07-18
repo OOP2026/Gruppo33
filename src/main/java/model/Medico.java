@@ -1,6 +1,5 @@
 package model;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -148,7 +147,7 @@ public class Medico extends Utente {
         if (!nelTurno(prestazione.getOraInizio(), prestazione.getOraFine()))
             throw new IllegalStateException("La prestazione non rientra in un turno lavorativo.");
         if (siAccavalla(prestazione))
-            throw new IllegalStateException("Il medico ha già una prestazione in quel periodo.");
+            throw new IllegalStateException("Hai già una prestazione in quel periodo.");
         prestazioni.add(prestazione);
     }
 

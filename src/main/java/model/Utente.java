@@ -5,7 +5,7 @@ package model;
  */
 public class Utente {
     private String login;
-    private String password;
+    private final String password;
 
     /**
      * Instantiates a new Utente.
@@ -28,5 +28,14 @@ public class Utente {
     public boolean login(String login, String password) {
         return ( login.equals(this.login) && password.equals(this.password));
     }
+
+    public  String getLogin() {
+        return login;
+    }
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+
 
 }

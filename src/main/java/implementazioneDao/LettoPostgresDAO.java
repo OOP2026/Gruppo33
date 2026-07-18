@@ -8,8 +8,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+/**
+ * The type Letto postgres dao.
+ */
 public class LettoPostgresDAO implements LettoDAO {
     private Connection connection;
+
+    /**
+     * Instantiates a new Letto postgres dao.
+     */
     public LettoPostgresDAO() {
 
             try {
@@ -20,7 +27,7 @@ public class LettoPostgresDAO implements LettoDAO {
         }
 
     @Override
-    public void leggiLettiDB(ArrayList<String> codiciunivoci, ArrayList<String> stati, ArrayList<Integer> numerostanze) {
+    public void leggiLettiDB(ArrayList<String> codiciunivoci, ArrayList<String> stati, ArrayList<Integer> numerostanze) throws SQLException {
 
 
         String sql = "Select \"codiceunivoco\", \"stato\", \"numerostanza\" from \"letto\";";
@@ -37,10 +44,6 @@ public class LettoPostgresDAO implements LettoDAO {
             rs.close();
         }
 
-        catch (SQLException e){
-            System.err.println("Errore nell'esecuzione della query");
-            e.printStackTrace();
-        }
     }
 }
 

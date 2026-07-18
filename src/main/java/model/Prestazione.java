@@ -7,10 +7,10 @@ import java.time.LocalDateTime;
  */
 public class Prestazione {
     private String esito;
-    private TipoPrestazione tipo;
+    private final TipoPrestazione tipo;
     private LocalDateTime oraInizio;
     private LocalDateTime oraFine;
-    private Ricovero ricovero;
+    private final Ricovero ricovero;
 
     /**
      * Instantiates a new Prestazione.

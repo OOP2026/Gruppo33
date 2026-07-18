@@ -9,10 +9,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+/**
+ * The type Paziente postgres dao.
+ */
 public class PazientePostgresDAO implements PazienteDAO {
 
     private Connection connection;
 
+    /**
+     * Instantiates a new Paziente postgres dao.
+     */
     public PazientePostgresDAO() {
 
         try {

@@ -9,10 +9,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+/**
+ * The type Reparto postgres dao.
+ */
 public class RepartoPostgresDAO implements RepartoDAO {
 
     private Connection connection;
 
+    /**
+     * Instantiates a new Reparto postgres dao.
+     */
     public RepartoPostgresDAO() {
         try {
             connection = ConnessioneDatabase.getInstance().connection;
@@ -22,7 +28,7 @@ public class RepartoPostgresDAO implements RepartoDAO {
     }
 
     @Override
-    public void leggiRepartiDB(ArrayList<String> idReparti, ArrayList<String> nomiReparti) {
+    public void leggiRepartiDB(ArrayList<String> idReparti, ArrayList<String> nomiReparti) throws SQLException {
         String sql = "SELECT \"idreparto\", \"nome\" FROM \"reparto\";";
 
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
@@ -32,9 +38,6 @@ public class RepartoPostgresDAO implements RepartoDAO {
                 nomiReparti.add(rs.getString("nome"));
             }
             rs.close();
-        } catch (SQLException e) {
-            System.err.println("Errore nell'esecuzione della query");
-            e.printStackTrace();
         }
     }
 }
