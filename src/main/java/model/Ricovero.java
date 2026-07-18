@@ -94,6 +94,10 @@ public class Ricovero {
         return paziente;
     }
 
+    public Letto getLetto(){
+        return letto;
+    }
+
     public void setIdRicovero(int idRicovero) {
         this.idRicovero = idRicovero;
 

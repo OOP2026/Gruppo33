@@ -13,6 +13,6 @@ public interface RicoveroDAO {
                          ArrayList<String> codiciFisc, ArrayList<String> codiciLetto);
 
 
-
+    void aggiornaDimissioneDB(int idRicovero, LocalDateTime dataDimissioneEffettuata);
 
 }

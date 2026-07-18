@@ -14,4 +14,8 @@ public interface PrestazioneDAO {
 
 
 
+    void aggiornaEsitoDB (int idRicovero, LocalDateTime oraInizio, String esito);
+
+
+
 }

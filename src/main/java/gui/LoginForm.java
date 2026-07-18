@@ -25,7 +25,7 @@ public class LoginForm {
     public LoginForm() {
         this.controller = new Controller();
 
-        //serve per fixare momentaneamente "Fix this access on a value that can be null."
+        //serve per aggiustare momentaneamente "Fix this access on a value that can be null."
         if (btnAccedi == null) throw new IllegalStateException("btnAccedi non inizializzato");
 
         btnAccedi.addActionListener(new ActionListener() {

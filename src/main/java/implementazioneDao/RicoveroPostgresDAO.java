@@ -75,4 +75,22 @@ public class RicoveroPostgresDAO implements RicoveroDAO {
             e.printStackTrace();
         }
     }
+
+     public void aggiornaDimissioneDB(int idRicovero, LocalDateTime dataDimissioneEffettuata){
+         String sql = "UPDATE ricovero SET data_dimissioni_effettuata = ? WHERE idricovero = ?;";
+         try (PreparedStatement ps = connection.prepareStatement(sql)) {
+             ps.setTimestamp(1, java.sql.Timestamp.valueOf(dataDimissioneEffettuata));
+             ps.setInt(2, idRicovero);
+             int righe = ps.executeUpdate();
+             if (righe == 0) {
+                 throw new RuntimeException("Nessun ricovero aggiornato per id: " + idRicovero);
+             }
+         } catch (SQLException e) {
+             throw new RuntimeException(e);
+         }
+     }
+
+
 }
+
+

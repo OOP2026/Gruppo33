@@ -65,5 +65,26 @@ public class PrestazionePostgresDAO implements PrestazioneDAO {
         }
 
 
+
+
     }
+
+    public void aggiornaEsitoDB(int idRicovero, LocalDateTime oraInizio, String esito) {
+
+    String sql = "UPDATE Prestazione SET esito = ? WHERE idricovero = ? AND dataorainizio = ?;";
+         try (PreparedStatement ps = connection.prepareStatement(sql)) {
+
+        ps.setString(1, esito);
+        ps.setInt(2, idRicovero);
+        ps.setTimestamp(3, java.sql.Timestamp.valueOf(oraInizio));
+        int righe = ps.executeUpdate();
+        if (righe == 0) {
+            throw new RuntimeException("Nessuna prestazione aggiornata per ricovero " + idRicovero + " e ora inizio " + oraInizio);
+        }
+    } catch (SQLException e) {
+        throw new RuntimeException(e);
+    }
+}
+
+
 }

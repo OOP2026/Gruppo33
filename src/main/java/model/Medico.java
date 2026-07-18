@@ -152,18 +152,4 @@ public class Medico extends Utente {
         prestazioni.add(prestazione);
     }
 
-    /**
-     * Gets agenda.
-     *
-     * @param data the data
-     * @param p    the p
-     * @return the agenda
-     */
-    public List<Prestazione> getAgenda (LocalDate data, Prestazione p) {
-        ArrayList<Prestazione> agenda = new ArrayList<>();
-
-        if (p.getOraInizio().toLocalDate().equals(data))
-            agenda.add(p);
-        return agenda;
-    }
 }

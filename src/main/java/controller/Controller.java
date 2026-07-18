@@ -19,7 +19,7 @@ import java.util.List;
  */
 public class Controller {
 
-	// Dati dell'utente autenticat
+	// Dati dell'utente autenticato
 	private Utente utenteCorrente;
     private final Amministratore amministratore;
 	private final Medico medico;
@@ -39,13 +39,22 @@ public class Controller {
 		utenti.add(admin);
 		this.amministratore = admin;
 
-		Reparto rNeurologia = new Reparto("Neurologia", "REP01");
-		Reparto rCardiologia = new Reparto("Cardiologia", "REP02");
-		reparti.add(rNeurologia);
-		reparti.add(rCardiologia);
-		Medico medico1 = new Medico("medico1", "medico123", "Mario", "Rossi", rNeurologia);
-		utenti.add(medico1);
-		this.medico = medico1;
+		//Caricamento reparti dal database
+		ArrayList<String> idReparti = new ArrayList<>();
+		ArrayList<String> nomiReparti = new ArrayList<>();
+		RepartoDAO repdao = new RepartoPostgresDAO();
+		repdao.leggiRepartiDB(idReparti, nomiReparti);
+		for (int i=0; i<idReparti.size(); i++) {
+			Reparto reparto = new Reparto(nomiReparti.get(i), idReparti.get(i));
+			reparti.add(reparto);
+
+		}
+
+		Reparto rNeurologia = getRepartoDaId("REP01");
+		Medico medico = new Medico("medico1", "medico123", "Mario", "Rossi", rNeurologia);
+		utenti.add(medico);
+		this.medico = medico;
+
 
 		//turno lavorativo
 		TurnoLavorativo t1 = new TurnoLavorativo(DayOfWeek.MONDAY, LocalTime.of(14, 0), LocalTime.of(23, 0));
@@ -56,41 +65,48 @@ public class Controller {
 		TurnoLavorativo t6 = new TurnoLavorativo(DayOfWeek.SATURDAY, LocalTime.of(14, 0), LocalTime.of(23, 0));
 		TurnoLavorativo t7 = new TurnoLavorativo(DayOfWeek.SUNDAY, LocalTime.of(14, 0), LocalTime.of(23, 0));
 
-		medico1.addTurnoLavorativo(t1);
-		medico1.addTurnoLavorativo(t2);
-		medico1.addTurnoLavorativo(t3);
-		medico1.addTurnoLavorativo(t4);
-		medico1.addTurnoLavorativo(t5);
-		medico1.addTurnoLavorativo(t6);
-		medico1.addTurnoLavorativo(t7);
+		medico.addTurnoLavorativo(t1);
+		medico.addTurnoLavorativo(t2);
+		medico.addTurnoLavorativo(t3);
+		medico.addTurnoLavorativo(t4);
+		medico.addTurnoLavorativo(t5);
+		medico.addTurnoLavorativo(t6);
+		medico.addTurnoLavorativo(t7);
 
+		//Caricamento stanze dal database
 
+		ArrayList<Integer> numeriStanza = new ArrayList<>();
+		ArrayList<Integer> piani = new ArrayList<>();
+		ArrayList<String> idRepartiFK = new ArrayList<>();
+		StanzaDAO stanzaDao = new StanzaPostgresDAO();
+		stanzaDao.leggiStanzeDB(numeriStanza, piani, idRepartiFK);
+		for (int i = 0; i < numeriStanza.size(); i++) {
+			Stanza s = new Stanza(numeriStanza.get(i), piani.get(i));
+			stanze.add(s);
+			Reparto repartoDiAppartenenza = getRepartoDaId(idRepartiFK.get(i));
+			if (repartoDiAppartenenza != null) {
+				repartoDiAppartenenza.addStanza(s);
+			}
+		}
 
-		Letto l1 = new Letto("001");
-		Letto l2 = new Letto("002");
-		Letto l3 = new Letto("003");
-		Letto l4 = new Letto("004");
-		letti.add(l1);
-		letti.add(l2);
-		letti.add(l3);
-		letti.add(l4);
+		//Caricamento letti dal database
 
-		Stanza s1 = new Stanza(1, 1);
-		Stanza s2 = new Stanza(2, 1);
-		stanze.add(s1);
-		s1.addLetto(l1);
-		s1.addLetto(l2);
-		s1.addLetto(l3);
-		s1.addLetto(l4);
+		ArrayList<String> codiciLetto = new ArrayList<>();
+		ArrayList<String> statiLetto = new ArrayList<>();
+		ArrayList<Integer> numeriStanzaFK = new ArrayList<>();
+		LettoDAO lettoDao = new LettoPostgresDAO();
+		lettoDao.leggiLettiDB(codiciLetto, statiLetto, numeriStanzaFK);
+		for (int i = 0; i < codiciLetto.size(); i++) {
+			Letto l = new Letto(codiciLetto.get(i));
+			l.setStato(StatoLetto.valueOf(statiLetto.get(i)));
+			letti.add(l);
+			Stanza stanzaDiAppartenenza = getStanzaDaNumero(numeriStanzaFK.get(i));
+			if (stanzaDiAppartenenza != null) {
+				stanzaDiAppartenenza.addLetto(l);
+			}
+		}
 
-		rNeurologia.addStanza(s1);
-
-		Letto l5 = new Letto("005");
-		Letto l6 = new Letto("006");
-		s2.addLetto(l5);
-		s2.addLetto(l6);
-
-		rCardiologia.addStanza(s2);
+		//Caricamento pazienti dal database
 
 		ArrayList<String> nomi = new ArrayList<>();
 		ArrayList<String> cognomi = new ArrayList<>();
@@ -105,16 +121,18 @@ public class Controller {
 			System.err.println("Errore nel caricamento del database (Pazienti registrati)");
 		}
 
+
+		//Caricamento ricoveri dal database
 		ArrayList<Integer> idRicoveri = new ArrayList<>();
 		ArrayList<LocalDateTime> dateInizio  = new ArrayList<>();
 		ArrayList<LocalDateTime> dateDimissioniPreviste = new ArrayList<>();
 		ArrayList<String> codiciFisc = new ArrayList<>();
-		ArrayList<String> codiciLetto = new ArrayList<>();
+		ArrayList<String> codiciLett = new ArrayList<>();
 		RicoveroDAO rdao = new RicoveroPostgresDAO();
-		rdao.leggiRicoveroDB(idRicoveri, dateInizio, dateDimissioniPreviste, codiciFisc, codiciLetto);
-		for (int i=0; i<codiciLetto.size(); i++) {
+		rdao.leggiRicoveroDB(idRicoveri, dateInizio, dateDimissioniPreviste, codiciFisc, codiciLett);
+		for (int i=0; i<idRicoveri.size(); i++) {
 			Paziente paz = getPazienteDaCf(codiciFisc.get(i));
-			Letto lett = getLettoDaCodice(codiciLetto.get(i));
+			Letto lett = getLettoDaCodice(codiciLett.get(i));
 			if (paz != null && lett != null) {
 				amministratore.registerRicovero(paz, lett, dateInizio.get(i), dateDimissioniPreviste.get(i));
 				 Ricovero r = amministratore.getRicoveri().get(amministratore.getRicoveri().size()-1);
@@ -123,6 +141,8 @@ public class Controller {
 			}
 
 		}
+
+		//Caricamento prestazioni
 
 		ArrayList<LocalDateTime> dataOreInizio = new ArrayList<>();
 		ArrayList<LocalDateTime> dateOraFine = new ArrayList<>();
@@ -139,7 +159,7 @@ public class Controller {
 				if (ricovero != null) {
 					TipoPrestazione tipo = TipoPrestazione.valueOf(tipiPrestazione.get(i));
 					Prestazione p = new Prestazione(esiti.get(i), tipo, dataOreInizio.get(i), dateOraFine.get(i), ricovero);
-					medico1.registerPrestazione(p);
+					medico.registerPrestazione(p);
 				}
 			}
 		} catch  (SQLException ex2) {
@@ -207,6 +227,7 @@ public class Controller {
 		for (Paziente p : amministratore.getPazienti())
 			nomi.add(p.getNome() + " " + p.getCognome()
 					+ " [" + p.getCodiceFiscale() + "]");
+
 		return nomi;
 	}
 
@@ -218,11 +239,15 @@ public class Controller {
 	public List<String> getNomiPazientiRicoverati() {
 		ArrayList<String> nomi = new ArrayList<>();
 		for (Ricovero r : amministratore.getRicoveri()) {
-			Paziente paziente = r.getPaziente();
-			nomi.add(paziente.getNome() + " " + paziente.getCognome()
-					+ " [" + paziente.getCodiceFiscale() + "]");
-		}
-		return nomi;
+
+			Letto letto = r.getLetto();
+			boolean nelReparto = medico.getReparto().getLetti().contains(letto);
+			if (nelReparto) {
+				Paziente paziente = r.getPaziente();
+				nomi.add(paziente.getNome() + " " + paziente.getCognome()
+						+ " [" + paziente.getCodiceFiscale() + "]");
+			}
+		} return nomi;
 	}
 
 
@@ -265,6 +290,9 @@ public class Controller {
 			throw new IllegalArgumentException("Ricovero non trovato");
 		}
 		ricovero.setDataDimissioniPrevista(data);
+		RicoveroDAO ridao = new RicoveroPostgresDAO();
+		ridao.aggiornaDimissioneDB(idRicovero, data);
+
 
 	}
 
@@ -498,7 +526,11 @@ public class Controller {
 	 * @param esito            the esito
 	 */
 	public void modificaEsito(int indexPrestazione, String esito) {
-		medico.getPrestazioni().get(indexPrestazione).setEsito(esito);
+		Prestazione prestazione = medico.getPrestazioni().get(indexPrestazione);
+		prestazione.setEsito(esito);
+		PrestazioneDAO p2dao = new PrestazionePostgresDAO();
+		p2dao.aggiornaEsitoDB(prestazione.getRicovero().getIdRicovero(), prestazione.getOraInizio(), esito);
+
 
 	}
 
@@ -540,6 +572,24 @@ public class Controller {
 				return r;
 		return null;
 	}
+
+
+	public Reparto getRepartoDaId (String  idReparto){
+		for (Reparto rep : reparti) {
+			if (rep.getIdReparto().equals(idReparto))
+				return rep;
+		}
+		return null;
+	}
+
+	private Stanza getStanzaDaNumero(int numeroStanza) {
+		for (Stanza s : stanze)
+			if (s.getNumeroStanza() == numeroStanza)
+				return s;
+		return null;
+	}
+
+
 
 
 
