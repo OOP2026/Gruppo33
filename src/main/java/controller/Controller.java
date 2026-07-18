@@ -416,12 +416,19 @@ public class Controller {
 				dataInizio, dimissioniPreviste);
 
 		RicoveroDAO rdao = new RicoveroPostgresDAO();
-		rdao.inserisciRicoveroDB(
+		int idGenerato = rdao.inserisciRicoveroDB(
 				dataInizio,
 				dimissioniPreviste,
 				paziente.getCodiceFiscale(),
 				letto.getCodiceUnivoco()
 		);
+
+		Ricovero ricoveroAppenaCreato = getRicoveroNonPersistito(paziente, letto, dataInizio);
+		if (ricoveroAppenaCreato != null) {
+			ricoveroAppenaCreato.setIdRicovero(idGenerato);
+		}
+
+
 	}
 
 	/**
@@ -612,7 +619,16 @@ public class Controller {
 		return null;
 	}
 
-
+	private Ricovero getRicoveroNonPersistito(Paziente paziente, Letto letto, LocalDateTime dataInizio) {
+		for (Ricovero r : paziente.getRicoveri()) {
+			if (r.getIdRicovero() == -1
+					&& r.getLetto().equals(letto)
+					&& r.getDataInizio().equals(dataInizio)) {
+				return r;
+			}
+		}
+		return null;
+	}
 
 
 
